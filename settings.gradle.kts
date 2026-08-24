@@ -36,3 +36,4 @@ include(":desktopApp")
 include(":shared")
 // core
 include(":core:di")
+include(":core:navigation")

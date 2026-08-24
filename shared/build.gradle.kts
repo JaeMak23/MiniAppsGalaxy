@@ -34,6 +34,7 @@ kotlin {
         }
         commonMain.dependencies {
             implementation(project(":core:di"))
+            implementation(project(":core:navigation"))
             implementation(libs.compose.runtime)
             implementation(libs.compose.foundation)
             implementation(libs.compose.material3)
