@@ -34,3 +34,5 @@ plugins {
 include(":androidApp")
 include(":desktopApp")
 include(":shared")
+// core
+include(":core:di")
