@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension
+
 plugins {
     // this is necessary to avoid the plugins to be loaded multiple times
     // in each subproject's classloader
@@ -7,4 +9,26 @@ plugins {
     alias(libs.plugins.composeCompiler) apply false
     alias(libs.plugins.kotlinJvm) apply false
     alias(libs.plugins.kotlinMultiplatform) apply false
+}
+
+val targetJvmVersion = libs.versions.jvmTarget.get().toInt()
+
+subprojects {
+    pluginManager.withPlugin("org.jetbrains.kotlin.multiplatform") {
+        configure<KotlinProjectExtension> {
+            jvmToolchain(targetJvmVersion)
+        }
+    }
+
+    pluginManager.withPlugin("org.jetbrains.kotlin.android") {
+        configure<KotlinProjectExtension> {
+            jvmToolchain(targetJvmVersion)
+        }
+    }
+
+    pluginManager.withPlugin("org.jetbrains.kotlin.jvm") {
+        configure<KotlinProjectExtension> {
+            jvmToolchain(targetJvmVersion)
+        }
+    }
 }
