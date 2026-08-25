@@ -35,6 +35,7 @@ include(":androidApp")
 include(":desktopApp")
 include(":shared")
 // core
+include(":core:common")
 include(":core:data")
 include(":core:di")
 include(":core:domain")
