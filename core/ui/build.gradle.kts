@@ -25,6 +25,7 @@ kotlin {
             implementation(libs.compose.material3)
             implementation(libs.compose.ui)
             implementation(libs.jetbrains.material3.adaptiveNavigation3)
+            implementation(libs.compose.icons)
             implementation(libs.compose.uiToolingPreview)
 
             api(libs.koin.core)

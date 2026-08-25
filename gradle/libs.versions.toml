@@ -20,7 +20,7 @@ jetbrains-navigation3 = "1.1.1"
 jvmTarget = "21"
 koin = "4.2.2"
 kotlinx-serialization = "1.11.0"
-
+material-icons-core="1.7.3"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -52,6 +52,8 @@ kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serializa
 jetbrains-navigation3-ui = { module = "org.jetbrains.androidx.navigation3:navigation3-ui", version.ref = "jetbrains-navigation3" }
 jetbrains-material3-adaptiveNavigation3 = { module = "org.jetbrains.compose.material3.adaptive:adaptive-navigation3", version.ref = "compose-multiplatform-adaptive" }
 jetbrains-lifecycle-viewmodelNavigation3 = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-navigation3", version.ref = "androidx-lifecycle" }
+# Material 3 icons core
+compose-icons = { module = "org.jetbrains.compose.material:material-icons-core", version.ref="material-icons-core" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
