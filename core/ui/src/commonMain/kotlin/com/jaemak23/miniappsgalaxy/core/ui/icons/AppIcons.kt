@@ -4,6 +4,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
@@ -22,8 +23,11 @@ import androidx.compose.ui.graphics.vector.ImageVector
 object AppIcons {
 
     val Account: ImageVector = Icons.Default.AccountCircle
+    val Email : ImageVector = Icons.Default.Email
+
     val ArrowBack: ImageVector = Icons.AutoMirrored.Default.ArrowBack
     val ArrowNext: ImageVector = Icons.AutoMirrored.Default.ArrowForward
+
 
     val Logo: ImageVector = Icons.Default.ShoppingCart
     val Lock: ImageVector = Icons.Default.Lock
