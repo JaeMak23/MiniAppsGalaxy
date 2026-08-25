@@ -4,6 +4,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Lock
@@ -27,6 +28,7 @@ object AppIcons {
 
     val ArrowBack: ImageVector = Icons.AutoMirrored.Default.ArrowBack
     val ArrowNext: ImageVector = Icons.AutoMirrored.Default.ArrowForward
+    val ArrowDropDown : ImageVector = Icons.Default.ArrowDropDown
 
 
     val Logo: ImageVector = Icons.Default.ShoppingCart
