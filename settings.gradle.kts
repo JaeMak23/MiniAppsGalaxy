@@ -43,3 +43,5 @@ include(":core:navigation")
 include(":core:network")
 include(":core:ui")
 include(":core:util")
+// feature
+include(":feature:auth")
