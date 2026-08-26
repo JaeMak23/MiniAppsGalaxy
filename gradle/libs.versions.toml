@@ -54,6 +54,8 @@ jetbrains-material3-adaptiveNavigation3 = { module = "org.jetbrains.compose.mate
 jetbrains-lifecycle-viewmodelNavigation3 = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-navigation3", version.ref = "androidx-lifecycle" }
 # Material 3 icons core
 compose-icons = { module = "org.jetbrains.compose.material:material-icons-core", version.ref="material-icons-core" }
+# Kotlin Corountine Core
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

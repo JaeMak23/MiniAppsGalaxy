@@ -9,19 +9,17 @@ import kotlinx.serialization.modules.polymorphic
 
 @Serializable
 sealed interface AppRoute : NavKey {
-    @Serializable
-    data class Auth(val isAppStart : Boolean) : AppRoute
 
-    @Serializable
-    data class DashBoard(val token : String) : AppRoute
+    @Serializable data object Splash : AppRoute
+
+    @Serializable data object Auth : AppRoute
+
+    @Serializable data object DashBoard : AppRoute
 
 }
 
 @Serializable
 sealed interface AuthRoute : NavKey {
-
-    @Serializable
-    data object SplashScreen : AuthRoute
 
     @Serializable
     data object Login : AuthRoute

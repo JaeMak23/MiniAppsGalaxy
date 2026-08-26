@@ -9,10 +9,13 @@ import androidx.navigation3.ui.NavDisplay
 import com.jaemak23.miniappsgalaxy.core.navigation.AppRoute
 import com.jaemak23.miniappsgalaxy.core.navigation.NavConfig
 import com.jaemak23.miniappsgalaxy.core.navigation.goBack
+import com.jaemak23.miniappsgalaxy.core.navigation.replaceRoute
+import com.jaemak23.miniappsgalaxy.feature.auth.presentation.navigation.AuthNavigation
+import com.jaemak23.miniappsgalaxy.feature.splash.presentation.SplashScreen
 
 @Composable
 fun AppNavigation() {
-    val backStack = rememberNavBackStack(NavConfig, AppRoute.Auth(true))
+    val backStack = rememberNavBackStack(NavConfig, AppRoute.Splash)
 
     NavDisplay(
         modifier = Modifier.fillMaxSize(),
@@ -21,8 +24,16 @@ fun AppNavigation() {
     ) { key ->
 
         when (key) {
-            is AppRoute.Auth -> NavEntry(key) {
+            is AppRoute.Splash -> NavEntry(key) {
+                SplashScreen { isLoggedIn ->
+                    backStack.replaceRoute(if (isLoggedIn) AppRoute.DashBoard else AppRoute.Auth)
+                }
+            }
 
+            is AppRoute.Auth -> NavEntry(key) {
+                AuthNavigation {
+                    backStack.replaceRoute(AppRoute.DashBoard)
+                }
             }
 
             is AppRoute.DashBoard -> NavEntry(key) {

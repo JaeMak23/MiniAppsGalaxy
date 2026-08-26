@@ -44,4 +44,7 @@ include(":core:network")
 include(":core:ui")
 include(":core:util")
 // feature
-include(":feature:auth")
+include(
+    ":feature:auth",
+    ":feature:splash",
+)
