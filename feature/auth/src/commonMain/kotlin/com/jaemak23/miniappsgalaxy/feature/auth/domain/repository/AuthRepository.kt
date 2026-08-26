@@ -1,8 +1,7 @@
 package com.jaemak23.miniappsgalaxy.feature.auth.domain.repository
 
 interface AuthRepository {
-    suspend fun login(username: String, password: String): Boolean
-    suspend fun signup(username: String, password: String): Boolean
-    suspend fun forgotPassword(username: String): Boolean
-    suspend fun logout()
+    suspend fun login(email: String, password: String): Result<String>
+    suspend fun signup(email: String, password: String): Result<String>
+    suspend fun forgotPassword(email: String): Result<Unit>
 }

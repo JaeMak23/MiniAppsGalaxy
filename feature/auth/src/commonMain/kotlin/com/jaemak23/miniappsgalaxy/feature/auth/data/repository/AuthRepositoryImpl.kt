@@ -1,23 +1,35 @@
 package com.jaemak23.miniappsgalaxy.feature.auth.data.repository
 
 import com.jaemak23.miniappsgalaxy.feature.auth.domain.repository.AuthRepository
+import kotlinx.coroutines.delay
+import kotlin.time.Duration.Companion.milliseconds
 
 class AuthRepositoryImpl : AuthRepository {
-    override suspend fun login(username: String, password: String): Boolean {
-        // Mock login
-        return username == "admin" && password == "admin"
+
+    override suspend fun login(email: String, password: String): Result<String> {
+        delay(800.milliseconds)
+        return if (email.isNotBlank() && password.isNotBlank()) {
+            Result.success("mock-token-login-$email")
+        } else {
+            Result.failure(Exception("Invalid credentials"))
+        }
     }
 
-    override suspend fun signup(username: String, password: String): Boolean {
-        // Mock signup
-        return true
+    override suspend fun signup(email: String, password: String): Result<String> {
+        delay(800.milliseconds)
+        return if (email.isNotBlank() && password.isNotBlank()) {
+            Result.success("mock-token-signup-$email")
+        } else {
+            Result.failure(Exception("Signup failed"))
+        }
     }
 
-    override suspend fun forgotPassword(username: String): Boolean {
-        return true
-    }
-
-    override suspend fun logout() {
-        // Mock logout
+    override suspend fun forgotPassword(email: String): Result<Unit> {
+        delay(800.milliseconds)
+        return if (email.isNotBlank()) {
+            Result.success(Unit)
+        } else {
+            Result.failure(Exception("Invalid email"))
+        }
     }
 }

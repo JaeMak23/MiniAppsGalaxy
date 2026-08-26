@@ -13,15 +13,14 @@ class LoginViewModel(private val loginUseCase: LoginUseCase) : ViewModel() {
     private val _uiState = MutableStateFlow<LoginUiState>(LoginUiState.Idle)
     val uiState: StateFlow<LoginUiState> = _uiState.asStateFlow()
 
-    fun login(username: String, password: String) {
+    fun submit(username: String, password: String) {
         viewModelScope.launch {
             _uiState.value = LoginUiState.Loading
-            val success = loginUseCase(username, password)
-            _uiState.value = if (success) {
-                LoginUiState.Success
-            } else {
-                LoginUiState.Error("Invalid username or password")
-            }
+            val result = loginUseCase(username, password)
+            _uiState.value = result.fold(
+                onSuccess = { LoginUiState.Success },
+                onFailure = { LoginUiState.Error(it.message ?: "Login failed") }
+            )
         }
     }
 }
