@@ -16,6 +16,7 @@ kotlin {
         commonMain.dependencies {
             api(libs.koin.core)
             implementation(project(":core:domain"))
+            implementation(libs.kotlinx.coroutines.core)
             implementation(libs.kotlinx.serialization.json)
         }
     }

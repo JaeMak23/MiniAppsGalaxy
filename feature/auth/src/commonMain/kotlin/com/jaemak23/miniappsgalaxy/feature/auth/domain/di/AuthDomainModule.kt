@@ -7,7 +7,7 @@ import com.jaemak23.miniappsgalaxy.feature.auth.domain.usecase.SignupUseCase
 import org.koin.core.module.dsl.factoryOf
 import org.koin.dsl.module
 
-val authDomainModule = module {
+internal val authDomainModule = module {
     factoryOf(::LoginUseCase)
     factoryOf(::SignupUseCase)
     factoryOf(::ForgotPasswordUseCase)

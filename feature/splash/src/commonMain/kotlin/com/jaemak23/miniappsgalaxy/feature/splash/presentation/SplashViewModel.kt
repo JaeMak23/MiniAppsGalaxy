@@ -2,8 +2,8 @@ package com.jaemak23.miniappsgalaxy.feature.splash.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.jaemak23.miniappsgalaxy.core.domain.usecase.GetRemoteConfigUseCase
-import com.jaemak23.miniappsgalaxy.core.domain.usecase.IsLoggedInUseCase
+import com.jaemak23.miniappsgalaxy.core.domain.usecase.config.GetRemoteConfigUseCase
+import com.jaemak23.miniappsgalaxy.core.domain.usecase.session.IsLoggedInUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

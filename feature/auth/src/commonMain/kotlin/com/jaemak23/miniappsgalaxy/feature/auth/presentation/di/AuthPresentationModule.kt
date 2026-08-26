@@ -6,7 +6,7 @@ import com.jaemak23.miniappsgalaxy.feature.auth.presentation.signup.SignupViewMo
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 
-val authPresentationModule = module {
+internal val authPresentationModule = module {
     viewModelOf(::LoginViewModel)
     viewModelOf(::SignupViewModel)
     viewModelOf(::ForgotPasswordViewModel)
