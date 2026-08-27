@@ -10,8 +10,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.input.rememberTextFieldState
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -24,8 +28,7 @@ import com.jaemak23.miniappsgalaxy.feature.auth.presentation.components.authbody
 import com.jaemak23.miniappsgalaxy.feature.auth.presentation.model.AuthActions
 import com.jaemak23.miniappsgalaxy.feature.auth.presentation.model.AuthCaptions
 import com.jaemak23.miniappsgalaxy.feature.auth.presentation.components.authbody.authinput.AuthInputBundle
-import com.jaemak23.miniappsgalaxy.feature.auth.presentation.screens.login.LoadingBox
-import com.jaemak23.miniappsgalaxy.feature.auth.presentation.screens.login.LoginUiState
+import com.jaemak23.miniappsgalaxy.feature.auth.presentation.screens.login.KLoadingOverlay
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -35,22 +38,37 @@ fun SignupScreen(
     onAccountCreationSuccess: () -> Unit,
 ) {
     val uiState = viewModel.uiState.collectAsStateWithLifecycle()
-
     val emailState = rememberTextFieldState()
     val passwordState = rememberTextFieldState()
     val retypePasswordState = rememberTextFieldState()
+    val snackbarHostState = remember { SnackbarHostState() }
 
     val header = AuthCaptions.Signup
     val actions = AuthActions.Signup
     val input = AuthInputBundle.Signup(emailState, passwordState, retypePasswordState)
 
-    if (uiState.value == LoginUiState.Success) onAccountCreationSuccess()
+    LaunchedEffect(uiState.value) {
+        when (val state = uiState.value) {
+            is SignupUiState.Success -> {
+                onAccountCreationSuccess()
+                viewModel.resetState()
+            }
+
+            is SignupUiState.Error -> {
+                snackbarHostState.showSnackbar(state.message)
+                viewModel.resetState()
+            }
+
+            else -> Unit
+        }
+    }
 
     Surface(Modifier.fillMaxSize()) {
-        LazyColumn(
-            modifier = Modifier.fillMaxSize().safeDrawingPadding(),
-            contentPadding = PaddingValues(16.dp)
-        ) {
+        Box(Modifier.fillMaxSize().safeDrawingPadding()) {
+            LazyColumn(
+                modifier = Modifier.fillMaxSize(),
+                contentPadding = PaddingValues(16.dp)
+            ) {
             item {
                 Box(Modifier.fillMaxWidth()) {
                     ThemeBar(
@@ -80,6 +98,14 @@ fun SignupScreen(
             }
         }
 
-        if (uiState.value == LoginUiState.Loading) LoadingBox()
+            if (uiState.value == SignupUiState.Loading) {
+                KLoadingOverlay()
+            }
+
+            SnackbarHost(
+                hostState = snackbarHostState,
+                modifier = Modifier.align(Alignment.BottomCenter)
+            )
+        }
     }
 }

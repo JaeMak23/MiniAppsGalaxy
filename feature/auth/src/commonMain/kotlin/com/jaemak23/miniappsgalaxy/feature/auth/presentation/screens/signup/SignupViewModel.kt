@@ -30,4 +30,8 @@ class SignupViewModel(
             )
         }
     }
+
+    fun resetState() {
+        _uiState.value = SignupUiState.Idle
+    }
 }

@@ -23,4 +23,8 @@ class LoginViewModel(private val loginUseCase: LoginUseCase) : ViewModel() {
             )
         }
     }
+
+    fun resetState() {
+        _uiState.value = LoginUiState.Idle
+    }
 }
