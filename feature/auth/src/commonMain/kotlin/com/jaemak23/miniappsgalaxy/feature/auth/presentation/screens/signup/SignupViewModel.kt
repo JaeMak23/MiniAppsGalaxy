@@ -1,4 +1,4 @@
-package com.jaemak23.miniappsgalaxy.feature.auth.presentation.signup
+package com.jaemak23.miniappsgalaxy.feature.auth.presentation.screens.signup
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

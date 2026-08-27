@@ -1,4 +1,4 @@
-package com.jaemak23.miniappsgalaxy.feature.auth.presentation.forgotpassword
+package com.jaemak23.miniappsgalaxy.feature.auth.presentation.screens.forgotpassword
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -15,15 +15,14 @@ class ForgotPasswordViewModel(
     private val _uiState = MutableStateFlow<ForgotPasswordUiState>(ForgotPasswordUiState.Idle)
     val uiState: StateFlow<ForgotPasswordUiState> = _uiState.asStateFlow()
 
-    fun submit(username: String) {
+    fun submit(email: String) {
         viewModelScope.launch {
             _uiState.value = ForgotPasswordUiState.Loading
-            val success = forgotPasswordUseCase(username)
-            _uiState.value = if (success) {
-                ForgotPasswordUiState.Success
-            } else {
-                ForgotPasswordUiState.Error("Could not send reset instructions")
-            }
+            val result = forgotPasswordUseCase(email)
+            _uiState.value = result.fold(
+                onSuccess = { ForgotPasswordUiState.Success },
+                onFailure = { ForgotPasswordUiState.Error(it.message ?: "Could not send reset instructions") }
+            )
         }
     }
 }

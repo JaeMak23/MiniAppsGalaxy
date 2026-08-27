@@ -7,7 +7,7 @@ import kotlin.time.Duration.Companion.milliseconds
 class AuthRepositoryImpl : AuthRepository {
 
     override suspend fun login(email: String, password: String): Result<String> {
-        delay(800.milliseconds)
+        delay(2000.milliseconds)
         return if (email.isNotBlank() && password.isNotBlank()) {
             Result.success("mock-token-login-$email")
         } else {
@@ -16,7 +16,7 @@ class AuthRepositoryImpl : AuthRepository {
     }
 
     override suspend fun signup(email: String, password: String): Result<String> {
-        delay(800.milliseconds)
+        delay(2000.milliseconds)
         return if (email.isNotBlank() && password.isNotBlank()) {
             Result.success("mock-token-signup-$email")
         } else {
@@ -25,7 +25,7 @@ class AuthRepositoryImpl : AuthRepository {
     }
 
     override suspend fun forgotPassword(email: String): Result<Unit> {
-        delay(800.milliseconds)
+        delay(2000.milliseconds)
         return if (email.isNotBlank()) {
             Result.success(Unit)
         } else {
