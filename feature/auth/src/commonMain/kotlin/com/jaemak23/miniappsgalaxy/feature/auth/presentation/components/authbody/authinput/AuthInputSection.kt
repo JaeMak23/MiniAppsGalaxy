@@ -15,7 +15,6 @@ import com.jaemak23.miniappsgalaxy.core.ui.components.roundRectangleShadowStyle
 import com.jaemak23.miniappsgalaxy.core.ui.extensions.maxReadableWidth
 import com.jaemak23.miniappsgalaxy.feature.auth.presentation.components.authbody.AuthLogoBox
 
-
 @Composable
 fun AuthInputSection(
     input: AuthInputBundle,
@@ -30,7 +29,7 @@ fun AuthInputSection(
             verticalAlignment = Alignment.CenterVertically
         ) {
             AuthLogoBox(Modifier.weight(1f).height(240.dp))
-            Box(Modifier.weight(1f), contentAlignment = Alignment.CenterStart) {
+            Box(Modifier.weight(2f), contentAlignment = Alignment.CenterStart) {
                 AuthInputContainer { with(input) { Fields() } }
             }
         }
