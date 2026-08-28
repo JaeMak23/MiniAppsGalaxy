@@ -28,8 +28,8 @@ jobs:
       - name: Accept Android SDK licenses
         run: yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses || true
 
-      - name: Ensure Android SDK platform 37 is installed
-        run: $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "platforms;android-37" "build-tools;36.0.0"
+      # - name: Ensure Android SDK platform 37 is installed
+      #   run: $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "platforms;android-37" "build-tools;36.0.0"
 
       - name: Android Lint
         run: ./gradlew :androidApp:lintDebug
