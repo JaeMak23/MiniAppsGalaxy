@@ -8,6 +8,7 @@ import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.ShoppingCart
@@ -18,18 +19,16 @@ import androidx.compose.ui.graphics.vector.ImageVector
 
 /**
  * A central object to manage App Icons.
- * Uses Icons.Default (Material core) where possible to keep app size small;
- * custom ImageVectors are used only where Material core doesn't provide one.
  */
 object AppIcons {
 
     val Account: ImageVector = Icons.Default.AccountCircle
-    val Email : ImageVector = Icons.Default.Email
+    val Email: ImageVector = Icons.Default.Email
+    val Menu: ImageVector = Icons.Default.Menu
 
     val ArrowBack: ImageVector = Icons.AutoMirrored.Default.ArrowBack
     val ArrowNext: ImageVector = Icons.AutoMirrored.Default.ArrowForward
-    val ArrowDropDown : ImageVector = Icons.Default.ArrowDropDown
-
+    val ArrowDropDown: ImageVector = Icons.Default.ArrowDropDown
 
     val Logo: ImageVector = Icons.Default.ShoppingCart
     val Lock: ImageVector = Icons.Default.Lock
@@ -37,6 +36,16 @@ object AppIcons {
     object Home {
         val Outlined: ImageVector = Icons.Outlined.Home
         val Filled: ImageVector = Icons.Filled.Home
+    }
+
+    object Apps {
+        val Outlined: ImageVector = AppsOutlineIcon
+        val Filled: ImageVector = AppsFilledIcon
+    }
+
+    object Games {
+        val Outlined: ImageVector = GamesOutlineIcon
+        val Filled: ImageVector = GamesFilledIcon
     }
 
     object Person {
@@ -52,6 +61,7 @@ object AppIcons {
     // Custom ImageVectors (not available in Material core icons)
     val LightMode: ImageVector = CustomLightMode
     val DarkMode: ImageVector = CustomDarkMode
+    val MenuOpen: ImageVector = MenuOpenIcon
     val Visibility: ImageVector = CustomVisibility
     val VisibilityOff: ImageVector = CustomVisibilityOff
 }

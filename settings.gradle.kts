@@ -47,4 +47,5 @@ include(":core:util")
 include(
     ":feature:auth",
     ":feature:splash",
+    ":feature:dashboard",
 )

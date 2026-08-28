@@ -14,7 +14,7 @@ sealed interface AppRoute : NavKey {
 
     @Serializable data object Auth : AppRoute
 
-    @Serializable data object DashBoard : AppRoute
+    @Serializable data object Dashboard : AppRoute
 
 }
 
@@ -35,7 +35,7 @@ sealed interface AuthRoute : NavKey {
 sealed interface DashboardRoute : NavKey {
 
     @Serializable
-    data class DashBoard(val token: String) : DashboardRoute
+    data object DashBoard : DashboardRoute
 }
 
 @Serializable
