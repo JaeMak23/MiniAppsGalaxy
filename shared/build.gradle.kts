@@ -39,8 +39,10 @@ kotlin {
             implementation(project(":core:domain"))
             implementation(project(":core:navigation"))
             implementation(project(":core:ui"))
+
             implementation(project(":feature:auth"))
             implementation(project(":feature:splash"))
+            implementation(project(":feature:dashboard"))
 
             implementation(libs.compose.runtime)
             implementation(libs.compose.foundation)
