@@ -3,8 +3,11 @@ package com.jaemak23.miniappsgalaxy.feature.dashboard.presentation.screens.dashb
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.NavigationBar
@@ -21,6 +24,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.jaemak23.miniappsgalaxy.core.navigation.DashboardTabRoute
 import com.jaemak23.miniappsgalaxy.core.ui.adaptive.isCompact
@@ -79,7 +83,13 @@ private fun CompactNavRail(
     isExpanded: Boolean,
     onHeaderClick: () -> Unit,
 ) {
+
+    val max= if(isExpanded) 240.dp else Dp.Unspecified
+    val itemModifier = if (isExpanded) Modifier.fillMaxWidth().padding(end = 10.dp) else Modifier
+    val labelModifier = if (isExpanded) Modifier.fillMaxWidth() else Modifier
+
     WideNavigationRail(
+        modifier = Modifier.fillMaxHeight().widthIn(max=max),
         state = railState,
         arrangement = Arrangement.spacedBy(8.dp),
         header = {
@@ -92,19 +102,20 @@ private fun CompactNavRail(
                 onClick = onHeaderClick
             ) {
                 Icon(
-                    imageVector = if (isExpanded) AppIcons.ArrowBack else AppIcons.Menu,
+                    imageVector = if (isExpanded) AppIcons.MenuOpen else AppIcons.Menu,
                     contentDescription = if (isExpanded) "Collapse rail" else "Expand rail"
                 )
             }
         }) {
         uiState.dashboardTabs.forEach { item ->
-            val tab = item.toTab(uiState)
+            val tab = item.toTab(uiState, labelModifier)
             WideNavigationRailItem(
-                railExpanded = isExpanded,
                 selected = tab.selected,
                 onClick = { onCLick(item.tab) },
+                label = tab.label,
                 icon = tab.icon,
-                label = tab.label
+                railExpanded = isExpanded,
+                modifier = itemModifier
             )
         }
     }

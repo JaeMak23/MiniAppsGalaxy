@@ -5,19 +5,15 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.ArrowDropDown
-import androidx.compose.material.icons.filled.Build
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.ShoppingCart
-import androidx.compose.material.icons.outlined.Build
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Person
-import androidx.compose.material.icons.outlined.PlayArrow
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.ui.graphics.vector.ImageVector
 
@@ -43,13 +39,13 @@ object AppIcons {
     }
 
     object Apps {
-        val Outlined: ImageVector = Icons.Outlined.Build
-        val Filled: ImageVector = Icons.Filled.Build
+        val Outlined: ImageVector = AppsOutlineIcon
+        val Filled: ImageVector = AppsFilledIcon
     }
 
     object Games {
-        val Outlined: ImageVector = Icons.Outlined.PlayArrow
-        val Filled: ImageVector = Icons.Filled.PlayArrow
+        val Outlined: ImageVector = GamesOutlineIcon
+        val Filled: ImageVector = GamesFilledIcon
     }
 
     object Person {
@@ -65,6 +61,7 @@ object AppIcons {
     // Custom ImageVectors (not available in Material core icons)
     val LightMode: ImageVector = CustomLightMode
     val DarkMode: ImageVector = CustomDarkMode
+    val MenuOpen: ImageVector = MenuOpenIcon
     val Visibility: ImageVector = CustomVisibility
     val VisibilityOff: ImageVector = CustomVisibilityOff
 }
