@@ -49,3 +49,5 @@ include(
     ":feature:splash",
     ":feature:dashboard",
 )
+// apps feature
+include(    ":feature:markdown-notes:domain")
