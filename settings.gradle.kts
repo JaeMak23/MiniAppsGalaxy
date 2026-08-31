@@ -1,3 +1,4 @@
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 rootProject.name = "MiniAppsGalaxy"
 
 pluginManagement {
@@ -50,4 +51,7 @@ include(
     ":feature:dashboard",
 )
 // apps feature
-include(    ":feature:markdown-notes:domain")
+include(
+    ":feature:markdown-notes:data",
+    ":feature:markdown-notes:domain",
+)
