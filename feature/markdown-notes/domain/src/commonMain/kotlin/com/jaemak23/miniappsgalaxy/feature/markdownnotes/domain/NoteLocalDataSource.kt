@@ -1,8 +1,9 @@
-package com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.model
+package com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain
 
-import com.jaemak23.miniappsgalaxy.core.domain.Result
-import com.jaemak23.miniappsgalaxy.core.domain.EmptyResult
 import com.jaemak23.miniappsgalaxy.core.domain.DataError
+import com.jaemak23.miniappsgalaxy.core.domain.EmptyResult
+import com.jaemak23.miniappsgalaxy.core.domain.Result
+import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.model.Note
 import kotlinx.coroutines.flow.Flow
 
 interface NoteLocalDataSource {

@@ -1,9 +1,9 @@
 package com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.usecase
 
 import com.jaemak23.miniappsgalaxy.core.domain.DataError
-import com.jaemak23.miniappsgalaxy.core.domain.EmptyResult
+import com.jaemak23.miniappsgalaxy.core.domain.Result
 import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.model.Note
-import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.model.NoteLocalDataSource
+import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.NoteLocalDataSource
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
@@ -12,16 +12,22 @@ class SaveNoteUseCase(private val dataSource: NoteLocalDataSource) {
     suspend operator fun invoke(
         id: String?,
         title: String,
-        content: String
-    ): EmptyResult<DataError.Local> {
+        content: String,
+        createdAt: Long?
+    ): Result<String, DataError.Local> {
         val now = System.currentTimeMillis()
         val note = Note(
             id = id ?: Uuid.random().toString(),
             title = title.ifBlank { "Untitled" },
             content = content,
-            createdAt = now, // overwritten below if editing
+            createdAt = createdAt ?: now,
             updatedAt = now
         )
-        return dataSource.upsertNote(note)
+        return dataSource.upsertNote(note).let { result ->
+            when (result) {
+                is Result.Success -> Result.Success(note.id)
+                is Result.Error -> Result.Error(result.error)
+            }
+        }
     }
 }
