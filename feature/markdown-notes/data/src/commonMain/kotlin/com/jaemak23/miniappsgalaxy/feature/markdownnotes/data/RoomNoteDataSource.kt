@@ -6,14 +6,12 @@ import com.jaemak23.miniappsgalaxy.core.domain.Result
 import com.jaemak23.miniappsgalaxy.feature.markdownnotes.data.local.NoteDao
 import com.jaemak23.miniappsgalaxy.feature.markdownnotes.data.mapper.toNote
 import com.jaemak23.miniappsgalaxy.feature.markdownnotes.data.mapper.toNoteEntity
+import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.NoteLocalDataSource
 import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.model.Note
-import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.model.NoteLocalDataSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class RoomNoteDataSource(
-    private val dao: NoteDao
-) : NoteLocalDataSource {
+class RoomNoteDataSource(private val dao: NoteDao) : NoteLocalDataSource {
 
     override fun observeNotes(): Flow<List<Note>> {
         return dao.observeNotes().map { entities -> entities.map { it.toNote() } }
