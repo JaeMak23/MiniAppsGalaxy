@@ -16,6 +16,7 @@ kotlin {
         commonMain.dependencies {
             implementation(projects.feature.markdownNotes.data)
             implementation(projects.feature.markdownNotes.domain)
+            implementation(projects.feature.markdownNotes.presentation)
 
             implementation(libs.androidx.room.runtime)
             implementation(libs.androidx.sqlite.bundled)
