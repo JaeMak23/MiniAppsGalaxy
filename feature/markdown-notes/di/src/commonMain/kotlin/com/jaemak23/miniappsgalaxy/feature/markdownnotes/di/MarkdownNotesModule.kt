@@ -54,8 +54,10 @@ val markdownNotesPresentationModule = module {
     viewModelOf(::NoteListViewModel)
 }
 
-val markdownNotesModule = listOf(
-    markdownNotesDataModule,
-    markdownNotesDomainModule,
-    markdownNotesPresentationModule
-)
+val markdownNotesModule = module {
+    includes(
+        markdownNotesDataModule,
+        markdownNotesDomainModule,
+        markdownNotesPresentationModule
+    )
+}
