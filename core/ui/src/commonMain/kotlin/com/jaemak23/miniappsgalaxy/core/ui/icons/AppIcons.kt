@@ -4,7 +4,9 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Lock
@@ -32,6 +34,8 @@ object AppIcons {
 
     val Logo: ImageVector = Icons.Default.ShoppingCart
     val Lock: ImageVector = Icons.Default.Lock
+    val Add : ImageVector = Icons.Default.Add
+    val Delete : ImageVector = Icons.Default.Delete
 
     object Home {
         val Outlined: ImageVector = Icons.Outlined.Home
@@ -64,4 +68,6 @@ object AppIcons {
     val MenuOpen: ImageVector = MenuOpenIcon
     val Visibility: ImageVector = CustomVisibility
     val VisibilityOff: ImageVector = CustomVisibilityOff
+    val FileUpload : ImageVector = ComputerArrowUp
+    val FileOpen : ImageVector = FileOpenIcon
 }

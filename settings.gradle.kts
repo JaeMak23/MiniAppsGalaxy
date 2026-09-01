@@ -55,4 +55,5 @@ include(
     ":feature:markdown-notes:data",
     ":feature:markdown-notes:di",
     ":feature:markdown-notes:domain",
+    ":feature:markdown-notes:presentation",
 )
