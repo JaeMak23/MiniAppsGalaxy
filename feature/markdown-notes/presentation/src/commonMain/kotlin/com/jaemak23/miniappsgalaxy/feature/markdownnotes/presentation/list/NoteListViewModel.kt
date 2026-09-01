@@ -2,6 +2,7 @@ package com.jaemak23.miniappsgalaxy.feature.markdownnotes.presentation.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.jaemak23.miniappsgalaxy.core.common.util.debugPrint
 import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.usecase.DeleteNoteUseCase
 import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.model.Note
 import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.usecase.GetNotesUseCase
@@ -24,6 +25,7 @@ class NoteListViewModel(
     val events = _events.receiveAsFlow()
 
     init {
+        debugPrint("NoteListViewModel Initialized")
         observeNotes()
     }
 
@@ -43,6 +45,8 @@ class NoteListViewModel(
     }
 
     private fun observeNotes() {
+        debugPrint("Called observeNotes()")
+
         getNotes()
             .onEach { notes ->
                 _state.update {
@@ -50,6 +54,11 @@ class NoteListViewModel(
                 }
             }
             .launchIn(viewModelScope)
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        debugPrint("NoteListViewModel cleared")
     }
 }
 

@@ -32,7 +32,6 @@ val markdownNotesDataModule = module {
             .setQueryCoroutineContext(Dispatchers.IO)
             .build()
     }
-    single<NoteDatabase> { get() }
     single { get<NoteDatabase>().noteDao }
     single { get<NoteDatabase>().draftDao }
 
