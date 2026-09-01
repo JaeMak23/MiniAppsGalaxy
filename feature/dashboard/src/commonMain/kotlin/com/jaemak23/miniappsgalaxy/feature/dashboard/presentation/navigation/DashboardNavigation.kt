@@ -10,6 +10,7 @@ import com.jaemak23.miniappsgalaxy.core.navigation.DashboardRoute
 import com.jaemak23.miniappsgalaxy.core.navigation.NavConfig
 import com.jaemak23.miniappsgalaxy.core.navigation.goBack
 import com.jaemak23.miniappsgalaxy.feature.dashboard.presentation.screens.dashboardmain.DashboardScreen
+import com.jaemak23.miniappsgalaxy.feature.markdownnotes.presentation.navigation.MarkdownNotesNavigation
 
 @Composable
 fun DashBoardNavigation(onLogout: () -> Unit) {
@@ -21,7 +22,15 @@ fun DashBoardNavigation(onLogout: () -> Unit) {
         onBack = { backStack.goBack() }) { key ->
         when (key) {
             is DashboardRoute.DashBoard -> NavEntry(key) {
-                DashboardScreen(onLogout = onLogout)
+                DashboardScreen(onLogout = onLogout, onAppNavigation = { app ->
+                    when (app) {
+                        AppList.MarkdownNotes -> backStack.add(DashboardRoute.MarkdownNotes)
+                    }
+                })
+            }
+
+            is DashboardRoute.MarkdownNotes -> NavEntry(key) {
+                MarkdownNotesNavigation(onExit = { backStack.goBack() })
             }
 
             else -> NavEntry(key) {}

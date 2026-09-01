@@ -19,6 +19,19 @@ sealed interface AppRoute : NavKey {
 }
 
 @Serializable
+sealed interface MarkdownNotesRoute : NavKey {
+
+    @Serializable data object List : MarkdownNotesRoute
+
+    @Serializable data class Editor(
+        val noteId: String? = null,
+        val importedNoteId: String? = null,
+        val filePath: String? = null,
+        val isFromOpen: Boolean = false
+    ) : MarkdownNotesRoute
+}
+
+@Serializable
 sealed interface AuthRoute : NavKey {
 
     @Serializable
@@ -36,6 +49,11 @@ sealed interface DashboardRoute : NavKey {
 
     @Serializable
     data object DashBoard : DashboardRoute
+
+    @Serializable
+    data object MarkdownNotes : DashboardRoute
+
+
 }
 
 @Serializable
@@ -62,6 +80,7 @@ val NavConfig = SavedStateConfiguration {
             subclassesOfSealed<AuthRoute>()
             subclassesOfSealed<DashboardRoute>()
             subclassesOfSealed<DashboardTabRoute>()
+            subclassesOfSealed<MarkdownNotesRoute>()
         }
     }
 }

@@ -29,6 +29,8 @@ kotlin {
             implementation(project(":core:ui"))
             implementation(project(":core:util"))
 
+            implementation(projects.feature.markdownNotes.presentation)
+
             implementation(libs.compose.runtime)
             implementation(libs.compose.foundation)
             implementation(libs.compose.material3)
