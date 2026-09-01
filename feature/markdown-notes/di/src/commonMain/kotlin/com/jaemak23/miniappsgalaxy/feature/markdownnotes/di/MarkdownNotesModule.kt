@@ -15,10 +15,12 @@ import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.usecase.GetNotes
 import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.usecase.ImportNoteUseCase
 import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.usecase.SaveDraftUseCase
 import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.usecase.SaveNoteUseCase
+import com.jaemak23.miniappsgalaxy.feature.markdownnotes.presentation.editor.NoteEditorViewModel
 import com.jaemak23.miniappsgalaxy.feature.markdownnotes.presentation.list.NoteListViewModel
 import kotlinx.coroutines.Dispatchers
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
+import org.koin.core.module.dsl.viewModel
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.bind
 import org.koin.dsl.module
@@ -52,6 +54,17 @@ val markdownNotesDomainModule = module {
 
 val markdownNotesPresentationModule = module {
     viewModelOf(::NoteListViewModel)
+    viewModel { params ->
+        NoteEditorViewModel(
+            params.get(),
+            get(),
+            get(),
+            get(),
+            get(),
+            get(),
+            get()
+        )
+    }
 }
 
 val markdownNotesModule = module {

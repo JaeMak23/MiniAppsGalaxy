@@ -18,6 +18,7 @@ import com.jaemak23.miniappsgalaxy.feature.dashboard.presentation.screens.dashbo
 fun DashboardTabNavigation(
     backStack: NavBackStack<NavKey>,
     paddingValues: PaddingValues,
+    onAppNavigation: (AppList)-> Unit,
     onLogout: () -> Unit
 ) {
     NavDisplay(
@@ -48,4 +49,8 @@ fun DashboardTabNavigation(
             }
         }
     }
+}
+
+enum class AppList{
+    MarkdownNotes
 }
