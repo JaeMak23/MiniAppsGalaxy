@@ -12,12 +12,15 @@ import androidx.navigation3.ui.NavDisplay
 import com.jaemak23.miniappsgalaxy.core.navigation.DashboardTabRoute
 import com.jaemak23.miniappsgalaxy.core.navigation.goBack
 import com.jaemak23.miniappsgalaxy.feature.dashboard.presentation.components.DummyBox
+import com.jaemak23.miniappsgalaxy.feature.dashboard.presentation.screens.dashboardmain.tabs.AppsTabPage
+import com.jaemak23.miniappsgalaxy.feature.dashboard.presentation.screens.dashboardmain.tabs.HomeTabScreen
 import com.jaemak23.miniappsgalaxy.feature.dashboard.presentation.screens.dashboardmain.tabs.ProfileTabScreen
 
 @Composable
 fun DashboardTabNavigation(
     backStack: NavBackStack<NavKey>,
     paddingValues: PaddingValues,
+    onAppNavigation: (AppList) -> Unit,
     onLogout: () -> Unit
 ) {
     NavDisplay(
@@ -28,11 +31,11 @@ fun DashboardTabNavigation(
 
         when (key) {
             is DashboardTabRoute.Home -> NavEntry(key) {
-                DummyBox("Home screen")
+                HomeTabScreen(onLogout)
             }
 
             is DashboardTabRoute.Apps -> NavEntry(key) {
-                DummyBox("Apps Screen")
+                AppsTabPage(onAppNavigation)
             }
 
             is DashboardTabRoute.Games -> NavEntry(key) {
@@ -48,4 +51,8 @@ fun DashboardTabNavigation(
             }
         }
     }
+}
+
+enum class AppList {
+    MarkdownNotes
 }

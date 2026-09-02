@@ -15,8 +15,8 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedSecureTextField
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -34,12 +34,12 @@ import com.jaemak23.miniappsgalaxy.core.ui.theme.ComponentPreview
 private val KTextFieldShape = RoundedCornerShape(12.dp)
 
 @Composable
-private fun kTextFieldColors() = TextFieldDefaults.colors(
+private fun kTextFieldColors() = OutlinedTextFieldDefaults.colors(
     unfocusedContainerColor = MaterialTheme.colorScheme.surface,
     focusedContainerColor = MaterialTheme.colorScheme.surface,
     errorContainerColor = MaterialTheme.colorScheme.surface,
-    unfocusedIndicatorColor = MaterialTheme.colorScheme.outline.copy(alpha = 0.3f),
-    focusedIndicatorColor = MaterialTheme.colorScheme.primary,
+    unfocusedBorderColor = MaterialTheme.colorScheme.outline.copy(alpha = 0.3f),
+    focusedBorderColor = MaterialTheme.colorScheme.primary,
 )
 
 @Composable
