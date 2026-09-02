@@ -6,6 +6,7 @@ import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
+import kotlin.uuid.Uuid
 
 @Serializable
 sealed interface AppRoute : NavKey {
@@ -24,6 +25,7 @@ sealed interface MarkdownNotesRoute : NavKey {
     @Serializable data object List : MarkdownNotesRoute
 
     @Serializable data class Editor(
+        val instanceId: String = Uuid.random().toString(),
         val noteId: String? = null,
         val importedNoteId: String? = null,
         val filePath: String? = null,

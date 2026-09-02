@@ -46,6 +46,7 @@ fun MarkdownNotesNavigation(onExit: () -> Unit) {
             is MarkdownNotesRoute.Editor -> NavEntry(key) {
                 NoteEditorRoot(
                     origin = resolveOrigin(key),
+                    instantKey = key.instanceId,
                     onNavigateBack = { backStack.goBack() },
                     onLaunchSaveAsPicker = { suggestedName ->
                         // TODO: platform Save As picker -> on result, call ExportNoteUseCase

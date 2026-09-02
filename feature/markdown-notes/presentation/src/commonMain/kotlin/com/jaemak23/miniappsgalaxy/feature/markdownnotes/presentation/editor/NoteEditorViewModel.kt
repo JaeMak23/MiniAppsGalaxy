@@ -54,6 +54,7 @@ class NoteEditorViewModel(
     private var draftAutoSaveJob: Job? = null
 
     private val handle = savedStateHandle
+    private var hasSaved = false
 
     init {
         val alreadyRestoredFromHandle = savedStateHandle.get<String>("content") != null
@@ -73,6 +74,7 @@ class NoteEditorViewModel(
             is NoteEditorAction.OnContentChange -> updateField(content = action.content)
             NoteEditorAction.OnTogglePreview ->
                 _state.update { it.copy(isPreviewMode = !it.isPreviewMode) }
+
             NoteEditorAction.OnBackClick -> onBack()
             NoteEditorAction.OnSaveToListClick -> saveDraftToList()
             NoteEditorAction.OnSaveToDeviceClick -> requestSaveToDevice()
@@ -127,7 +129,13 @@ class NoteEditorViewModel(
                 if (draft != null) {
                     savedStateHandle["title"] = draft.title
                     savedStateHandle["content"] = draft.content
-                    _state.update { it.copy(title = draft.title, content = draft.content, isLoading = false) }
+                    _state.update {
+                        it.copy(
+                            title = draft.title,
+                            content = draft.content,
+                            isLoading = false
+                        )
+                    }
                 } else {
                     _state.update { it.copy(isLoading = false) }
                 }
@@ -137,15 +145,22 @@ class NoteEditorViewModel(
 
     private fun onBack() {
         viewModelScope.launch {
-            when (origin) {
-                NoteEditorOrigin.New, is NoteEditorOrigin.FromList, is NoteEditorOrigin.FromImport -> {
-                    val s = _state.value
-                    if (s.title.isNotBlank() || s.content.isNotBlank()) {
-                        saveNote(id = s.noteId, title = s.title, content = s.content, createdAt = s.createdAt)
+            if (!hasSaved) {
+                hasSaved = true
+                when (origin) {
+                    NoteEditorOrigin.New, is NoteEditorOrigin.FromList, is NoteEditorOrigin.FromImport -> {
+                        val s = _state.value
+                        if (s.title.isNotBlank() || s.content.isNotBlank()) {
+                            saveNote(
+                                id = s.noteId,
+                                title = s.title,
+                                content = s.content,
+                                createdAt = s.createdAt
+                            )
+                        }
                     }
-                }
-                is NoteEditorOrigin.FromOpen -> {
-                    // draft already auto-saved continuously; nothing extra to persist on back
+
+                    is NoteEditorOrigin.FromOpen -> Unit
                 }
             }
             _events.send(NoteEditorEvent.NavigateBack)
