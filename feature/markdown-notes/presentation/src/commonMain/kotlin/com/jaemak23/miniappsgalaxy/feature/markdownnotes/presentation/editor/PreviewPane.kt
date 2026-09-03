@@ -19,6 +19,7 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
+import com.jaemak23.miniappsgalaxy.core.ui.components.panelBorder
 
 /**
  * Lightweight pure-Kotlin markdown renderer — no platform-specific library,
@@ -30,7 +31,10 @@ fun PreviewPane(
     markdown: String,
     modifier: Modifier = Modifier
 ) {
-    Column(modifier = modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp)) {
+    Column(modifier = modifier.fillMaxSize()
+        .padding(4.dp)
+        .panelBorder()
+        .verticalScroll(rememberScrollState()).padding(16.dp)) {
         markdown.lines().forEach { line ->
             when {
                 line.isBlank() -> Spacer(Modifier.height(8.dp))
