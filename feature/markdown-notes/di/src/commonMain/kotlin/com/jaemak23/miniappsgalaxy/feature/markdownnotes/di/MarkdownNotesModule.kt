@@ -9,6 +9,7 @@ import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.DraftDataSource
 import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.NoteLocalDataSource
 import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.usecase.ClearDraftUseCase
 import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.usecase.DeleteNoteUseCase
+import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.usecase.ExportNoteUseCase
 import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.usecase.GetDraftUseCase
 import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.usecase.GetNoteByIdUseCase
 import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.usecase.GetNotesUseCase
@@ -50,7 +51,7 @@ val markdownNotesDomainModule = module {
     factoryOf(::SaveDraftUseCase)
     factoryOf(::GetDraftUseCase)
     factoryOf(::ClearDraftUseCase)
-    // ExportNoteUseCase intentionally omitted — depends on FileAccessDataSource, not yet scaffolded
+    factoryOf(::ExportNoteUseCase)
 }
 
 val markdownNotesPresentationModule = module {
@@ -58,6 +59,7 @@ val markdownNotesPresentationModule = module {
     viewModel { params ->
         NoteEditorViewModel(
             params.get(),
+            get(),
             get(),
             get(),
             get(),

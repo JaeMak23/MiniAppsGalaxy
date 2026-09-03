@@ -37,7 +37,12 @@ fun MarkdownNotesNavigation(onExit: () -> Unit) {
                         backStack.add(MarkdownNotesRoute.Editor(importedNoteId = importedNoteId))
                     },
                     onNavigateToOpenedDraft = { filePath ->
-                        backStack.add(MarkdownNotesRoute.Editor(filePath = filePath, isFromOpen = true))
+                        backStack.add(
+                            MarkdownNotesRoute.Editor(
+                                filePath = filePath,
+                                isFromOpen = true
+                            )
+                        )
                     }
                 )
             }
@@ -47,9 +52,6 @@ fun MarkdownNotesNavigation(onExit: () -> Unit) {
                     origin = resolveOrigin(key),
                     instantKey = key.instanceId,
                     onNavigateBack = { backStack.goBack() },
-                    onLaunchSaveAsPicker = { suggestedName ->
-                        // TODO: platform Save As picker -> on result, call ExportNoteUseCase
-                    }
                 )
             }
 

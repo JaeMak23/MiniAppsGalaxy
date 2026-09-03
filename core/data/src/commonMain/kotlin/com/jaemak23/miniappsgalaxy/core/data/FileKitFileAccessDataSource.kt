@@ -2,14 +2,17 @@ package com.jaemak23.miniappsgalaxy.core.data
 
 import com.jaemak23.miniappsgalaxy.core.domain.DataError
 import com.jaemak23.miniappsgalaxy.core.domain.FileAccessDataSource
-import com.jaemak23.miniappsgalaxy.core.domain.PickedFile
 import com.jaemak23.miniappsgalaxy.core.domain.Result
+import com.jaemak23.miniappsgalaxy.core.domain.model.PickedFile
 import io.github.vinceglb.filekit.FileKit
+import io.github.vinceglb.filekit.PlatformFile
 import io.github.vinceglb.filekit.dialogs.FileKitType
 import io.github.vinceglb.filekit.dialogs.openFilePicker
+import io.github.vinceglb.filekit.dialogs.openFileSaver
 import io.github.vinceglb.filekit.name
 import io.github.vinceglb.filekit.path
 import io.github.vinceglb.filekit.readString
+import io.github.vinceglb.filekit.writeString
 
 class FileKitFileAccessDataSource : FileAccessDataSource {
 
@@ -26,6 +29,30 @@ class FileKitFileAccessDataSource : FileAccessDataSource {
                     filePath = file.path
                 )
             )
+        } catch (e: Exception) {
+            Result.Error(DataError.Local.UNKNOWN)
+        }
+    }
+
+    override suspend fun saveFile(
+        filePath: String?,
+        suggestedName: String,
+        content: String
+    ): Result<String?, DataError.Local> {
+        return try {
+            if (filePath != null) {
+                val file = PlatformFile(filePath)
+                file.writeString(content)
+                Result.Success(filePath)
+            } else {
+                val file = FileKit.openFileSaver(
+                    suggestedName = suggestedName,
+                    defaultExtension = "md"
+                ) ?: return Result.Success(null) // user cancelled Save As
+
+                file.writeString(content)
+                Result.Success(file.path)
+            }
         } catch (e: Exception) {
             Result.Error(DataError.Local.UNKNOWN)
         }

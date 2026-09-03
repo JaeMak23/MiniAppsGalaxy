@@ -15,25 +15,22 @@ fun NoteEditorRoot(
     origin: NoteEditorOrigin,
     instantKey: String, // pass MarkdownNotesRoute.Editor.instanceId in from the nav call site
     onNavigateBack: () -> Unit,
-    onLaunchSaveAsPicker: (suggestedName: String) -> Unit,
     viewModel: NoteEditorViewModel = koinViewModel(
         key = instantKey,
         parameters = { parametersOf(origin) })
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
-    val navigationEventState = rememberNavigationEventState(NavigationEventInfo.None)
 
     NavigationBackHandler(
-        state = navigationEventState,
+        state = rememberNavigationEventState( NavigationEventInfo.None),
         isBackEnabled = true,
-        onBackCancelled = { /* no-op, gesture was canceled mid-swipe */ },
-        onBackCompleted = { viewModel.onAction(NoteEditorAction.OnBackClick) }
+        onBackCompleted = { viewModel.onAction(NoteEditorAction.OnBackClick) },
+        onBackCancelled = { }
     )
 
     ObserveAsEvents(viewModel.events) { event ->
         when (event) {
             NoteEditorEvent.NavigateBack -> onNavigateBack()
-            is NoteEditorEvent.LaunchSaveAsPicker -> onLaunchSaveAsPicker(event.suggestedName)
         }
     }
 

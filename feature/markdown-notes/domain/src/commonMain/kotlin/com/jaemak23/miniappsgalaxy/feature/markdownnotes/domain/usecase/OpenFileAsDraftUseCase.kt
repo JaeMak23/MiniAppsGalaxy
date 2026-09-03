@@ -3,12 +3,7 @@ package com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.usecase
 import com.jaemak23.miniappsgalaxy.core.domain.DataError
 import com.jaemak23.miniappsgalaxy.core.domain.FileAccessDataSource
 import com.jaemak23.miniappsgalaxy.core.domain.Result
-
-data class OpenedDraft(
-    val filePath: String?,
-    val title: String,
-    val content: String
-)
+import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.model.OpenedDraft
 
 class OpenFileAsDraftUseCase(
     private val fileAccess: FileAccessDataSource,

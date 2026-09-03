@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jaemak23.miniappsgalaxy.core.domain.onSuccess
 import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.usecase.ClearDraftUseCase
+import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.usecase.ExportNoteUseCase
 import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.usecase.GetDraftUseCase
 import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.usecase.GetNoteByIdUseCase
 import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.usecase.SaveDraftUseCase
@@ -19,12 +20,6 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlin.time.Duration.Companion.milliseconds
 
-/**
- * origin is injected directly via Koin parametersOf (see NoteEditorRoot),
- * not parsed from SavedStateHandle — MarkdownNotesRoute.Editor carries
- * typed args (noteId / importedNoteId / filePath / isFromOpen) and the
- * nav layer resolves those into a NoteEditorOrigin before creating this VM.
- */
 class NoteEditorViewModel(
     private val origin: NoteEditorOrigin, // now injected directly, not parsed from SavedStateHandle
     private val savedStateHandle: SavedStateHandle,
@@ -32,7 +27,8 @@ class NoteEditorViewModel(
     private val saveNote: SaveNoteUseCase,
     private val saveDraft: SaveDraftUseCase,
     private val getDraft: GetDraftUseCase,
-    private val clearDraft: ClearDraftUseCase
+    private val clearDraft: ClearDraftUseCase,
+    private val exportNote: ExportNoteUseCase
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(
@@ -177,15 +173,22 @@ class NoteEditorViewModel(
         }
     }
 
-    /** Save/Replace if filePath known, else ask caller to launch a Save As picker. */
     private fun requestSaveToDevice() {
-        val s = _state.value
-        val filePath = (s.origin as? NoteEditorOrigin.FromOpen)?.filePath
-        if (filePath != null) {
-            // TODO: call ExportNoteUseCase(filePath, s.title, s.content) once FileAccessDataSource exists
-        } else {
-            viewModelScope.launch {
-                _events.send(NoteEditorEvent.LaunchSaveAsPicker(suggestedName = s.title.ifBlank { "note" }))
+        viewModelScope.launch {
+            val s = _state.value
+            val currentFilePath = (s.origin as? NoteEditorOrigin.FromOpen)?.filePath
+
+            exportNote(
+                filePath = currentFilePath,
+                suggestedName = s.title.ifBlank { "note" },
+                content = s.content
+            ).onSuccess { savedPath ->
+                if (savedPath != null) {
+                    // exported successfully — draft's association with this file is now current
+                    clearDraft()
+                    _events.send(NoteEditorEvent.NavigateBack)
+                }
+                // savedPath == null: user canceled Save As, stay on screen, nothing changes
             }
         }
     }
