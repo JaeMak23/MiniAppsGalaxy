@@ -3,7 +3,6 @@ package com.jaemak23.miniappsgalaxy.feature.markdownnotes.presentation.list
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jaemak23.miniappsgalaxy.core.common.util.debugPrint
-import com.jaemak23.miniappsgalaxy.core.domain.onSuccess
 import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.usecase.DeleteNoteUseCase
 import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.model.Note
 import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.usecase.GetNotesUseCase
@@ -15,6 +14,7 @@ import kotlinx.coroutines.launch
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import kotlin.time.Instant
+import com.jaemak23.miniappsgalaxy.core.domain.Result
 
 class NoteListViewModel(
     private val getNotes: GetNotesUseCase,
@@ -40,8 +40,10 @@ class NoteListViewModel(
             NoteListAction.OnImportClick -> handleImport()
             NoteListAction.OnOpenFromDeviceClick -> handleOpenFromDevice()
             is NoteListAction.OnNoteClick -> sendEvent(NoteListEvent.NavigateToEditor(action.noteId))
-            is NoteListAction.OnDeleteNote -> viewModelScope.launch { deleteNote(action.noteId) }
-
+            is NoteListAction.OnDeleteNote -> viewModelScope.launch {
+                deleteNote(action.noteId)
+                _events.send(NoteListEvent.ShowMessage("Note deleted"))
+            }
         }
     }
 
@@ -51,25 +53,38 @@ class NoteListViewModel(
 
     private fun handleImport() {
         viewModelScope.launch {
-            importNote().onSuccess { noteId ->
-                if (noteId != null) { // null = user canceled the file picker
-                    _events.send(NoteListEvent.ShowMessage("Note imported successfully"))
-                    _events.send(NoteListEvent.NavigateToImportedNote(noteId))
+            when (val result = importNote()) {
+                is Result.Success -> {
+                    val noteId = result.data
+                    if (noteId != null) {
+                        _events.send(NoteListEvent.ShowMessage("Note imported successfully"))
+                        _events.send(NoteListEvent.NavigateToImportedNote(noteId))
+                    }
+                    // null = user cancelled — no message
+                }
+
+                is Result.Error -> {
+                    _events.send(NoteListEvent.ShowMessage("Couldn't import file — try again"))
                 }
             }
-            // Result.Error case: silently ignored for now
         }
     }
 
     private fun handleOpenFromDevice() {
         viewModelScope.launch {
-            openFileAsDraft().onSuccess { opened ->
-                if (opened != null) {
-                    _events.send(NoteListEvent.NavigateToOpenedDraft(opened.filePath))
+            when (val result = openFileAsDraft()) {
+                is Result.Success -> {
+                    val opened = result.data
+                    if (opened != null) {
+                        _events.send(NoteListEvent.NavigateToOpenedDraft(opened.filePath))
+                    }
+                    // null = user cancelled — no message
                 }
-                // null = user canceled — nothing to do
+
+                is Result.Error -> {
+                    _events.send(NoteListEvent.ShowMessage("Couldn't open file — try again"))
+                }
             }
-            // Result.Error: same gap as Import — no error surfaced yet
         }
     }
 

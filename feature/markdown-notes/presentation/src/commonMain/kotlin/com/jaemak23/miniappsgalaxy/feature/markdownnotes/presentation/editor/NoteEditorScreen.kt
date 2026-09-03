@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
@@ -16,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.jaemak23.miniappsgalaxy.core.ui.components.NavigationIcon
 import com.jaemak23.miniappsgalaxy.core.ui.components.ThemeBar
+import com.jaemak23.miniappsgalaxy.core.ui.components.TooltipIconButton
 import com.jaemak23.miniappsgalaxy.core.ui.icons.AppIcons
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -43,12 +43,20 @@ fun NoteEditorScreen(
                     NavigationIcon(onClick = { onAction(NoteEditorAction.OnBackClick) })
                 },
                 actions = {
+                    val toNote = "Save to notes list"
+                    val toDevice = "Save to device"
                     if (state.isDraftMode) {
-                        IconButton(onClick = { onAction(NoteEditorAction.OnSaveToListClick) }) {
-                            Icon(AppIcons.Save, contentDescription = "Save to notes list")
+                        TooltipIconButton(
+                            tooltip = toNote,
+                            onClick = { onAction(NoteEditorAction.OnSaveToListClick) }
+                        ) {
+                            Icon(AppIcons.Save, contentDescription = toNote)
                         }
-                        IconButton(onClick = { onAction(NoteEditorAction.OnSaveToDeviceClick) }) {
-                            Icon(AppIcons.Import, contentDescription = "Save to device")
+                        TooltipIconButton(
+                            tooltip = toDevice,
+                            onClick = { onAction(NoteEditorAction.OnSaveToDeviceClick) }
+                        ) {
+                            Icon(AppIcons.Import, contentDescription = toDevice)
                         }
                     }
                     ThemeBar()

@@ -19,6 +19,7 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlin.time.Duration.Companion.milliseconds
+import com.jaemak23.miniappsgalaxy.core.domain.Result
 
 class NoteEditorViewModel(
     private val origin: NoteEditorOrigin, // now injected directly, not parsed from SavedStateHandle
@@ -74,7 +75,14 @@ class NoteEditorViewModel(
             NoteEditorAction.OnSaveToDeviceClick -> requestSaveToDevice()
 
             is NoteEditorAction.OnSetViewMode -> _state.update { it.copy(viewMode = action.mode) }
-            is NoteEditorAction.OnDragRatio -> _state.update { it.copy(viewMode = resolveDragRatio(action.ratio)) }        }
+            is NoteEditorAction.OnDragRatio -> _state.update {
+                it.copy(
+                    viewMode = resolveDragRatio(
+                        action.ratio
+                    )
+                )
+            }
+        }
     }
 
     private fun updateField(title: String? = null, content: String? = null) {
@@ -153,6 +161,8 @@ class NoteEditorViewModel(
                                 content = s.content,
                                 createdAt = s.createdAt
                             )
+                            _events.send(NoteEditorEvent.ShowMessage("Note saved"))
+
                         }
                     }
 
@@ -183,11 +193,19 @@ class NoteEditorViewModel(
                 filePath = currentFilePath,
                 suggestedName = s.title.ifBlank { "note" },
                 content = s.content
-            ).onSuccess { savedPath ->
-                if (savedPath != null) {
-                    clearDraft()
-                    _events.send(NoteEditorEvent.ShowMessage("File saved successfully"))
-                    _events.send(NoteEditorEvent.NavigateBack)
+            ).let { result ->
+                when (result) {
+                    is Result.Success -> {
+                        if (result.data != null) {
+                            clearDraft()
+                            _events.send(NoteEditorEvent.ShowMessage("File saved successfully"))
+                            _events.send(NoteEditorEvent.NavigateBack)
+                        }
+                    }
+
+                    is Result.Error -> {
+                        _events.send(NoteEditorEvent.ShowMessage("Couldn't save file — try again"))
+                    }
                 }
             }
         }
