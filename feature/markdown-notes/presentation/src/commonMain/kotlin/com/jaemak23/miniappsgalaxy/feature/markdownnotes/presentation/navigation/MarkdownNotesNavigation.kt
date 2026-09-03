@@ -22,17 +22,12 @@ fun MarkdownNotesNavigation(onExit: () -> Unit) {
     NavDisplay(
         modifier = Modifier.fillMaxSize(),
         backStack = backStack,
-        onBack = { backStack.goBack() }
-    ) { key ->
+        onBack = { backStack.goBack() }) { key ->
         when (key) {
             is MarkdownNotesRoute.List -> NavEntry(key) {
                 NoteListRoot(
-                    onNavigateToNewNote = {
-                        backStack.add(MarkdownNotesRoute.Editor())
-                    },
-                    onNavigateToEditor = { noteId ->
-                        backStack.add(MarkdownNotesRoute.Editor(noteId = noteId))
-                    },
+                    onNavigateToNewNote = { backStack.add(MarkdownNotesRoute.Editor()) },
+                    onNavigateToEditor = { noteId -> backStack.add(MarkdownNotesRoute.Editor(noteId = noteId)) },
                     onNavigateToImportedNote = { importedNoteId ->
                         backStack.add(MarkdownNotesRoute.Editor(importedNoteId = importedNoteId))
                     },
@@ -43,8 +38,7 @@ fun MarkdownNotesNavigation(onExit: () -> Unit) {
                                 isFromOpen = true
                             )
                         )
-                    }
-                )
+                    })
             }
 
             is MarkdownNotesRoute.Editor -> NavEntry(key) {

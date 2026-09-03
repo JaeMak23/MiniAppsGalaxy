@@ -169,6 +169,7 @@ class NoteEditorViewModel(
             val s = _state.value
             saveNote(id = null, title = s.title, content = s.content, createdAt = null)
             clearDraft()
+            _events.send(NoteEditorEvent.ShowMessage("Note added to list"))
             _events.send(NoteEditorEvent.NavigateBack)
         }
     }
@@ -184,11 +185,10 @@ class NoteEditorViewModel(
                 content = s.content
             ).onSuccess { savedPath ->
                 if (savedPath != null) {
-                    // exported successfully — draft's association with this file is now current
                     clearDraft()
+                    _events.send(NoteEditorEvent.ShowMessage("File saved successfully"))
                     _events.send(NoteEditorEvent.NavigateBack)
                 }
-                // savedPath == null: user canceled Save As, stay on screen, nothing changes
             }
         }
     }

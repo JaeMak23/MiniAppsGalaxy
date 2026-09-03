@@ -1,7 +1,6 @@
 package com.jaemak23.miniappsgalaxy.feature.auth.presentation.navigation
 
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -21,10 +20,9 @@ import com.jaemak23.miniappsgalaxy.feature.auth.presentation.screens.signup.Sign
 @Composable
 fun AuthNavigation(onLoginSuccessful: () -> Unit) {
     val backStack = rememberNavBackStack(NavConfig, AuthRoute.Login)
-    val snackbarHostState = remember { SnackbarHostState() }
     var isScreenLoading by remember { mutableStateOf(false) }
 
-    AuthScreen(isScreenLoading, snackbarHostState = snackbarHostState) {
+    AuthScreen(isScreenLoading) {
 
         NavDisplay(
             modifier = Modifier.fillMaxSize(),
@@ -33,7 +31,6 @@ fun AuthNavigation(onLoginSuccessful: () -> Unit) {
             when (key) {
                 is AuthRoute.Login -> NavEntry(key) {
                     LoginScreen(
-                        snackbarHostState = snackbarHostState,
                         onLoadingChange = { isScreenLoading = it },
                         onLoginSuccess = onLoginSuccessful,
                         onSignupClick = { backStack.add(AuthRoute.Signup) }
@@ -42,7 +39,6 @@ fun AuthNavigation(onLoginSuccessful: () -> Unit) {
 
                 is AuthRoute.Signup -> NavEntry(key) {
                     SignupScreen(
-                        snackbarHostState = snackbarHostState,
                         onLoadingChange = { isScreenLoading = it },
                         onLoginBackClick = { backStack.goBack() },
                         onAccountCreationSuccess = onLoginSuccessful

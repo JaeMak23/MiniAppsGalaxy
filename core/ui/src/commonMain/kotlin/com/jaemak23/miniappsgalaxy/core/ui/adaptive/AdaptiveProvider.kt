@@ -1,5 +1,6 @@
 package com.jaemak23.miniappsgalaxy.core.ui.adaptive
 
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfoV2
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -10,6 +11,7 @@ import androidx.compose.ui.graphics.Color
 fun AdaptiveProvider(
     darkMode: MutableState<Boolean>,
     gradientTheme: List<Color>,
+    snackbarHostState: SnackbarHostState,
     content: @Composable () -> Unit
 ) {
     val adaptiveInfo = currentWindowAdaptiveInfoV2()
@@ -20,6 +22,7 @@ fun AdaptiveProvider(
         LocalDarkMode provides darkMode,
         LocalDeviceWidth provides deviceWidth,
         LocalMeshGradientTheme provides gradientTheme,
+        LocalSnackbarHostState provides snackbarHostState,
         content = content
     )
 }

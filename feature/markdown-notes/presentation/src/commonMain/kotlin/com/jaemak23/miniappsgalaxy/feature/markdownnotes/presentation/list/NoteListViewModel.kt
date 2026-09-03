@@ -53,6 +53,7 @@ class NoteListViewModel(
         viewModelScope.launch {
             importNote().onSuccess { noteId ->
                 if (noteId != null) { // null = user canceled the file picker
+                    _events.send(NoteListEvent.ShowMessage("Note imported successfully"))
                     _events.send(NoteListEvent.NavigateToImportedNote(noteId))
                 }
             }
