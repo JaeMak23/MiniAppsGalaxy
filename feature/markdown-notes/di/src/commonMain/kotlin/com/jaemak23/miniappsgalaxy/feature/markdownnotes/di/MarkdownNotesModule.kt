@@ -13,6 +13,7 @@ import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.usecase.GetDraft
 import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.usecase.GetNoteByIdUseCase
 import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.usecase.GetNotesUseCase
 import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.usecase.ImportNoteUseCase
+import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.usecase.OpenFileAsDraftUseCase
 import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.usecase.SaveDraftUseCase
 import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.usecase.SaveNoteUseCase
 import com.jaemak23.miniappsgalaxy.feature.markdownnotes.presentation.editor.NoteEditorViewModel
@@ -45,6 +46,7 @@ val markdownNotesDomainModule = module {
     factoryOf(::SaveNoteUseCase)
     factoryOf(::DeleteNoteUseCase)
     factoryOf(::ImportNoteUseCase)
+    factoryOf(::OpenFileAsDraftUseCase)
     factoryOf(::SaveDraftUseCase)
     factoryOf(::GetDraftUseCase)
     factoryOf(::ClearDraftUseCase)

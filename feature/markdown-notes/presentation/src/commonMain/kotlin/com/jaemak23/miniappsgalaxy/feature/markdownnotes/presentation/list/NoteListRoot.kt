@@ -11,7 +11,7 @@ fun NoteListRoot(
     onNavigateToNewNote: () -> Unit,
     onNavigateToEditor: (String) -> Unit,
     onNavigateToImportedNote: (String) -> Unit,
-    onLaunchOpenPicker: () -> Unit,
+    onNavigateToOpenedDraft: (String?) -> Unit,
     viewModel: NoteListViewModel = koinViewModel()
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -21,7 +21,7 @@ fun NoteListRoot(
             NoteListEvent.NavigateToNewNote -> onNavigateToNewNote()
             is NoteListEvent.NavigateToEditor -> onNavigateToEditor(event.noteId)
             is NoteListEvent.NavigateToImportedNote -> onNavigateToImportedNote(event.noteId)
-            NoteListEvent.LaunchOpenPicker -> onLaunchOpenPicker()
+            is NoteListEvent.NavigateToOpenedDraft -> onNavigateToOpenedDraft(event.filePath)
         }
     }
 

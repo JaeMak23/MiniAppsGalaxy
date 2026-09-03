@@ -8,6 +8,7 @@ import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.usecase.DeleteNo
 import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.model.Note
 import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.usecase.GetNotesUseCase
 import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.usecase.ImportNoteUseCase
+import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.usecase.OpenFileAsDraftUseCase
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -18,7 +19,8 @@ import kotlin.time.Instant
 class NoteListViewModel(
     private val getNotes: GetNotesUseCase,
     private val deleteNote: DeleteNoteUseCase,
-    private val importNote: ImportNoteUseCase
+    private val importNote: ImportNoteUseCase,
+    private val openFileAsDraft: OpenFileAsDraftUseCase
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(NoteListState())
@@ -36,7 +38,7 @@ class NoteListViewModel(
         when (action) {
             NoteListAction.OnNewClick -> sendEvent(NoteListEvent.NavigateToNewNote)
             NoteListAction.OnImportClick -> handleImport()
-            NoteListAction.OnOpenFromDeviceClick -> sendEvent(NoteListEvent.LaunchOpenPicker)
+            NoteListAction.OnOpenFromDeviceClick -> handleOpenFromDevice()
             is NoteListAction.OnNoteClick -> sendEvent(NoteListEvent.NavigateToEditor(action.noteId))
             is NoteListAction.OnDeleteNote -> viewModelScope.launch { deleteNote(action.noteId) }
 
@@ -54,7 +56,19 @@ class NoteListViewModel(
                     _events.send(NoteListEvent.NavigateToImportedNote(noteId))
                 }
             }
-            // Result.Error case: silently ignored for now — see note below
+            // Result.Error case: silently ignored for now
+        }
+    }
+
+    private fun handleOpenFromDevice() {
+        viewModelScope.launch {
+            openFileAsDraft().onSuccess { opened ->
+                if (opened != null) {
+                    _events.send(NoteListEvent.NavigateToOpenedDraft(opened.filePath))
+                }
+                // null = user canceled — nothing to do
+            }
+            // Result.Error: same gap as Import — no error surfaced yet
         }
     }
 

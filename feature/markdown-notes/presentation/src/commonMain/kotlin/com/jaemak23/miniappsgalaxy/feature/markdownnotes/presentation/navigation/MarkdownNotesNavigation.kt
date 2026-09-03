@@ -36,8 +36,8 @@ fun MarkdownNotesNavigation(onExit: () -> Unit) {
                     onNavigateToImportedNote = { importedNoteId ->
                         backStack.add(MarkdownNotesRoute.Editor(importedNoteId = importedNoteId))
                     },
-                    onLaunchOpenPicker = {
-                        // TODO: platform file picker -> on result, addRoute(Editor(filePath = ..., isFromOpen = true))
+                    onNavigateToOpenedDraft = { filePath ->
+                        backStack.add(MarkdownNotesRoute.Editor(filePath = filePath, isFromOpen = true))
                     }
                 )
             }

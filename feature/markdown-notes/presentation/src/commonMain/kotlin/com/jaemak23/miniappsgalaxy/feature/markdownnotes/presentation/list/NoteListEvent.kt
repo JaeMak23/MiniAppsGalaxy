@@ -6,6 +6,4 @@ sealed interface NoteListEvent {
 
     data class NavigateToImportedNote(val noteId: String) : NoteListEvent
 
-    // Open-from-device — draft flow, no list entry
-    data object LaunchOpenPicker : NoteListEvent
-}
+    data class NavigateToOpenedDraft(val filePath: String?) : NoteListEvent }
