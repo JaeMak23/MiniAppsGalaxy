@@ -72,13 +72,13 @@ class NoteEditorViewModel(
         when (action) {
             is NoteEditorAction.OnTitleChange -> updateField(title = action.title)
             is NoteEditorAction.OnContentChange -> updateField(content = action.content)
-            NoteEditorAction.OnTogglePreview ->
-                _state.update { it.copy(isPreviewMode = !it.isPreviewMode) }
 
             NoteEditorAction.OnBackClick -> onBack()
             NoteEditorAction.OnSaveToListClick -> saveDraftToList()
             NoteEditorAction.OnSaveToDeviceClick -> requestSaveToDevice()
-        }
+
+            is NoteEditorAction.OnSetViewMode -> _state.update { it.copy(viewMode = action.mode) }
+            is NoteEditorAction.OnDragRatio -> _state.update { it.copy(viewMode = resolveDragRatio(action.ratio)) }        }
     }
 
     private fun updateField(title: String? = null, content: String? = null) {
@@ -187,6 +187,15 @@ class NoteEditorViewModel(
             viewModelScope.launch {
                 _events.send(NoteEditorEvent.LaunchSaveAsPicker(suggestedName = s.title.ifBlank { "note" }))
             }
+        }
+    }
+
+    private fun resolveDragRatio(rawRatio: Float): EditorViewMode {
+        val clamped = rawRatio.coerceIn(0f, 1f)
+        return when {
+            clamped >= 0.9f -> EditorViewMode.EditorOnly
+            clamped <= 0.1f -> EditorViewMode.PreviewOnly
+            else -> EditorViewMode.Split(clamped)
         }
     }
 }
