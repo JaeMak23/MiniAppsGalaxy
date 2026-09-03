@@ -3,9 +3,11 @@ package com.jaemak23.miniappsgalaxy.feature.markdownnotes.presentation.list
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jaemak23.miniappsgalaxy.core.common.util.debugPrint
+import com.jaemak23.miniappsgalaxy.core.domain.onSuccess
 import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.usecase.DeleteNoteUseCase
 import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.model.Note
 import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.usecase.GetNotesUseCase
+import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.usecase.ImportNoteUseCase
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -15,7 +17,8 @@ import kotlin.time.Instant
 
 class NoteListViewModel(
     private val getNotes: GetNotesUseCase,
-    private val deleteNote: DeleteNoteUseCase
+    private val deleteNote: DeleteNoteUseCase,
+    private val importNote: ImportNoteUseCase
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(NoteListState())
@@ -32,7 +35,7 @@ class NoteListViewModel(
     fun onAction(action: NoteListAction) {
         when (action) {
             NoteListAction.OnNewClick -> sendEvent(NoteListEvent.NavigateToNewNote)
-            NoteListAction.OnImportClick -> sendEvent(NoteListEvent.LaunchImportPicker)
+            NoteListAction.OnImportClick -> handleImport()
             NoteListAction.OnOpenFromDeviceClick -> sendEvent(NoteListEvent.LaunchOpenPicker)
             is NoteListAction.OnNoteClick -> sendEvent(NoteListEvent.NavigateToEditor(action.noteId))
             is NoteListAction.OnDeleteNote -> viewModelScope.launch { deleteNote(action.noteId) }
@@ -42,6 +45,17 @@ class NoteListViewModel(
 
     private fun sendEvent(event: NoteListEvent) {
         viewModelScope.launch { _events.send(event) }
+    }
+
+    private fun handleImport() {
+        viewModelScope.launch {
+            importNote().onSuccess { noteId ->
+                if (noteId != null) { // null = user canceled the file picker
+                    _events.send(NoteListEvent.NavigateToImportedNote(noteId))
+                }
+            }
+            // Result.Error case: silently ignored for now — see note below
+        }
     }
 
     private fun observeNotes() {

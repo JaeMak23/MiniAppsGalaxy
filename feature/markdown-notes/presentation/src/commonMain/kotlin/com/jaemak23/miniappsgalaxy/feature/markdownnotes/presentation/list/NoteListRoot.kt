@@ -10,7 +10,7 @@ import org.koin.compose.viewmodel.koinViewModel
 fun NoteListRoot(
     onNavigateToNewNote: () -> Unit,
     onNavigateToEditor: (String) -> Unit,
-    onLaunchImportPicker: () -> Unit,
+    onNavigateToImportedNote: (String) -> Unit,
     onLaunchOpenPicker: () -> Unit,
     viewModel: NoteListViewModel = koinViewModel()
 ) {
@@ -20,7 +20,7 @@ fun NoteListRoot(
         when (event) {
             NoteListEvent.NavigateToNewNote -> onNavigateToNewNote()
             is NoteListEvent.NavigateToEditor -> onNavigateToEditor(event.noteId)
-            NoteListEvent.LaunchImportPicker -> onLaunchImportPicker()
+            is NoteListEvent.NavigateToImportedNote -> onNavigateToImportedNote(event.noteId)
             NoteListEvent.LaunchOpenPicker -> onLaunchOpenPicker()
         }
     }
