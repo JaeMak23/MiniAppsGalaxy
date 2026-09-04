@@ -22,7 +22,7 @@ fun MarkdownNotesNavigation(onExit: () -> Unit) {
     NavDisplay(
         modifier = Modifier.fillMaxSize(),
         backStack = backStack,
-        onBack = { backStack.goBack() }) { key ->
+        onBack = { if (!backStack.goBack()) onExit() }) { key ->
         when (key) {
             is MarkdownNotesRoute.List -> NavEntry(key) {
                 NoteListRoot(
@@ -38,7 +38,8 @@ fun MarkdownNotesNavigation(onExit: () -> Unit) {
                                 isFromOpen = true
                             )
                         )
-                    })
+                    },
+                    onExit = onExit)
             }
 
             is MarkdownNotesRoute.Editor -> NavEntry(key) {

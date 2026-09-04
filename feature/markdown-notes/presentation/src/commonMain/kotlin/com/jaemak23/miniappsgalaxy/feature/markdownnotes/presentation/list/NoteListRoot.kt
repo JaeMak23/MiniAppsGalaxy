@@ -15,6 +15,7 @@ fun NoteListRoot(
     onNavigateToEditor: (String) -> Unit,
     onNavigateToImportedNote: (String) -> Unit,
     onNavigateToOpenedDraft: (String?) -> Unit,
+    onExit: () -> Unit,
     viewModel: NoteListViewModel = koinViewModel()
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -31,5 +32,5 @@ fun NoteListRoot(
         }
     }
 
-    NoteListScreen(state = state, onAction = viewModel::onAction)
+    NoteListScreen(state = state, onAction = viewModel::onAction,onExit=onExit)
 }

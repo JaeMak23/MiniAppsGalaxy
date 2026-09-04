@@ -3,10 +3,11 @@ package com.jaemak23.miniappsgalaxy.core.navigation
 import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
 
-fun NavBackStack<NavKey>.goBack() {
-    if (this.size > 1) {
+fun NavBackStack<NavKey>.goBack(): Boolean {
+    return if (this.size > 1) {
         this.removeAt(this.size - 1)
-    }
+        true
+    } else false
 }
 
 /**

@@ -73,6 +73,7 @@ class NoteEditorViewModel(
             NoteEditorAction.OnBackClick -> onBack()
             NoteEditorAction.OnSaveToListClick -> saveDraftToList()
             NoteEditorAction.OnSaveToDeviceClick -> requestSaveToDevice()
+            NoteEditorAction.OnExportClick -> handleExportAppOnlyNote()
 
             is NoteEditorAction.OnSetViewMode -> _state.update { it.copy(viewMode = action.mode) }
             is NoteEditorAction.OnDragRatio -> _state.update {
@@ -207,6 +208,25 @@ class NoteEditorViewModel(
                         _events.send(NoteEditorEvent.ShowMessage("Couldn't save file — try again"))
                     }
                 }
+            }
+        }
+    }
+
+    private fun handleExportAppOnlyNote() {
+        viewModelScope.launch {
+            val s = _state.value
+            when (val result = exportNote(
+                filePath = null,
+                suggestedName = s.title.ifBlank { "note" },
+                content = s.content
+            )) {
+                is Result.Success -> {
+                    if (result.data != null) {
+                        _events.send(NoteEditorEvent.ShowMessage("Exported successfully"))
+                    }
+                }
+
+                is Result.Error -> _events.send(NoteEditorEvent.ShowMessage("Couldn't export — try again"))
             }
         }
     }

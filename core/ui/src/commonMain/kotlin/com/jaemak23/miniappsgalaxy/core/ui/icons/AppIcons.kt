@@ -2,16 +2,19 @@ package com.jaemak23.miniappsgalaxy.core.ui.icons
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
+import androidx.compose.material.icons.automirrored.filled.ExitToApp
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.ShoppingCart
@@ -28,6 +31,8 @@ object AppIcons {
     val Account: ImageVector = Icons.Default.AccountCircle
     val Email: ImageVector = Icons.Default.Email
     val Menu: ImageVector = Icons.Default.Menu
+    val Close : ImageVector = Icons.Default.Close
+    val Exit : ImageVector = Icons.AutoMirrored.Filled.ExitToApp
 
     val ArrowBack: ImageVector = Icons.AutoMirrored.Default.KeyboardArrowLeft
     val ArrowNext: ImageVector = Icons.AutoMirrored.Default.ArrowForward
@@ -38,6 +43,7 @@ object AppIcons {
     val Add : ImageVector = Icons.Default.Add
     val Delete : ImageVector = Icons.Default.Delete
     val Edit : ImageVector = Icons.Default.Edit
+    val MoreVert : ImageVector = Icons.Default.MoreVert
 
     object Home {
         val Outlined: ImageVector = Icons.Outlined.Home
