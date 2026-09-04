@@ -19,7 +19,7 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
-import com.jaemak23.miniappsgalaxy.core.ui.components.panelBorder
+import com.jaemak23.miniappsgalaxy.core.ui.components.composeeditorkit.panelBorder
 
 /**
  * Lightweight pure-Kotlin markdown renderer — no platform-specific library,

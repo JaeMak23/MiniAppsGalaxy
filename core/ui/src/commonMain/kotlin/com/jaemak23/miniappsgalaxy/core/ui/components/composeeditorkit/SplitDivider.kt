@@ -1,4 +1,4 @@
-package com.jaemak23.miniappsgalaxy.feature.markdownnotes.presentation.editor
+package com.jaemak23.miniappsgalaxy.core.ui.components.composeeditorkit
 
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.draggable

@@ -1,7 +1,6 @@
 package com.jaemak23.miniappsgalaxy.feature.markdownnotes.presentation.editor
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.BasicTextField
@@ -20,10 +19,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.jaemak23.miniappsgalaxy.core.ui.components.MoreVertOptions
 import com.jaemak23.miniappsgalaxy.core.ui.components.NavigationIcon
 import com.jaemak23.miniappsgalaxy.core.ui.components.ThemeActionButton
 import com.jaemak23.miniappsgalaxy.core.ui.components.TooltipIconButton
-import com.jaemak23.miniappsgalaxy.core.ui.components.panelBorder
+import com.jaemak23.miniappsgalaxy.core.ui.components.composeeditorkit.panelBorder
 import com.jaemak23.miniappsgalaxy.core.ui.icons.AppIcons
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -128,45 +128,3 @@ private fun ActionRow(
         }
     }
 }
-
-@Composable
-fun MoreVertOptions(
-    menuExpanded: Boolean,
-    onAction: (Boolean) -> Unit,
-    content: @Composable (ColumnScope.() -> Unit)
-) {
-    Box {
-        TooltipIconButton("More options", onClick = { onAction(true) }) {
-            Icon(AppIcons.MoreVert, "More options")
-        }
-        DropdownMenu(
-            expanded = menuExpanded,
-            onDismissRequest = { onAction(false) },
-            content = content
-        )
-    }
-}
-
-/*
-@Composable
-fun ThemeActionButton() {
-    var menuExpanded by remember { mutableStateOf(false) }
-    val themeStr = "Change Theme flavors and theme-mode"
-    val isDarkMode = LocalDarkMode.current
-
-    Box {
-        TooltipIconButton(themeStr, onClick = { menuExpanded = true }) {
-            Icon(AppIcons.Theme, themeStr)
-        }
-        DropdownMenu(
-            expanded = menuExpanded,
-            onDismissRequest = { menuExpanded = false }) {
-            DropdownMenuItem(text = {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text("DarkMode : ")
-                    Switch(checked = isDarkMode.value, onCheckedChange = { isDarkMode.value = it })
-                }
-            }, onClick = {})
-        }
-    }
-}*/
