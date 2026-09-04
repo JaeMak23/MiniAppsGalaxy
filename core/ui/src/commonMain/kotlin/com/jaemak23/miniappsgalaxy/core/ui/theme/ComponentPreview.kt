@@ -17,17 +17,20 @@ import org.koin.dsl.koinConfiguration
 
 @Composable
 fun ComponentPreview(
-    flavor: AppThemeFlavor = ThemeManager.Blue.flavor,
+    initialFlavor : ThemeManager = ThemeManager.Blue,
     darkMode: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val darkModeState = remember { mutableStateOf(darkMode) }
+    val themeFlavor = remember { mutableStateOf(initialFlavor) }
+    val flavor = themeFlavor.value.flavor
+
     val mesh = flavor.meshGradient(darkModeState.value)
     val colorScheme = flavor.colorScheme(darkModeState.value)
     val snackbarHostState = remember { SnackbarHostState() }
 
     AppTheme(colorScheme) {
-        AdaptiveProvider(darkModeState, mesh, snackbarHostState){
+        AdaptiveProvider(darkModeState, themeFlavor, mesh, snackbarHostState) {
             Box(Modifier.fillMaxSize()) {
                 content()
                 SnackbarHost(
@@ -41,13 +44,13 @@ fun ComponentPreview(
 
 @Composable
 fun AppPreview(
-    flavor: AppThemeFlavor = ThemeManager.Blue.flavor,
+    initialFlavor : ThemeManager  = ThemeManager.Blue,
     modules: List<Module> = emptyList(),
     content: @Composable () -> Unit
 ) {
     KoinApplication(
         configuration = koinConfiguration { modules(modules) }
     ) {
-        AppContent(flavor, content)
+        AppContent(initialFlavor, content)
     }
 }

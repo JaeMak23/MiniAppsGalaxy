@@ -9,12 +9,12 @@ import com.jaemak23.miniappsgalaxy.core.ui.icons.AppIcons
 
 @Composable
 fun NavigationIcon(
-    onClick: () -> Unit,
     modifier: Modifier = Modifier,
     icon: ImageVector = AppIcons.ArrowBack,
     toolTip: String = "Back",
-    contentDescription: String? = toolTip
-) {
+    contentDescription: String? = toolTip,
+    onClick: () -> Unit,
+    ) {
     TooltipIconButton(toolTip, onClick, modifier, TooltipAnchorPosition.Below) {
         Icon(icon, contentDescription = contentDescription)
     }

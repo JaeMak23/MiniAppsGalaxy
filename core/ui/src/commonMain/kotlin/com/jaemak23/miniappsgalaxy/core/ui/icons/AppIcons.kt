@@ -7,6 +7,7 @@ import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
@@ -44,6 +45,7 @@ object AppIcons {
     val Delete : ImageVector = Icons.Default.Delete
     val Edit : ImageVector = Icons.Default.Edit
     val MoreVert : ImageVector = Icons.Default.MoreVert
+    val Check : ImageVector = Icons.Default.Check
 
     object Home {
         val Outlined: ImageVector = Icons.Outlined.Home
@@ -82,4 +84,5 @@ object AppIcons {
     val Import : ImageVector = DownloadIcon
     val SplitIconHorizontal : ImageVector = PhosphorSplitHorizontal
     val SplitIconVertical : ImageVector = PhosphorSplitVertical
+    val Theme : ImageVector = ThemeIcon
 }

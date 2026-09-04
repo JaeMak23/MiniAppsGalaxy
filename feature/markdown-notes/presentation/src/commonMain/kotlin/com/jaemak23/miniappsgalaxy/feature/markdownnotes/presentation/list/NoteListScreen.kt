@@ -28,6 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.jaemak23.miniappsgalaxy.core.ui.adaptive.isCompact
+import com.jaemak23.miniappsgalaxy.core.ui.components.ThemeActionButton
 import com.jaemak23.miniappsgalaxy.core.ui.icons.AppIcons
 
 @Composable
@@ -41,6 +42,7 @@ fun NoteListScreen(
             TopAppBar(
                 title = { Text("Markdown Notes") },
                 actions = {
+                    ThemeActionButton()
                     OutlinedButton(onExit) {
                         Icon(AppIcons.Exit, "Exit")
                         Text("Exit")

@@ -6,10 +6,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.graphics.Color
+import com.jaemak23.miniappsgalaxy.core.ui.theme.ThemeManager
 
 @Composable
 fun AdaptiveProvider(
     darkMode: MutableState<Boolean>,
+    themeFlavor: MutableState<ThemeManager>,
     gradientTheme: List<Color>,
     snackbarHostState: SnackbarHostState,
     content: @Composable () -> Unit
@@ -20,6 +22,7 @@ fun AdaptiveProvider(
     CompositionLocalProvider(
         LocalWindowAdaptiveInfo provides adaptiveInfo,
         LocalDarkMode provides darkMode,
+        LocalThemeFlavor provides themeFlavor,
         LocalDeviceWidth provides deviceWidth,
         LocalMeshGradientTheme provides gradientTheme,
         LocalSnackbarHostState provides snackbarHostState,
