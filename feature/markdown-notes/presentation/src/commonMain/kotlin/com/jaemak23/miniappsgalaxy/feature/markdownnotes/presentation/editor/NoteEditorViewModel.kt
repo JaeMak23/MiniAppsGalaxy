@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jaemak23.miniappsgalaxy.core.domain.onSuccess
 import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.usecase.ClearDraftUseCase
+import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.usecase.ExportNoteUseCase
 import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.usecase.GetDraftUseCase
 import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.usecase.GetNoteByIdUseCase
 import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.usecase.SaveDraftUseCase
@@ -18,13 +19,8 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlin.time.Duration.Companion.milliseconds
+import com.jaemak23.miniappsgalaxy.core.domain.Result
 
-/**
- * origin is injected directly via Koin parametersOf (see NoteEditorRoot),
- * not parsed from SavedStateHandle — MarkdownNotesRoute.Editor carries
- * typed args (noteId / importedNoteId / filePath / isFromOpen) and the
- * nav layer resolves those into a NoteEditorOrigin before creating this VM.
- */
 class NoteEditorViewModel(
     private val origin: NoteEditorOrigin, // now injected directly, not parsed from SavedStateHandle
     private val savedStateHandle: SavedStateHandle,
@@ -32,7 +28,8 @@ class NoteEditorViewModel(
     private val saveNote: SaveNoteUseCase,
     private val saveDraft: SaveDraftUseCase,
     private val getDraft: GetDraftUseCase,
-    private val clearDraft: ClearDraftUseCase
+    private val clearDraft: ClearDraftUseCase,
+    private val exportNote: ExportNoteUseCase
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(
@@ -72,12 +69,20 @@ class NoteEditorViewModel(
         when (action) {
             is NoteEditorAction.OnTitleChange -> updateField(title = action.title)
             is NoteEditorAction.OnContentChange -> updateField(content = action.content)
-            NoteEditorAction.OnTogglePreview ->
-                _state.update { it.copy(isPreviewMode = !it.isPreviewMode) }
 
             NoteEditorAction.OnBackClick -> onBack()
             NoteEditorAction.OnSaveToListClick -> saveDraftToList()
             NoteEditorAction.OnSaveToDeviceClick -> requestSaveToDevice()
+            NoteEditorAction.OnExportClick -> handleExportAppOnlyNote()
+
+            is NoteEditorAction.OnSetViewMode -> _state.update { it.copy(viewMode = action.mode) }
+            is NoteEditorAction.OnDragRatio -> _state.update {
+                it.copy(
+                    viewMode = resolveDragRatio(
+                        action.ratio
+                    )
+                )
+            }
         }
     }
 
@@ -157,6 +162,8 @@ class NoteEditorViewModel(
                                 content = s.content,
                                 createdAt = s.createdAt
                             )
+                            _events.send(NoteEditorEvent.ShowMessage("Note saved"))
+
                         }
                     }
 
@@ -173,20 +180,63 @@ class NoteEditorViewModel(
             val s = _state.value
             saveNote(id = null, title = s.title, content = s.content, createdAt = null)
             clearDraft()
+            _events.send(NoteEditorEvent.ShowMessage("Note added to list"))
             _events.send(NoteEditorEvent.NavigateBack)
         }
     }
 
-    /** Save/Replace if filePath known, else ask caller to launch a Save As picker. */
     private fun requestSaveToDevice() {
-        val s = _state.value
-        val filePath = (s.origin as? NoteEditorOrigin.FromOpen)?.filePath
-        if (filePath != null) {
-            // TODO: call ExportNoteUseCase(filePath, s.title, s.content) once FileAccessDataSource exists
-        } else {
-            viewModelScope.launch {
-                _events.send(NoteEditorEvent.LaunchSaveAsPicker(suggestedName = s.title.ifBlank { "note" }))
+        viewModelScope.launch {
+            val s = _state.value
+            val currentFilePath = (s.origin as? NoteEditorOrigin.FromOpen)?.filePath
+
+            exportNote(
+                filePath = currentFilePath,
+                suggestedName = s.title.ifBlank { "note" },
+                content = s.content
+            ).let { result ->
+                when (result) {
+                    is Result.Success -> {
+                        if (result.data != null) {
+                            clearDraft()
+                            _events.send(NoteEditorEvent.ShowMessage("File saved successfully"))
+                            _events.send(NoteEditorEvent.NavigateBack)
+                        }
+                    }
+
+                    is Result.Error -> {
+                        _events.send(NoteEditorEvent.ShowMessage("Couldn't save file — try again"))
+                    }
+                }
             }
+        }
+    }
+
+    private fun handleExportAppOnlyNote() {
+        viewModelScope.launch {
+            val s = _state.value
+            when (val result = exportNote(
+                filePath = null,
+                suggestedName = s.title.ifBlank { "note" },
+                content = s.content
+            )) {
+                is Result.Success -> {
+                    if (result.data != null) {
+                        _events.send(NoteEditorEvent.ShowMessage("Exported successfully"))
+                    }
+                }
+
+                is Result.Error -> _events.send(NoteEditorEvent.ShowMessage("Couldn't export — try again"))
+            }
+        }
+    }
+
+    private fun resolveDragRatio(rawRatio: Float): EditorViewMode {
+        val clamped = rawRatio.coerceIn(0f, 1f)
+        return when {
+            clamped >= 0.9f -> EditorViewMode.EditorOnly
+            clamped <= 0.1f -> EditorViewMode.PreviewOnly
+            else -> EditorViewMode.Split(clamped)
         }
     }
 }

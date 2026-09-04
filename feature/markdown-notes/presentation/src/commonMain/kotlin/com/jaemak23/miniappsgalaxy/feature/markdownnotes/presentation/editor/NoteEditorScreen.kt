@@ -1,34 +1,29 @@
 package com.jaemak23.miniappsgalaxy.feature.markdownnotes.presentation.editor
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
+import com.jaemak23.miniappsgalaxy.core.ui.components.NavigationIcon
+import com.jaemak23.miniappsgalaxy.core.ui.components.ThemeActionButton
+import com.jaemak23.miniappsgalaxy.core.ui.components.TooltipIconButton
+import com.jaemak23.miniappsgalaxy.core.ui.components.panelBorder
 import com.jaemak23.miniappsgalaxy.core.ui.icons.AppIcons
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -41,118 +36,137 @@ fun NoteEditorScreen(
         topBar = {
             TopAppBar(
                 title = {
-                    TextField(
-                        value = state.title,
-                        onValueChange = { onAction(NoteEditorAction.OnTitleChange(it)) },
-                        placeholder = { Text("Title") },
-                        singleLine = true,
-                        colors = TextFieldDefaults.colors(
-                            unfocusedContainerColor = MaterialTheme.colorScheme.surface,
-                            focusedContainerColor = MaterialTheme.colorScheme.surface
+                    Box(
+                        modifier = Modifier.panelBorder()
+                            .padding(horizontal = 20.dp, vertical = 8.dp)
+                    ) {
+                        if (state.title.isBlank()) {
+                            Text(
+                                "Note Title",
+                                style = MaterialTheme.typography.titleMedium.copy(
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                            )
+                        }
+                        BasicTextField(
+                            value = state.title,
+                            onValueChange = { onAction(NoteEditorAction.OnTitleChange(it)) },
+                            singleLine = true,
+                            textStyle = MaterialTheme.typography.titleMedium.copy(
+                                color = MaterialTheme.colorScheme.onSurface
+                            )
                         )
-                    )
-                },
-                navigationIcon = {
-                    IconButton(onClick = { onAction(NoteEditorAction.OnBackClick) }) {
-                        Icon(AppIcons.ArrowBack, contentDescription = "Back")
                     }
                 },
+                navigationIcon = { NavigationIcon { onAction(NoteEditorAction.OnBackClick) } },
                 actions = {
-                    if (state.isDraftMode) {
-                        IconButton(onClick = { onAction(NoteEditorAction.OnSaveToListClick) }) {
-                            Icon(AppIcons.Save, contentDescription = "Save to notes list")
-                        }
-                        IconButton(onClick = { onAction(NoteEditorAction.OnSaveToDeviceClick) }) {
-                            Icon(AppIcons.Import, contentDescription = "Save to device")
-                        }
-                    }
-                    IconButton(onClick = { onAction(NoteEditorAction.OnTogglePreview) }) {
-                        Icon(
-                            imageVector = if (state.isPreviewMode) AppIcons.VisibilityOff else AppIcons.Visibility,
-                            contentDescription = if (state.isPreviewMode) "Edit" else "Preview"
-                        )
-                    }
+                    ActionRow(
+                        isDraftMode = state.isDraftMode,
+                        onSaveToListClick = { onAction(NoteEditorAction.OnSaveToListClick) },
+                        onSaveToDeviceClick = { onAction(NoteEditorAction.OnSaveToDeviceClick) },
+                        onExportClick = { onAction(NoteEditorAction.OnExportClick) },
+                    )
                 }
             )
         }
     ) { padding ->
         Box(modifier = Modifier.fillMaxSize().padding(padding)) {
-            if (state.isPreviewMode) {
-                MarkdownPreview(
-                    markdown = state.content,
-                    modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp)
-                )
-            } else {
-                TextField(
-                    value = state.content,
-                    onValueChange = { onAction(NoteEditorAction.OnContentChange(it)) },
-                    modifier = Modifier.fillMaxSize().padding(16.dp),
-                    placeholder = { Text("Write markdown here…") },
-                    keyboardOptions = KeyboardOptions.Default,
-                    colors = TextFieldDefaults.colors(
-                        unfocusedContainerColor = MaterialTheme.colorScheme.background,
-                        focusedContainerColor = MaterialTheme.colorScheme.background,
-                        unfocusedIndicatorColor = Color.Transparent,
-                        focusedIndicatorColor = Color.Transparent
-                    )
-                )
-            }
+            NoteEditorLayout(
+                state = state,
+                onAction = onAction,
+                modifier = Modifier.fillMaxSize()
+            )
         }
     }
 }
 
-/**
- * Lightweight pure-Kotlin markdown renderer — no platform-specific library,
- * works identically on androidApp and desktopApp.
- * Supports: # ## ### headers, **bold**, *italic*, `code`, - / * bullet lists.
- */
 @Composable
-private fun MarkdownPreview(markdown: String, modifier: Modifier = Modifier) {
-    Column(modifier = modifier) {
-        markdown.lines().forEach { line ->
-            when {
-                line.isBlank() -> Spacer(Modifier.height(8.dp))
-                line.startsWith("### ") -> Text(line.removePrefix("### "), style = MaterialTheme.typography.titleMedium)
-                line.startsWith("## ") -> Text(line.removePrefix("## "), style = MaterialTheme.typography.titleLarge)
-                line.startsWith("# ") -> Text(line.removePrefix("# "), style = MaterialTheme.typography.headlineSmall)
-                line.trimStart().startsWith("- ") || line.trimStart().startsWith("* ") -> {
-                    Row {
-                        Text("•  ")
-                        Text(text = inlineMarkdown(line.trimStart().removePrefix("- ").removePrefix("* ")))
+private fun ActionRow(
+    isDraftMode: Boolean,
+    onSaveToListClick: () -> Unit,
+    onSaveToDeviceClick: () -> Unit,
+    onExportClick: () -> Unit
+) {
+    val toNote = "Save to notes list"
+    val toDevice = "Save to device"
+
+    var menuExpanded by remember { mutableStateOf(false) }
+
+    if (isDraftMode) {
+        TooltipIconButton(toNote, onSaveToListClick) {
+            Icon(AppIcons.Save, toNote)
+        }
+        TooltipIconButton(toDevice, onSaveToDeviceClick) {
+            Icon(AppIcons.Import, toDevice)
+        }
+
+        ThemeActionButton()
+        MoreVertOptions(menuExpanded, onAction = { menuExpanded = it }) {
+
+        }
+
+    } else {
+        ThemeActionButton()
+        MoreVertOptions(menuExpanded, onAction = { menuExpanded = it }) {
+            DropdownMenu(
+                expanded = menuExpanded,
+                onDismissRequest = { menuExpanded = false }) {
+                DropdownMenuItem(
+                    text = { Text("Export to device") },
+                    leadingIcon = {
+                        Icon(
+                            AppIcons.Import,
+                            contentDescription = null
+                        )
+                    },
+                    onClick = {
+                        menuExpanded = false
+                        onExportClick()
                     }
-                }
-                else -> Text(text = inlineMarkdown(line))
+                )
             }
         }
     }
 }
 
-private fun inlineMarkdown(text: String) = buildAnnotatedString {
-    var i = 0
-    while (i < text.length) {
-        when {
-            text.startsWith("**", i) -> {
-                val end = text.indexOf("**", i + 2)
-                if (end == -1) { append(text[i]); i++ } else {
-                    withStyle(SpanStyle(fontWeight = FontWeight.Bold)) { append(text.substring(i + 2, end)) }
-                    i = end + 2
-                }
-            }
-            text.startsWith("`", i) -> {
-                val end = text.indexOf("`", i + 1)
-                if (end == -1) { append(text[i]); i++ } else {
-                    withStyle(SpanStyle(fontFamily = FontFamily.Monospace)) { append(text.substring(i + 1, end)) }
-                    i = end + 1
-                }
-            }
-            text.startsWith("*", i) -> {
-                val end = text.indexOf("*", i + 1)
-                if (end == -1) { append(text[i]); i++ } else {
-                    withStyle(SpanStyle(fontStyle = FontStyle.Italic)) { append(text.substring(i + 1, end)) }
-                    i = end + 1
-                }
-            }
-            else -> { append(text[i]); i++ }
+@Composable
+fun MoreVertOptions(
+    menuExpanded: Boolean,
+    onAction: (Boolean) -> Unit,
+    content: @Composable (ColumnScope.() -> Unit)
+) {
+    Box {
+        TooltipIconButton("More options", onClick = { onAction(true) }) {
+            Icon(AppIcons.MoreVert, "More options")
         }
+        DropdownMenu(
+            expanded = menuExpanded,
+            onDismissRequest = { onAction(false) },
+            content = content
+        )
     }
 }
+
+/*
+@Composable
+fun ThemeActionButton() {
+    var menuExpanded by remember { mutableStateOf(false) }
+    val themeStr = "Change Theme flavors and theme-mode"
+    val isDarkMode = LocalDarkMode.current
+
+    Box {
+        TooltipIconButton(themeStr, onClick = { menuExpanded = true }) {
+            Icon(AppIcons.Theme, themeStr)
+        }
+        DropdownMenu(
+            expanded = menuExpanded,
+            onDismissRequest = { menuExpanded = false }) {
+            DropdownMenuItem(text = {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text("DarkMode : ")
+                    Switch(checked = isDarkMode.value, onCheckedChange = { isDarkMode.value = it })
+                }
+            }, onClick = {})
+        }
+    }
+}*/

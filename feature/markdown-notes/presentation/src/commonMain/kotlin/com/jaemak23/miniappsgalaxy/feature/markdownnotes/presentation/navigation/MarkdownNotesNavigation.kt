@@ -22,25 +22,24 @@ fun MarkdownNotesNavigation(onExit: () -> Unit) {
     NavDisplay(
         modifier = Modifier.fillMaxSize(),
         backStack = backStack,
-        onBack = { backStack.goBack() }
-    ) { key ->
+        onBack = { if (!backStack.goBack()) onExit() }) { key ->
         when (key) {
             is MarkdownNotesRoute.List -> NavEntry(key) {
                 NoteListRoot(
-                    onNavigateToNewNote = {
-                        backStack.add(MarkdownNotesRoute.Editor())
+                    onNavigateToNewNote = { backStack.add(MarkdownNotesRoute.Editor()) },
+                    onNavigateToEditor = { noteId -> backStack.add(MarkdownNotesRoute.Editor(noteId = noteId)) },
+                    onNavigateToImportedNote = { importedNoteId ->
+                        backStack.add(MarkdownNotesRoute.Editor(importedNoteId = importedNoteId))
                     },
-                    onNavigateToEditor = { noteId ->
-                        backStack.add(MarkdownNotesRoute.Editor(noteId = noteId))
+                    onNavigateToOpenedDraft = { filePath ->
+                        backStack.add(
+                            MarkdownNotesRoute.Editor(
+                                filePath = filePath,
+                                isFromOpen = true
+                            )
+                        )
                     },
-                    onLaunchImportPicker = {
-                        // TODO: platform file picker -> on result, addRoute(Editor(importedNoteId = ...))
-                        // depends on FileAccessDataSource, not yet scaffolded
-                    },
-                    onLaunchOpenPicker = {
-                        // TODO: platform file picker -> on result, addRoute(Editor(filePath = ..., isFromOpen = true))
-                    }
-                )
+                    onExit = onExit)
             }
 
             is MarkdownNotesRoute.Editor -> NavEntry(key) {
@@ -48,9 +47,6 @@ fun MarkdownNotesNavigation(onExit: () -> Unit) {
                     origin = resolveOrigin(key),
                     instantKey = key.instanceId,
                     onNavigateBack = { backStack.goBack() },
-                    onLaunchSaveAsPicker = { suggestedName ->
-                        // TODO: platform Save As picker -> on result, call ExportNoteUseCase
-                    }
                 )
             }
 

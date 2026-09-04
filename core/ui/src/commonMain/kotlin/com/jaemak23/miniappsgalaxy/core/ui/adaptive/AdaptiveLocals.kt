@@ -6,6 +6,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.ui.graphics.Color
 import androidx.window.core.layout.WindowSizeClass
+import com.jaemak23.miniappsgalaxy.core.ui.theme.ThemeManager
 
 val LocalWindowAdaptiveInfo = compositionLocalOf<WindowAdaptiveInfo> {
     error("No LocalWindowAdaptiveInfo provided")
@@ -13,6 +14,10 @@ val LocalWindowAdaptiveInfo = compositionLocalOf<WindowAdaptiveInfo> {
 
 val LocalDarkMode = compositionLocalOf<MutableState<Boolean>> {
     error("No LocalDarkMode provided")
+}
+
+val LocalThemeFlavor = compositionLocalOf<MutableState<ThemeManager>> {
+    error("No LocalThemeFlavor provided")
 }
 
 val LocalDeviceWidth = compositionLocalOf { DeviceSize.PHONE }

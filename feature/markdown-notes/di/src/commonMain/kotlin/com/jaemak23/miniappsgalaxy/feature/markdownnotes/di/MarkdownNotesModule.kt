@@ -9,10 +9,12 @@ import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.DraftDataSource
 import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.NoteLocalDataSource
 import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.usecase.ClearDraftUseCase
 import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.usecase.DeleteNoteUseCase
+import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.usecase.ExportNoteUseCase
 import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.usecase.GetDraftUseCase
 import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.usecase.GetNoteByIdUseCase
 import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.usecase.GetNotesUseCase
 import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.usecase.ImportNoteUseCase
+import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.usecase.OpenFileAsDraftUseCase
 import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.usecase.SaveDraftUseCase
 import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.usecase.SaveNoteUseCase
 import com.jaemak23.miniappsgalaxy.feature.markdownnotes.presentation.editor.NoteEditorViewModel
@@ -45,10 +47,11 @@ val markdownNotesDomainModule = module {
     factoryOf(::SaveNoteUseCase)
     factoryOf(::DeleteNoteUseCase)
     factoryOf(::ImportNoteUseCase)
+    factoryOf(::OpenFileAsDraftUseCase)
     factoryOf(::SaveDraftUseCase)
     factoryOf(::GetDraftUseCase)
     factoryOf(::ClearDraftUseCase)
-    // ExportNoteUseCase intentionally omitted — depends on FileAccessDataSource, not yet scaffolded
+    factoryOf(::ExportNoteUseCase)
 }
 
 val markdownNotesPresentationModule = module {
@@ -56,6 +59,7 @@ val markdownNotesPresentationModule = module {
     viewModel { params ->
         NoteEditorViewModel(
             params.get(),
+            get(),
             get(),
             get(),
             get(),

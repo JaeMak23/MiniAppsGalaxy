@@ -14,10 +14,16 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            api(libs.koin.core)
-            implementation(project(":core:domain"))
+            implementation(projects.core.domain)
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.kotlinx.serialization.json)
+
+            implementation(libs.filekit.core)
+            implementation(libs.filekit.dialogs)
+            implementation(libs.filekit.dialogs.compose)
+
+            api(libs.koin.core)
+
         }
     }
 }

@@ -6,16 +6,21 @@ import com.jaemak23.miniappsgalaxy.core.common.util.debugPrint
 import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.usecase.DeleteNoteUseCase
 import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.model.Note
 import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.usecase.GetNotesUseCase
+import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.usecase.ImportNoteUseCase
+import com.jaemak23.miniappsgalaxy.feature.markdownnotes.domain.usecase.OpenFileAsDraftUseCase
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import kotlin.time.Instant
+import com.jaemak23.miniappsgalaxy.core.domain.Result
 
 class NoteListViewModel(
     private val getNotes: GetNotesUseCase,
-    private val deleteNote: DeleteNoteUseCase
+    private val deleteNote: DeleteNoteUseCase,
+    private val importNote: ImportNoteUseCase,
+    private val openFileAsDraft: OpenFileAsDraftUseCase
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(NoteListState())
@@ -32,16 +37,55 @@ class NoteListViewModel(
     fun onAction(action: NoteListAction) {
         when (action) {
             NoteListAction.OnNewClick -> sendEvent(NoteListEvent.NavigateToNewNote)
-            NoteListAction.OnImportClick -> sendEvent(NoteListEvent.LaunchImportPicker)
-            NoteListAction.OnOpenFromDeviceClick -> sendEvent(NoteListEvent.LaunchOpenPicker)
+            NoteListAction.OnImportClick -> handleImport()
+            NoteListAction.OnOpenFromDeviceClick -> handleOpenFromDevice()
             is NoteListAction.OnNoteClick -> sendEvent(NoteListEvent.NavigateToEditor(action.noteId))
-            is NoteListAction.OnDeleteNote -> viewModelScope.launch { deleteNote(action.noteId) }
-
+            is NoteListAction.OnDeleteNote -> viewModelScope.launch {
+                deleteNote(action.noteId)
+                _events.send(NoteListEvent.ShowMessage("Note deleted"))
+            }
         }
     }
 
     private fun sendEvent(event: NoteListEvent) {
         viewModelScope.launch { _events.send(event) }
+    }
+
+    private fun handleImport() {
+        viewModelScope.launch {
+            when (val result = importNote()) {
+                is Result.Success -> {
+                    val noteId = result.data
+                    if (noteId != null) {
+                        _events.send(NoteListEvent.ShowMessage("Note imported successfully"))
+                        _events.send(NoteListEvent.NavigateToImportedNote(noteId))
+                    }
+                    // null = user cancelled — no message
+                }
+
+                is Result.Error -> {
+                    _events.send(NoteListEvent.ShowMessage("Couldn't import file — try again"))
+                }
+            }
+        }
+    }
+
+    private fun handleOpenFromDevice() {
+        viewModelScope.launch {
+            when (val result = openFileAsDraft()) {
+                is Result.Success -> {
+                    val opened = result.data
+                    if (opened != null) {
+                        _events.send(NoteListEvent.NavigateToOpenedDraft(opened.filePath))
+                    }
+                    // null = user cancelled — no message
+                }
+
+                is Result.Error -> {
+                    _events.send(NoteListEvent.ShowMessage("Couldn't open file — try again"))
+                }
+            }
+        }
     }
 
     private fun observeNotes() {

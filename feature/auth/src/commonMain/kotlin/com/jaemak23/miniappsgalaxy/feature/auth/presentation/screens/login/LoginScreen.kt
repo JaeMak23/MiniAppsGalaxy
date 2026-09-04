@@ -6,18 +6,17 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.input.rememberTextFieldState
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.jaemak23.miniappsgalaxy.core.ui.adaptive.LocalSnackbarHostState
 import com.jaemak23.miniappsgalaxy.core.ui.adaptive.isCompact
-import com.jaemak23.miniappsgalaxy.core.ui.components.ThemeBar
+import com.jaemak23.miniappsgalaxy.core.ui.components.ThemeActionButton
 import com.jaemak23.miniappsgalaxy.feature.auth.presentation.components.AuthActionBlock
 import com.jaemak23.miniappsgalaxy.feature.auth.presentation.components.AuthHeader
 import com.jaemak23.miniappsgalaxy.feature.auth.presentation.components.authbody.authinput.AuthInputBundle
@@ -29,7 +28,6 @@ import org.koin.compose.viewmodel.koinViewModel
 @Composable
 fun LoginScreen(
     viewModel: LoginViewModel = koinViewModel(),
-    snackbarHostState: SnackbarHostState,
     onLoadingChange: (Boolean) -> Unit,
     onSignupClick: () -> Unit,
     onLoginSuccess: () -> Unit,
@@ -37,6 +35,7 @@ fun LoginScreen(
     val uiState = viewModel.uiState.collectAsStateWithLifecycle()
     val emailState = rememberTextFieldState()
     val passwordState = rememberTextFieldState()
+    val snackbarHostState = LocalSnackbarHostState.current
 
     val header = AuthCaptions.Login
     val actions = AuthActions.Login
@@ -65,14 +64,9 @@ fun LoginScreen(
     ) {
         item {
             Box(Modifier.fillMaxWidth()) {
-                ThemeBar(
-                    modifier = Modifier
-                        .align(Alignment.TopEnd)
-                        .padding(bottom = 8.dp)
-                )
+                ThemeActionButton(Modifier.align(Alignment.TopEnd))
             }
-        }
-        item {
+
             Spacer(Modifier.height(32.dp))
             AuthHeader(header.heading, header.description, Modifier.fillMaxWidth())
 

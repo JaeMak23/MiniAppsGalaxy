@@ -30,7 +30,7 @@ fun DashBoardNavigation(onLogout: () -> Unit) {
             }
 
             is DashboardRoute.MarkdownNotes -> NavEntry(key) {
-                MarkdownNotesNavigation(onExit = { backStack.goBack() })
+                MarkdownNotesNavigation { backStack.goBack() }
             }
 
             else -> NavEntry(key) {}

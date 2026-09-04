@@ -14,6 +14,8 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
+            implementation(projects.core.data)
+            implementation(projects.core.domain)
             implementation(projects.feature.markdownNotes.data)
             implementation(projects.feature.markdownNotes.domain)
             implementation(projects.feature.markdownNotes.presentation)

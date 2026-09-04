@@ -11,59 +11,52 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.Card
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
-import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.jaemak23.miniappsgalaxy.core.ui.adaptive.isCompact
+import com.jaemak23.miniappsgalaxy.core.ui.components.ThemeActionButton
 import com.jaemak23.miniappsgalaxy.core.ui.icons.AppIcons
 
 @Composable
 fun NoteListScreen(
     state: NoteListState,
-    onAction: (NoteListAction) -> Unit
+    onAction: (NoteListAction) -> Unit,
+    onExit: () -> Unit
 ) {
-    var fabMenuExpanded by remember { mutableStateOf(false) }
-
     Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("Markdown Notes") },
+                actions = {
+                    ThemeActionButton()
+                    OutlinedButton(onExit) {
+                        Icon(AppIcons.Exit, "Exit")
+                        Text("Exit")
+                    }
+
+                }
+            )
+        },
         floatingActionButton = {
-            Box {
-                FloatingActionButton(onClick = { fabMenuExpanded = true }) {
-                    Icon(AppIcons.Add, contentDescription = "Add note")
-                }
-                DropdownMenu(expanded = fabMenuExpanded, onDismissRequest = { fabMenuExpanded = false }) {
-                    DropdownMenuItem(
-                        text = { Text("New note") },
-                        leadingIcon = { Icon(AppIcons.Add, contentDescription = null) },
-                        onClick = { fabMenuExpanded = false; onAction(NoteListAction.OnNewClick) }
-                    )
-                    DropdownMenuItem(
-                        text = { Text("Import from device") },
-                        leadingIcon = { Icon(AppIcons.FileUpload, contentDescription = null) },
-                        onClick = { fabMenuExpanded = false; onAction(NoteListAction.OnImportClick) }
-                    )
-                    DropdownMenuItem(
-                        text = { Text("Open from device") },
-                        leadingIcon = { Icon(AppIcons.FileOpen, contentDescription = null) },
-                        onClick = { fabMenuExpanded = false; onAction(NoteListAction.OnOpenFromDeviceClick) }
-                    )
-                }
-            }
+            NoteListFab(
+                onNewClick = { onAction(NoteListAction.OnNewClick) },
+                onImportClick = { onAction(NoteListAction.OnImportClick) },
+                onOpenClick = { onAction(NoteListAction.OnOpenFromDeviceClick) }
+            )
         }
     ) { padding ->
         if (state.notes.isEmpty() && !state.isLoading) {
@@ -73,10 +66,12 @@ fun NoteListScreen(
             return@Scaffold
         }
 
-        LazyColumn(
+        LazyVerticalGrid(
+            columns = if (isCompact) GridCells.Fixed(1) else GridCells.Adaptive(minSize = 280.dp),
             modifier = Modifier.fillMaxSize().padding(padding),
             contentPadding = PaddingValues(16.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             items(state.notes, key = { it.id }) { note ->
                 NoteRow(
