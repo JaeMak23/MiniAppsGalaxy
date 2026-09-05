@@ -20,7 +20,7 @@ jetbrains-navigation3 = "1.1.1"
 jvmTarget = "21"
 koin = "4.2.2"
 kotlinx-serialization = "1.11.0"
-material-icons-core="1.7.3"
+material-icons-core = "1.7.3"
 # database
 room = "2.8.4"
 sqlite = "2.7.0"
@@ -41,6 +41,7 @@ androidx-activity-compose = { module = "androidx.activity:activity-compose", ver
 compose-uiTooling = { module = "org.jetbrains.compose.ui:ui-tooling", version.ref = "composeMultiplatform" }
 androidx-lifecycle-viewmodelCompose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-runtimeCompose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
+compose-animation = { module = "org.jetbrains.compose.animation:animation", version.ref = "composeMultiplatform" }
 compose-runtime = { module = "org.jetbrains.compose.runtime:runtime", version.ref = "composeMultiplatform" }
 compose-foundation = { module = "org.jetbrains.compose.foundation:foundation", version.ref = "composeMultiplatform" }
 compose-material3 = { module = "org.jetbrains.compose.material3:material3", version.ref = "material3" }
@@ -60,7 +61,7 @@ jetbrains-navigation3-ui = { module = "org.jetbrains.androidx.navigation3:naviga
 jetbrains-material3-adaptiveNavigation3 = { module = "org.jetbrains.compose.material3.adaptive:adaptive-navigation3", version.ref = "compose-multiplatform-adaptive" }
 jetbrains-lifecycle-viewmodelNavigation3 = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-navigation3", version.ref = "androidx-lifecycle" }
 # Material 3 icons core
-compose-icons = { module = "org.jetbrains.compose.material:material-icons-core", version.ref="material-icons-core" }
+compose-icons = { module = "org.jetbrains.compose.material:material-icons-core", version.ref = "material-icons-core" }
 # Kotlin Corountine Core
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
 # Database
