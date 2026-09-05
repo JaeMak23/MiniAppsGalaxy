@@ -1,4 +1,4 @@
-package com.jaemak23.miniappsgalaxy.feature.markdownnotes.presentation.editor
+package com.jaemak23.miniappsgalaxy.core.ui.components.composeeditorkit
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -22,23 +22,25 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.SolidColor
-import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.sp
 import com.jaemak23.miniappsgalaxy.core.ui.adaptive.PlatformScrollbar
-import com.jaemak23.miniappsgalaxy.core.ui.components.panelBorder
 
-private val EDITOR_FONT_SIZE = 14.sp
-private val EDITOR_LINE_HEIGHT = 20.sp
-private val GUTTER_WIDTH = 48.dp
-private val VERTICAL_PADDING = 8.dp
-private val HORIZONTAL_PADDING = 12.dp
+internal val EDITOR_FONT_SIZE = 14.sp
+internal val EDITOR_LINE_HEIGHT = 20.sp
+internal val GUTTER_WIDTH = 48.dp
+internal val VERTICAL_PADDING = 8.dp
+internal val HORIZONTAL_PADDING = 12.dp
 
 @Composable
 fun EditorPane(
-    content: String, onContentChange: (String) -> Unit, modifier: Modifier = Modifier
+    content: String,
+    onContentChange: (String) -> Unit,
+    modifier: Modifier = Modifier,
+    visualTransformation: VisualTransformation = VisualTransformation.None,
+    placeholderText : String ="Write markdown here…"
 ) {
     val scrollState = rememberScrollState()
     var textLayoutResult by remember { mutableStateOf<TextLayoutResult?>(null) }
@@ -71,16 +73,12 @@ fun EditorPane(
                     .padding(horizontal = HORIZONTAL_PADDING, vertical = VERTICAL_PADDING),
                 textStyle = editorTextStyle.copy(color = MaterialTheme.colorScheme.onSurface),
                 cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
-                visualTransformation = MarkdownSyntaxHighlightTransformation(
-                    headerColor = MaterialTheme.colorScheme.primary,
-                    markerColor = MaterialTheme.colorScheme.outline,
-                    codeColor = MaterialTheme.colorScheme.tertiary
-                ),
+                visualTransformation = visualTransformation,
                 decorationBox = { innerTextField ->
                     Box {
                         if (content.isEmpty()) {
                             Text(
-                                "Write markdown here…",
+                                placeholderText,
                                 style = editorTextStyle.copy(color = MaterialTheme.colorScheme.onSurfaceVariant)
                             )
                         }
@@ -94,52 +92,5 @@ fun EditorPane(
                 modifier = Modifier.align(Alignment.CenterEnd).fillMaxHeight()
             )
         }
-    }
-}
-
-@Composable
-private fun LineNumberGutter(
-    textLayoutResult: TextLayoutResult?,
-    scrollState: androidx.compose.foundation.ScrollState,
-    modifier: Modifier = Modifier
-) {
-    val gutterColor = MaterialTheme.colorScheme.onSurfaceVariant
-    val lineCount = textLayoutResult?.lineCount ?: 1
-
-    Box(
-        modifier = modifier
-            .background(MaterialTheme.colorScheme.surfaceContainerLow)
-            .verticalScroll(scrollState)
-            .padding(vertical = VERTICAL_PADDING, horizontal = 8.dp)
-    ) {
-        Layout(
-            content = {
-                for (lineIndex in 0 until lineCount) {
-                    Text(
-                        text = (lineIndex + 1).toString(),
-                        color = gutterColor,
-                        fontFamily = FontFamily.Monospace,
-                        fontSize = EDITOR_FONT_SIZE,
-                        textAlign = TextAlign.End
-                    )
-                }
-            }
-        ) { measurables, constraints ->
-            val placeable = measurables.map { it.measure(constraints.copy(minWidth = 0)) }
-            val totalHeight = textLayoutResult?.let { it.getLineBottom(it.lineCount - 1) }?.toInt()
-                ?: (EDITOR_LINE_HEIGHT.toPx() * lineCount).toInt()
-
-            layout(constraints.maxWidth, totalHeight) {
-                placeable.forEachIndexed { index, placeable ->
-                    val top = textLayoutResult?.getLineTop(index)?.toInt()
-                        ?: (index * EDITOR_LINE_HEIGHT.toPx()).toInt()
-                    placeable.placeRelative(
-                        x = constraints.maxWidth - placeable.width,
-                        y = top
-                    )
-                }
-            }
-        }
-
     }
 }

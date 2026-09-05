@@ -29,6 +29,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.jaemak23.miniappsgalaxy.core.ui.adaptive.isCompact
 import com.jaemak23.miniappsgalaxy.core.ui.components.ThemeActionButton
+import com.jaemak23.miniappsgalaxy.core.ui.components.kfab.KFabList
+import com.jaemak23.miniappsgalaxy.core.ui.components.kfab.SpeedDialItem
 import com.jaemak23.miniappsgalaxy.core.ui.icons.AppIcons
 
 @Composable
@@ -37,6 +39,21 @@ fun NoteListScreen(
     onAction: (NoteListAction) -> Unit,
     onExit: () -> Unit
 ) {
+    val fabItems = listOf(
+        SpeedDialItem(
+            label = "Open from device",
+            icon = AppIcons.FileOpen
+        ) { onAction(NoteListAction.OnOpenFromDeviceClick) },
+        SpeedDialItem(
+            label = "Import from device",
+            icon = AppIcons.FileUpload,
+        ) { onAction(NoteListAction.OnImportClick) },
+        SpeedDialItem(
+            label = "New note",
+            icon = AppIcons.Add,
+        ) { onAction(NoteListAction.OnNewClick) }
+    )
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -51,13 +68,7 @@ fun NoteListScreen(
                 }
             )
         },
-        floatingActionButton = {
-            NoteListFab(
-                onNewClick = { onAction(NoteListAction.OnNewClick) },
-                onImportClick = { onAction(NoteListAction.OnImportClick) },
-                onOpenClick = { onAction(NoteListAction.OnOpenFromDeviceClick) }
-            )
-        }
+        floatingActionButton = { KFabList(fabItems) }
     ) { padding ->
         if (state.notes.isEmpty() && !state.isLoading) {
             Box(Modifier.fillMaxSize().padding(padding), contentAlignment = Alignment.Center) {

@@ -22,6 +22,7 @@ kotlin {
         commonMain.dependencies {
             implementation(libs.androidx.lifecycle.runtimeCompose)
             implementation(libs.androidx.lifecycle.viewmodelCompose)
+            implementation(libs.compose.animation)
             implementation(libs.compose.runtime)
             implementation(libs.compose.foundation)
             implementation(libs.compose.material3)
