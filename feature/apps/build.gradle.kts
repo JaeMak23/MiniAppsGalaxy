@@ -9,7 +9,7 @@ kotlin {
     jvm()
 
     android {
-        namespace = "com.jaemak23.miniappsgalaxy.feature.dashboard"
+        namespace = "com.jaemak23.miniappsgalaxy.feature.apps"
         compileSdk = libs.versions.android.compileSdk.get().toInt()
         minSdk = libs.versions.android.minSdk.get().toInt()
     }
@@ -20,17 +20,11 @@ kotlin {
             implementation(libs.compose.uiTooling)
         }
         commonMain.dependencies {
-            implementation(projects.core.common)
-            implementation(projects.core.data)
-            implementation(projects.core.di)
-            implementation(projects.core.domain)
-            implementation(projects.core.navigation)
-            implementation(projects.core.network)
-            implementation(projects.core.ui)
-            implementation(projects.core.util)
-
-            implementation(projects.feature.apps)
-            implementation(projects.feature.markdownNotes.presentation)
+            implementation(project(":core:di"))
+            implementation(project(":core:domain"))
+            implementation(project(":core:navigation"))
+            implementation(project(":core:ui"))
+            implementation(project(":core:util"))
 
             implementation(libs.compose.runtime)
             implementation(libs.compose.foundation)

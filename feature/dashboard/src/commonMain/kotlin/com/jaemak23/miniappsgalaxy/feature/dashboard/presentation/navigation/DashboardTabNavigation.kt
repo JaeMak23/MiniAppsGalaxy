@@ -9,10 +9,11 @@ import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavEntry
 import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.ui.NavDisplay
+import com.jaemak23.miniappsgalaxy.core.navigation.AppList
 import com.jaemak23.miniappsgalaxy.core.navigation.DashboardTabRoute
 import com.jaemak23.miniappsgalaxy.core.navigation.goBack
+import com.jaemak23.miniappsgalaxy.feature.apps.presentation.AppsScreenRoot
 import com.jaemak23.miniappsgalaxy.feature.dashboard.presentation.components.DummyBox
-import com.jaemak23.miniappsgalaxy.feature.dashboard.presentation.screens.dashboardmain.tabs.AppsTabPage
 import com.jaemak23.miniappsgalaxy.feature.dashboard.presentation.screens.dashboardmain.tabs.HomeTabScreen
 import com.jaemak23.miniappsgalaxy.feature.dashboard.presentation.screens.dashboardmain.tabs.ProfileTabScreen
 
@@ -35,7 +36,7 @@ fun DashboardTabNavigation(
             }
 
             is DashboardTabRoute.Apps -> NavEntry(key) {
-                AppsTabPage(onAppNavigation)
+                AppsScreenRoot(onAppNavigation)
             }
 
             is DashboardTabRoute.Games -> NavEntry(key) {
@@ -51,8 +52,4 @@ fun DashboardTabNavigation(
             }
         }
     }
-}
-
-enum class AppList {
-    MarkdownNotes
 }

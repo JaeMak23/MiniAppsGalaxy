@@ -85,4 +85,6 @@ object AppIcons {
     val SplitIconHorizontal : ImageVector = PhosphorSplitHorizontal
     val SplitIconVertical : ImageVector = PhosphorSplitVertical
     val Theme : ImageVector = ThemeIcon
+    val FileMD : ImageVector = MDFileIcon
+    val Code : ImageVector = CodeEditIcon
 }

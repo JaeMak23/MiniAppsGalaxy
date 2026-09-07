@@ -1,0 +1,13 @@
+package com.jaemak23.miniappsgalaxy.feature.apps.di
+
+import com.jaemak23.miniappsgalaxy.feature.apps.presentation.AppsViewModel
+import org.koin.core.module.dsl.viewModelOf
+import org.koin.dsl.module
+
+val appsPresentationModule = module {
+    viewModelOf(::AppsViewModel)
+}
+
+val appsModule = module {
+    includes(appsPresentationModule)
+}

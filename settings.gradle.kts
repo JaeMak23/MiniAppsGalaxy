@@ -49,6 +49,7 @@ include(
     ":feature:auth",
     ":feature:splash",
     ":feature:dashboard",
+    "feature:apps",
 )
 // apps feature
 include(
