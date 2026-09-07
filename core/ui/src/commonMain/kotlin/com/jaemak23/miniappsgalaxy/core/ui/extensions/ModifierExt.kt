@@ -6,6 +6,5 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
-fun Modifier.maxReadableWidth(maxWidth: Dp = 500.dp): Modifier = this
-    .widthIn(max = maxWidth)
-    .fillMaxWidth()
+fun Modifier.maxReadableWidth(max: Dp = 500.dp): Modifier =
+    this.widthIn(max = max).fillMaxWidth()
