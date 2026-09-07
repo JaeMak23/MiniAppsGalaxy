@@ -62,12 +62,11 @@ fun Modifier.shadowContainerStyle(style: ShadowStyle): Modifier = this
     .background(style.backgroundColor, style.shape)
     .clip(style.shape)
     .padding(style.innerPadding)
-    .clip(style.innerShape)
 
 @Composable
 fun roundRectangleShadowStyle(): ShadowStyle {
-    return defaultShadowStyle().copy(
-        shape = RoundedCornerShape(10.dp),
+    val outer = RoundedCornerShape(10.dp)
+    return defaultShadowStyle(shape = outer).copy(
         innerShape = RoundedCornerShape(4.dp),
         innerPadding = PaddingValues(vertical = 24.dp, horizontal = 16.dp)
     )

@@ -8,12 +8,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
-import com.jaemak23.miniappsgalaxy.core.ui.theme.ComponentPreview
-import com.jaemak23.miniappsgalaxy.feature.auth.presentation.model.AuthCaptions
 
 @Composable
-fun AuthHeader(
+fun HeaderBlock(
     text: String,
     subText: String,
     modifier: Modifier = Modifier,
@@ -38,24 +35,3 @@ fun AuthHeader(
         )
     }
 }
-
-@Preview(showBackground = true)
-@Composable
-fun AuthCaptionContainerPreview() {
-    ComponentPreview {
-        Column {
-            val header1 = AuthCaptions.Login
-            AuthHeader(header1.heading, header1.description)
-
-            val header2 = AuthCaptions.Signup
-            AuthHeader(header2.heading, header2.description)
-
-            val header3 = AuthCaptions.ForgotPassword
-            AuthHeader(header3.heading, header3.description)
-
-            val header4 = AuthCaptions.ResetPassword
-            AuthHeader(header4.heading, header4.description)
-        }
-    }
-}
-
