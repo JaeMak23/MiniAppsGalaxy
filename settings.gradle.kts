@@ -57,4 +57,5 @@ include(
     ":feature:markdown-notes:di",
     ":feature:markdown-notes:domain",
     ":feature:markdown-notes:presentation",
+    ":feature:html-editor"
 )

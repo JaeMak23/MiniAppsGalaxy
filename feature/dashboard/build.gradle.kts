@@ -30,6 +30,7 @@ kotlin {
             implementation(projects.core.util)
 
             implementation(projects.feature.apps)
+            implementation(projects.feature.htmlEditor)
             implementation(projects.feature.markdownNotes.presentation)
 
             implementation(libs.compose.runtime)

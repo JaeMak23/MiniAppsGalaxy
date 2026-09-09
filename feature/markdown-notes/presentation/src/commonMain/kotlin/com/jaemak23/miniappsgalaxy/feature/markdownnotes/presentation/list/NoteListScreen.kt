@@ -18,7 +18,6 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -28,6 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.jaemak23.miniappsgalaxy.core.ui.adaptive.isCompact
+import com.jaemak23.miniappsgalaxy.core.ui.components.ExitButton
 import com.jaemak23.miniappsgalaxy.core.ui.components.ThemeActionButton
 import com.jaemak23.miniappsgalaxy.core.ui.components.kfab.KFabList
 import com.jaemak23.miniappsgalaxy.core.ui.components.kfab.SpeedDialItem
@@ -60,11 +60,7 @@ fun NoteListScreen(
                 title = { Text("Markdown Notes") },
                 actions = {
                     ThemeActionButton()
-                    OutlinedButton(onExit) {
-                        Icon(AppIcons.Exit, "Exit")
-                        Text("Exit")
-                    }
-
+                    ExitButton{onExit()}
                 }
             )
         },

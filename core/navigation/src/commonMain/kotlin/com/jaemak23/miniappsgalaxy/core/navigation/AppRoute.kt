@@ -36,6 +36,14 @@ sealed interface MarkdownNotesRoute : NavKey {
 }
 
 @Serializable
+sealed interface HtmlEditorRoute : NavKey {
+    @Serializable
+    data object Home : HtmlEditorRoute
+    @Serializable
+    data object Editor : HtmlEditorRoute
+}
+
+@Serializable
 sealed interface AuthRoute : NavKey {
     @Serializable
    data object Login : AuthRoute
@@ -79,6 +87,7 @@ val NavConfig = SavedStateConfiguration {
             subclassesOfSealed<DashboardRoute>()
             subclassesOfSealed<DashboardTabRoute>()
             subclassesOfSealed<MarkdownNotesRoute>()
+            subclassesOfSealed<HtmlEditorRoute>()
         }
     }
 }
