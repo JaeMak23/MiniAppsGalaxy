@@ -10,7 +10,6 @@ import io.github.vinceglb.filekit.dialogs.FileKitType
 import io.github.vinceglb.filekit.dialogs.openFilePicker
 import io.github.vinceglb.filekit.dialogs.openFileSaver
 import io.github.vinceglb.filekit.name
-import io.github.vinceglb.filekit.path
 import io.github.vinceglb.filekit.readString
 import io.github.vinceglb.filekit.writeString
 
@@ -26,7 +25,7 @@ class FileKitFileAccessDataSource : FileAccessDataSource {
                 PickedFile(
                     fileName = file.name.substringBeforeLast("."),
                     content = file.readString(),
-                    filePath = file.file.absolutePath
+                    filePath = file.resolveFilePath()
                 )
             )
         } catch (e: Exception) {
@@ -60,7 +59,7 @@ class FileKitFileAccessDataSource : FileAccessDataSource {
                     defaultExtension = defaultExtension
                 ) ?: return Result.Success(null)
                 file.writeString(content)
-                Result.Success(file.file.absolutePath)
+                Result.Success(file.resolveFilePath())
             }
         } catch (e: Exception) {
             Result.Error(DataError.Local.UNKNOWN)
