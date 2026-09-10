@@ -13,6 +13,7 @@ import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.MoreVert
@@ -48,6 +49,7 @@ object AppIcons {
     val MoreVert : ImageVector = Icons.Default.MoreVert
     val Check : ImageVector = Icons.Default.Check
     val Refresh : ImageVector = Icons.Default.Refresh
+    val Info : ImageVector = Icons.Default.Info
 
     object Home {
         val Outlined: ImageVector = Icons.Outlined.Home

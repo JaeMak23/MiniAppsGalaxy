@@ -26,7 +26,7 @@ class FileKitFileAccessDataSource : FileAccessDataSource {
                 PickedFile(
                     fileName = file.name.substringBeforeLast("."),
                     content = file.readString(),
-                    filePath = file.path
+                    filePath = file.file.absolutePath
                 )
             )
         } catch (e: Exception) {
@@ -60,7 +60,7 @@ class FileKitFileAccessDataSource : FileAccessDataSource {
                     defaultExtension = defaultExtension
                 ) ?: return Result.Success(null)
                 file.writeString(content)
-                Result.Success(file.path)
+                Result.Success(file.file.absolutePath)
             }
         } catch (e: Exception) {
             Result.Error(DataError.Local.UNKNOWN)

@@ -7,11 +7,14 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import com.jaemak23.miniappsgalaxy.core.ui.adaptive.isCompact
 import com.jaemak23.miniappsgalaxy.core.ui.components.FileNameTitleTextField
 import com.jaemak23.miniappsgalaxy.core.ui.components.NavigationIcon
@@ -30,7 +33,7 @@ fun EditorScreen(state: EditorState, onAction: (EditorAction) -> Unit) {
         topBar = {
             TopAppBar(
                 title = {
-                    FileNameTitleTextField("state.title", "Html File Name") {
+                    FileNameTitleTextField(state.title, "Html File Name") {
                         onAction(EditorAction.OnTitleChange(it))
                     }
                 },
@@ -42,6 +45,17 @@ fun EditorScreen(state: EditorState, onAction: (EditorAction) -> Unit) {
                         "Refresh preview",
                         onClick = { onAction(EditorAction.OnRefreshPreviewClick) }) {
                         Icon(AppIcons.Refresh, contentDescription = "Refresh preview")
+                    }
+                    TooltipIconButton(
+                        "Save",
+                        onClick = { onAction(EditorAction.OnSaveClick) },
+                        enabled = !state.isSaving
+                    ) {
+                        if (state.isSaving) {
+                            CircularProgressIndicator(modifier = Modifier.size(20.dp), strokeWidth = 2.dp)
+                        } else {
+                            Icon(AppIcons.Save, contentDescription = "Save")
+                        }
                     }
                     ThemeActionButton()
                 }
@@ -79,7 +93,10 @@ fun EditorLayout(
                     onContentChange = { onAction(EditorAction.OnContentChange(it)) }
                 )
 
-                EditorViewMode.PreviewOnly -> HtmlPreviewPane(html = state.previewHtml)
+                EditorViewMode.PreviewOnly -> HtmlPreviewPane(
+                    html = state.previewHtml,
+                    state.filePath
+                )
 
                 is EditorViewMode.Split -> SplitPanes(
                     ratio = mode.ratio,
@@ -91,7 +108,7 @@ fun EditorLayout(
                             onContentChange = { onAction(EditorAction.OnContentChange(it)) }
                         )
                     },
-                    endOrBottom = { HtmlPreviewPane(html = state.previewHtml) }
+                    endOrBottom = { HtmlPreviewPane(html = state.previewHtml, state.filePath) }
                 )
 
             }

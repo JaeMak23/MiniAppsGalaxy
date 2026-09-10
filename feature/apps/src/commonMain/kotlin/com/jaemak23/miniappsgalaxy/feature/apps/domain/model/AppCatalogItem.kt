@@ -8,4 +8,5 @@ data class AppCatalogItem(
     val title: String,
     val description: String,
     val icon: ImageVector,
+    val version: String,
 )
