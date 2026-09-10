@@ -25,6 +25,7 @@ dependencyResolutionManagement {
             }
         }
         mavenCentral()
+        maven("https://jogamp.org/deployment/maven")
     }
 }
 
@@ -57,4 +58,5 @@ include(
     ":feature:markdown-notes:di",
     ":feature:markdown-notes:domain",
     ":feature:markdown-notes:presentation",
+    ":feature:html-editor"
 )

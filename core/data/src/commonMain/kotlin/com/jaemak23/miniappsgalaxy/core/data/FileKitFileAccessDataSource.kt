@@ -10,7 +10,6 @@ import io.github.vinceglb.filekit.dialogs.FileKitType
 import io.github.vinceglb.filekit.dialogs.openFilePicker
 import io.github.vinceglb.filekit.dialogs.openFileSaver
 import io.github.vinceglb.filekit.name
-import io.github.vinceglb.filekit.path
 import io.github.vinceglb.filekit.readString
 import io.github.vinceglb.filekit.writeString
 
@@ -26,9 +25,18 @@ class FileKitFileAccessDataSource : FileAccessDataSource {
                 PickedFile(
                     fileName = file.name.substringBeforeLast("."),
                     content = file.readString(),
-                    filePath = file.path
+                    filePath = file.resolveFilePath()
                 )
             )
+        } catch (e: Exception) {
+            Result.Error(DataError.Local.UNKNOWN)
+        }
+    }
+
+    override suspend fun readFile(filePath: String): Result<String, DataError.Local> {
+        return try {
+            val file = PlatformFile(filePath)
+            Result.Success(file.readString())
         } catch (e: Exception) {
             Result.Error(DataError.Local.UNKNOWN)
         }
@@ -37,6 +45,7 @@ class FileKitFileAccessDataSource : FileAccessDataSource {
     override suspend fun saveFile(
         filePath: String?,
         suggestedName: String,
+        defaultExtension: String,
         content: String
     ): Result<String?, DataError.Local> {
         return try {
@@ -47,11 +56,10 @@ class FileKitFileAccessDataSource : FileAccessDataSource {
             } else {
                 val file = FileKit.openFileSaver(
                     suggestedName = suggestedName,
-                    defaultExtension = "md"
-                ) ?: return Result.Success(null) // user cancelled Save As
-
+                    defaultExtension = defaultExtension
+                ) ?: return Result.Success(null)
                 file.writeString(content)
-                Result.Success(file.path)
+                Result.Success(file.resolveFilePath())
             }
         } catch (e: Exception) {
             Result.Error(DataError.Local.UNKNOWN)

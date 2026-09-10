@@ -101,6 +101,7 @@ fun AppCatalogCard(
                     maxLines = 2,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
+                Text("Ver : V${app.version}", style = MaterialTheme.typography.bodySmall)
             }
         }
     }

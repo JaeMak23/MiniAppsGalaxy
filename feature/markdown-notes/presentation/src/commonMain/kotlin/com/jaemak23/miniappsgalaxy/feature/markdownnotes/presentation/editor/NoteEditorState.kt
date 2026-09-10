@@ -1,5 +1,7 @@
 package com.jaemak23.miniappsgalaxy.feature.markdownnotes.presentation.editor
 
+import com.jaemak23.miniappsgalaxy.core.ui.components.composeeditorkit.EditorViewMode
+
 data class NoteEditorState(
     val origin: NoteEditorOrigin = NoteEditorOrigin.New,
     val noteId: String? = null,

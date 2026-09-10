@@ -10,6 +10,7 @@ import androidx.compose.material3.TooltipDefaults
 import androidx.compose.material3.rememberTooltipState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import jdk.jfr.Enabled
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -18,6 +19,7 @@ fun TooltipIconButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     tooltipAnchorPosition: TooltipAnchorPosition = TooltipAnchorPosition.Above,
+    enabled: Boolean = true,
     icon: @Composable () -> Unit
 ) {
     TooltipBox(
@@ -25,6 +27,6 @@ fun TooltipIconButton(
         tooltip = { PlainTooltip { Text(tooltip) } },
         state = rememberTooltipState()
     ) {
-        IconButton(onClick = onClick, modifier = modifier) { icon() }
+        IconButton(onClick = onClick, modifier = modifier, enabled = enabled) { icon() }
     }
 }

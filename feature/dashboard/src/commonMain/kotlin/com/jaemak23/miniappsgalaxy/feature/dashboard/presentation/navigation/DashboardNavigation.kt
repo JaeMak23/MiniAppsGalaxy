@@ -12,6 +12,7 @@ import com.jaemak23.miniappsgalaxy.core.navigation.NavConfig
 import com.jaemak23.miniappsgalaxy.core.navigation.goBack
 import com.jaemak23.miniappsgalaxy.feature.dashboard.presentation.components.DummyBox
 import com.jaemak23.miniappsgalaxy.feature.dashboard.presentation.screens.dashboardmain.DashboardScreen
+import com.jaemak23.miniappsgalaxy.feature.htmleditor.presentation.navigation.HtmlEditorNavigation
 import com.jaemak23.miniappsgalaxy.feature.markdownnotes.presentation.navigation.MarkdownNotesNavigation
 
 @Composable
@@ -37,7 +38,7 @@ fun DashBoardNavigation(onLogout: () -> Unit) {
                 MarkdownNotesNavigation { backStack.goBack() }
             }
             is DashboardRoute.HtmlEditor -> NavEntry(key) {
-                DummyBox("HTML Editor sample"){backStack.goBack()}
+                HtmlEditorNavigation { backStack.goBack() }
             }
             is DashboardRoute.NoteEditor -> NavEntry(key) {
                 DummyBox("Note Editor sample"){backStack.goBack()}

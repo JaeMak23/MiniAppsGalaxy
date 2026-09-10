@@ -20,6 +20,7 @@ kotlin {
             implementation(libs.compose.uiTooling)
         }
         commonMain.dependencies {
+            implementation(projects.core.domain)
             implementation(libs.androidx.lifecycle.runtimeCompose)
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.compose.animation)
