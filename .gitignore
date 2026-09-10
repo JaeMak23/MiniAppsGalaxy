@@ -18,3 +18,6 @@ captures
 **/xcshareddata/WorkspaceSettings.xcsettings
 node_modules/
 /.garage/
+# KCEF browser binaries and cache
+/kcef-bundle/
+/cache/

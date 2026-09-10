@@ -1,4 +1,4 @@
-package com.jaemak23.miniappsgalaxy.feature.markdownnotes.presentation.editor
+package com.jaemak23.miniappsgalaxy.core.ui.components.composeeditorkit
 
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Icon
@@ -7,6 +7,7 @@ import androidx.compose.material3.SegmentedButtonDefaults
 import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import com.jaemak23.miniappsgalaxy.core.ui.icons.AppIcons
 
@@ -14,7 +15,13 @@ import com.jaemak23.miniappsgalaxy.core.ui.icons.AppIcons
 fun ViewModeToolbar(
     viewMode: EditorViewMode,
     onSetViewMode: (EditorViewMode) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    editorOnlyIcon : ImageVector = AppIcons.Edit,
+    splitIcon : ImageVector = AppIcons.SplitIconHorizontal,
+    previewIcon : ImageVector = AppIcons.Visibility,
+    editorOnlyText : String = "Editor only",
+    splitText : String = "Split",
+    previewText : String = "Preview only",
 ) {
     SingleChoiceSegmentedButtonRow(
         modifier = modifier.height(40.dp)
@@ -26,8 +33,8 @@ fun ViewModeToolbar(
             icon = {}
         ) {
             Icon(
-                AppIcons.Edit,
-                contentDescription = "Editor only",
+                editorOnlyIcon,
+                contentDescription = editorOnlyText,
                 modifier = Modifier.height(16.dp)
             )
         }
@@ -38,8 +45,8 @@ fun ViewModeToolbar(
             icon = {}
         ) {
             Icon(
-                AppIcons.SplitIconHorizontal,
-                contentDescription = "Split",
+                splitIcon,
+                contentDescription = splitText,
                 modifier = Modifier.height(16.dp)
             )
         }
@@ -50,8 +57,8 @@ fun ViewModeToolbar(
             icon = {}
         ) {
             Icon(
-                AppIcons.Visibility,
-                contentDescription = "Preview only",
+                previewIcon,
+                contentDescription = previewText,
                 modifier = Modifier.height(16.dp)
             )
         }

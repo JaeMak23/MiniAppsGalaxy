@@ -1,4 +1,4 @@
-package com.jaemak23.miniappsgalaxy.feature.markdownnotes.presentation.editor
+package com.jaemak23.miniappsgalaxy.core.ui.components.composeeditorkit
 
 sealed interface EditorViewMode {
     data object EditorOnly : EditorViewMode

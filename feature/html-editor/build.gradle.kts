@@ -39,6 +39,7 @@ kotlin {
             api(libs.koin.core)
             api(libs.koin.compose)
             api(libs.koin.compose.viewmodel)
+            api(libs.webview.multiplatform)
         }
     }
 }

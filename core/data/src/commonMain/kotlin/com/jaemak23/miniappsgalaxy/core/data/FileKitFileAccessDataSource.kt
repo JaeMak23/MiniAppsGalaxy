@@ -34,9 +34,19 @@ class FileKitFileAccessDataSource : FileAccessDataSource {
         }
     }
 
+    override suspend fun readFile(filePath: String): Result<String, DataError.Local> {
+        return try {
+            val file = PlatformFile(filePath)
+            Result.Success(file.readString())
+        } catch (e: Exception) {
+            Result.Error(DataError.Local.UNKNOWN)
+        }
+    }
+
     override suspend fun saveFile(
         filePath: String?,
         suggestedName: String,
+        defaultExtension: String,
         content: String
     ): Result<String?, DataError.Local> {
         return try {
@@ -47,9 +57,8 @@ class FileKitFileAccessDataSource : FileAccessDataSource {
             } else {
                 val file = FileKit.openFileSaver(
                     suggestedName = suggestedName,
-                    defaultExtension = "md"
-                ) ?: return Result.Success(null) // user cancelled Save As
-
+                    defaultExtension = defaultExtension
+                ) ?: return Result.Success(null)
                 file.writeString(content)
                 Result.Success(file.path)
             }

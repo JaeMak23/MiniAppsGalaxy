@@ -17,6 +17,7 @@ import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material.icons.outlined.Home
@@ -46,6 +47,7 @@ object AppIcons {
     val Edit : ImageVector = Icons.Default.Edit
     val MoreVert : ImageVector = Icons.Default.MoreVert
     val Check : ImageVector = Icons.Default.Check
+    val Refresh : ImageVector = Icons.Default.Refresh
 
     object Home {
         val Outlined: ImageVector = Icons.Outlined.Home

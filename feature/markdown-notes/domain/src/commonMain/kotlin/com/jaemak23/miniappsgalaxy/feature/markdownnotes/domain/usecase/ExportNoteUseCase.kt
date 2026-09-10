@@ -13,6 +13,9 @@ class ExportNoteUseCase(
         suggestedName: String,
         content: String
     ): Result<String?, DataError.Local> {
-        return fileAccess.saveFile(filePath = filePath, suggestedName = suggestedName, content = content)
+        return fileAccess.saveFile(filePath = filePath,
+            suggestedName = suggestedName,
+            defaultExtension = "md",
+            content = content)
     }
 }

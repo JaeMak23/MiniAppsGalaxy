@@ -1,5 +1,7 @@
 package com.jaemak23.miniappsgalaxy.feature.markdownnotes.presentation.editor
 
+import com.jaemak23.miniappsgalaxy.core.ui.components.composeeditorkit.EditorViewMode
+
 sealed interface NoteEditorAction {
     data class OnTitleChange(val title: String) : NoteEditorAction
     data class OnContentChange(val content: String) : NoteEditorAction

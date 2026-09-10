@@ -20,6 +20,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlin.time.Duration.Companion.milliseconds
 import com.jaemak23.miniappsgalaxy.core.domain.Result
+import com.jaemak23.miniappsgalaxy.core.ui.components.composeeditorkit.EditorViewMode
 
 class NoteEditorViewModel(
     private val origin: NoteEditorOrigin, // now injected directly, not parsed from SavedStateHandle

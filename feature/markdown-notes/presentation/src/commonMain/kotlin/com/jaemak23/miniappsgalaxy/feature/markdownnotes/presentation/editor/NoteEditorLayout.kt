@@ -9,7 +9,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.jaemak23.miniappsgalaxy.core.ui.adaptive.isCompact
+import com.jaemak23.miniappsgalaxy.core.ui.components.composeeditorkit.EditorViewMode
 import com.jaemak23.miniappsgalaxy.core.ui.components.composeeditorkit.SplitPanes
+import com.jaemak23.miniappsgalaxy.core.ui.components.composeeditorkit.ViewModeToolbar
 
 /**
  * Orchestrates Editor/Preview/Split modes. Delegates rendering to

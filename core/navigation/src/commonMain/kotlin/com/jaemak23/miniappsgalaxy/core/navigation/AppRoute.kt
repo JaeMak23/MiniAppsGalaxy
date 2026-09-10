@@ -12,8 +12,10 @@ import kotlin.uuid.Uuid
 sealed interface AppRoute : NavKey {
     @Serializable
     data object Splash : AppRoute
+
     @Serializable
     data object Auth : AppRoute
+
     @Serializable
     data object Dashboard : AppRoute
 
@@ -39,16 +41,19 @@ sealed interface MarkdownNotesRoute : NavKey {
 sealed interface HtmlEditorRoute : NavKey {
     @Serializable
     data object Home : HtmlEditorRoute
+
     @Serializable
-    data object Editor : HtmlEditorRoute
+    data class Editor(val title: String, val filePath: String?) : HtmlEditorRoute
 }
 
 @Serializable
 sealed interface AuthRoute : NavKey {
     @Serializable
-   data object Login : AuthRoute
+    data object Login : AuthRoute
+
     @Serializable
     data object Signup : AuthRoute
+
     @Serializable
     data object ForgotPassword : AuthRoute
 }
@@ -57,10 +62,13 @@ sealed interface AuthRoute : NavKey {
 sealed interface DashboardRoute : NavKey {
     @Serializable
     data object DashBoard : DashboardRoute
+
     @Serializable
     data object MarkdownNotes : DashboardRoute
+
     @Serializable
     data object HtmlEditor : DashboardRoute
+
     @Serializable
     data object NoteEditor : DashboardRoute
 
@@ -70,10 +78,13 @@ sealed interface DashboardRoute : NavKey {
 sealed interface DashboardTabRoute : NavKey {
     @Serializable
     data object Home : DashboardTabRoute
+
     @Serializable
     data object Apps : DashboardTabRoute
+
     @Serializable
     data object Games : DashboardTabRoute
+
     @Serializable
     data object Profile : DashboardTabRoute
 }

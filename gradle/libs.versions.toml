@@ -28,6 +28,10 @@ ksp = "2.3.10"
 # date-time
 kotlinxDatetime = "0.8.0"
 filekit = "0.15.0"
+#webview
+kcef = "2025.03.23"
+slf4jSimple = "2.0.19"
+webview-multiplatform = "2.0.3"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -68,6 +72,10 @@ kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-c
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 androidx-sqlite-bundled = { module = "androidx.sqlite:sqlite-bundled", version.ref = "sqlite" }
+# WebView
+kcef = { module = "dev.datlag:kcef", version.ref = "kcef" }
+slf4j-simple = { module = "org.slf4j:slf4j-simple", version.ref = "slf4jSimple" }
+webview-multiplatform = { module = "io.github.kevinnzou:compose-webview-multiplatform", version.ref="webview-multiplatform"}
 # custom
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDatetime" }
 filekit-core = { module = "io.github.vinceglb:filekit-core", version.ref = "filekit" }
