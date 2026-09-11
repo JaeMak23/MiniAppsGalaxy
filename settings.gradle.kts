@@ -60,3 +60,5 @@ include(
     ":feature:markdown-notes:presentation",
     ":feature:html-editor"
 )
+// feature : games
+include(":feature:games:tic-tac-toe")
