@@ -1,6 +1,6 @@
-package com.jaemak23.miniappsgalaxy.feature.apps.di
+package com.jaemak23.miniappsgalaxy.feature.appcatalog.di
 
-import com.jaemak23.miniappsgalaxy.feature.apps.presentation.AppsViewModel
+import com.jaemak23.miniappsgalaxy.feature.appcatalog.presentation.AppsViewModel
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 

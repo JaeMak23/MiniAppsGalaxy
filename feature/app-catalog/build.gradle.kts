@@ -9,7 +9,7 @@ kotlin {
     jvm()
 
     android {
-        namespace = "com.jaemak23.miniappsgalaxy.feature.apps"
+        namespace = "com.jaemak23.miniappsgalaxy.feature.appcatalog"
         compileSdk = libs.versions.android.compileSdk.get().toInt()
         minSdk = libs.versions.android.minSdk.get().toInt()
     }

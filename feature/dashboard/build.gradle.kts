@@ -29,7 +29,7 @@ kotlin {
             implementation(projects.core.ui)
             implementation(projects.core.util)
 
-            implementation(projects.feature.apps)
+            implementation(projects.feature.appCatalog)
             implementation(projects.feature.htmlEditor)
             implementation(projects.feature.markdownNotes.presentation)
             implementation(projects.feature.games.ticTacToe)

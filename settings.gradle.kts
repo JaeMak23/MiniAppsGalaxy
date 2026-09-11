@@ -25,7 +25,6 @@ dependencyResolutionManagement {
             }
         }
         mavenCentral()
-        maven("https://jogamp.org/deployment/maven")
     }
 }
 
@@ -50,7 +49,7 @@ include(
     ":feature:auth",
     ":feature:splash",
     ":feature:dashboard",
-    "feature:apps",
+    ":feature:app-catalog",
 )
 // apps feature
 include(

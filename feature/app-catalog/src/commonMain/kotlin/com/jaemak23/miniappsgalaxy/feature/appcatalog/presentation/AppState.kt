@@ -1,7 +1,7 @@
-package com.jaemak23.miniappsgalaxy.feature.apps.presentation
+package com.jaemak23.miniappsgalaxy.feature.appcatalog.presentation
 
 import com.jaemak23.miniappsgalaxy.core.navigation.AppList
-import com.jaemak23.miniappsgalaxy.feature.apps.domain.model.AppCatalogItem
+import com.jaemak23.miniappsgalaxy.feature.appcatalog.domain.model.AppCatalogItem
 
 data class AppsState(
     val apps: List<AppCatalogItem> = emptyList(),

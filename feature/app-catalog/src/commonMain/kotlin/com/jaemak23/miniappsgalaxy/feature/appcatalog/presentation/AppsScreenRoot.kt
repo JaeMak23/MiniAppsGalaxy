@@ -1,4 +1,4 @@
-package com.jaemak23.miniappsgalaxy.feature.apps.presentation
+package com.jaemak23.miniappsgalaxy.feature.appcatalog.presentation
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -25,7 +25,7 @@ import com.jaemak23.miniappsgalaxy.core.navigation.AppList
 import com.jaemak23.miniappsgalaxy.core.ui.ObserveAsEvents
 import com.jaemak23.miniappsgalaxy.core.ui.adaptive.DeviceSize
 import com.jaemak23.miniappsgalaxy.core.ui.adaptive.LocalDeviceWidth
-import com.jaemak23.miniappsgalaxy.feature.apps.domain.model.AppCatalogItem
+import com.jaemak23.miniappsgalaxy.feature.appcatalog.domain.model.AppCatalogItem
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable

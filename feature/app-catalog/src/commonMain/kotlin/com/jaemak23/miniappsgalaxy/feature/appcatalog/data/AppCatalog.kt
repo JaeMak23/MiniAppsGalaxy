@@ -1,8 +1,8 @@
-package com.jaemak23.miniappsgalaxy.feature.apps.data
+package com.jaemak23.miniappsgalaxy.feature.appcatalog.data
 
 import com.jaemak23.miniappsgalaxy.core.navigation.AppList
 import com.jaemak23.miniappsgalaxy.core.ui.icons.AppIcons
-import com.jaemak23.miniappsgalaxy.feature.apps.domain.model.AppCatalogItem
+import com.jaemak23.miniappsgalaxy.feature.appcatalog.domain.model.AppCatalogItem
 
 object AppCatalog {
     private const val DEFAULT_VERSION = "1.0.0"

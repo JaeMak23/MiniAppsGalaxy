@@ -1,8 +1,8 @@
-package com.jaemak23.miniappsgalaxy.feature.apps.presentation
+package com.jaemak23.miniappsgalaxy.feature.appcatalog.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.jaemak23.miniappsgalaxy.feature.apps.data.AppCatalog
+import com.jaemak23.miniappsgalaxy.feature.appcatalog.data.AppCatalog
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
