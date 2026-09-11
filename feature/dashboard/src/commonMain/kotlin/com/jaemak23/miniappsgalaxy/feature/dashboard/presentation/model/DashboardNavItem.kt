@@ -4,7 +4,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Modifier
-import com.jaemak23.miniappsgalaxy.core.navigation.DashboardTabRoute
+import com.jaemak23.miniappsgalaxy.core.navigation.routes.DashboardTabRoute
 import com.jaemak23.miniappsgalaxy.feature.dashboard.presentation.screens.dashboardmain.DashboardMainUiState
 
 @Immutable

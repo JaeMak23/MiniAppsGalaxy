@@ -28,10 +28,5 @@ object AppCatalog {
             icon = AppIcons.Edit,
             version = DEFAULT_VERSION,
         ),
-        AppCatalogItem(id = AppList.TicTacToe,
-            title = "Tic-Tac-Toe",
-            description = "Play Tic-Tac-Toe against the bot",
-            icon = AppIcons.Email,
-            version = DEFAULT_VERSION)
     )
 }

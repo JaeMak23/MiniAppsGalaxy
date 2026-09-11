@@ -1,4 +1,4 @@
-package com.jaemak23.miniappsgalaxy.feature.games.tictactoe
+package com.jaemak23.miniappsgalaxy.feature.games.tictactoe.presentation.ui.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
