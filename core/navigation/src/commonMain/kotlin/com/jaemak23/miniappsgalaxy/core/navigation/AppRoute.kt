@@ -72,6 +72,9 @@ sealed interface DashboardRoute : NavKey {
     @Serializable
     data object NoteEditor : DashboardRoute
 
+    @Serializable
+    data object TicTacToe : DashboardRoute
+
 }
 
 @Serializable

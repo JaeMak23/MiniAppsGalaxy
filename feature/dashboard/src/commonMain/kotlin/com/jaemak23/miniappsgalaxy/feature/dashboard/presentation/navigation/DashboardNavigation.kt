@@ -12,6 +12,7 @@ import com.jaemak23.miniappsgalaxy.core.navigation.NavConfig
 import com.jaemak23.miniappsgalaxy.core.navigation.goBack
 import com.jaemak23.miniappsgalaxy.feature.dashboard.presentation.components.DummyBox
 import com.jaemak23.miniappsgalaxy.feature.dashboard.presentation.screens.dashboardmain.DashboardScreen
+import com.jaemak23.miniappsgalaxy.feature.games.tictactoe.TicTacToeGame
 import com.jaemak23.miniappsgalaxy.feature.htmleditor.presentation.navigation.HtmlEditorNavigation
 import com.jaemak23.miniappsgalaxy.feature.markdownnotes.presentation.navigation.MarkdownNotesNavigation
 
@@ -30,6 +31,7 @@ fun DashBoardNavigation(onLogout: () -> Unit) {
                         AppList.MarkdownNotes -> backStack.add(DashboardRoute.MarkdownNotes)
                         AppList.HtmlEditor -> backStack.add(DashboardRoute.HtmlEditor)
                         AppList.NoteEditor -> backStack.add(DashboardRoute.NoteEditor)
+                        AppList.TicTacToe-> backStack.add(DashboardRoute.TicTacToe)
                     }
                 })
             }
@@ -42,6 +44,9 @@ fun DashBoardNavigation(onLogout: () -> Unit) {
             }
             is DashboardRoute.NoteEditor -> NavEntry(key) {
                 DummyBox("Note Editor sample"){backStack.goBack()}
+            }
+            is DashboardRoute.TicTacToe -> NavEntry(key) {
+                TicTacToeGame { backStack.goBack() }
             }
 
             else -> NavEntry(key) {}
