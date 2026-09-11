@@ -52,11 +52,11 @@ include(
     ":feature:app-catalog",
 )
 // apps feature
-include(
-    ":feature:markdown-notes:data",
-    ":feature:markdown-notes:di",
-    ":feature:markdown-notes:domain",
-    ":feature:markdown-notes:presentation",
+include("",
+    ":feature:apps:markdown-notes:data",
+    ":feature:apps:markdown-notes:di",
+    ":feature:apps:markdown-notes:domain",
+    ":feature:apps:markdown-notes:presentation",
     ":feature:apps:html-editor"
 )
 // feature : games

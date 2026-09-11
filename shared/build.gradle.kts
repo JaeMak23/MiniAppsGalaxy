@@ -47,8 +47,8 @@ kotlin {
             implementation(projects.feature.dashboard)
             implementation(projects.feature.appCatalog)
 
-            implementation(projects.feature.markdownNotes.di)
-            implementation(projects.feature.markdownNotes.presentation)
+            implementation(projects.feature.apps.markdownNotes.di)
+            implementation(projects.feature.apps.markdownNotes.presentation)
             implementation(projects.feature.apps.htmlEditor)
 
             implementation(libs.compose.runtime)

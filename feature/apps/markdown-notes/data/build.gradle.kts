@@ -3,13 +3,19 @@ plugins {
     alias(libs.plugins.androidMultiplatformLibrary)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.room)
+    alias(libs.plugins.ksp)
+}
+
+room {
+    schemaDirectory("$projectDir/schemas")
 }
 
 kotlin {
     jvm()
 
     android {
-        namespace = "com.jaemak23.miniappsgalaxy.feature.dashboard"
+        namespace = "com.jaemak23.miniappsgalaxy.feature.markdownnotes.data"
         compileSdk = libs.versions.android.compileSdk.get().toInt()
         minSdk = libs.versions.android.minSdk.get().toInt()
     }
@@ -28,11 +34,7 @@ kotlin {
             implementation(projects.core.network)
             implementation(projects.core.ui)
             implementation(projects.core.util)
-
-            implementation(projects.feature.appCatalog)
-            implementation(projects.feature.apps.htmlEditor)
-            implementation(projects.feature.apps.markdownNotes.presentation)
-            implementation(projects.feature.games.ticTacToe)
+            implementation(projects.feature.apps.markdownNotes.domain)
 
             implementation(libs.compose.runtime)
             implementation(libs.compose.foundation)
@@ -40,6 +42,10 @@ kotlin {
             implementation(libs.compose.ui)
             implementation(libs.jetbrains.material3.adaptiveNavigation3)
             implementation(libs.compose.uiToolingPreview)
+
+            // database
+            implementation(libs.androidx.room.runtime)
+            implementation(libs.androidx.sqlite.bundled)
 
             api(libs.koin.core)
             api(libs.koin.compose)
@@ -49,5 +55,7 @@ kotlin {
 }
 
 dependencies {
+    add("kspAndroid", libs.androidx.room.compiler)
+    add("kspJvm", libs.androidx.room.compiler)
     androidRuntimeClasspath(libs.compose.uiTooling)
 }

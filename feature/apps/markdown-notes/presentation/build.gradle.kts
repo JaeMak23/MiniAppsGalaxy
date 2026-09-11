@@ -9,7 +9,7 @@ kotlin {
     jvm()
 
     android {
-        namespace = "com.jaemak23.miniappsgalaxy.feature.dashboard"
+        namespace = "com.jaemak23.miniappsgalaxy.feature.apps.markdownnotes.presentation"
         compileSdk = libs.versions.android.compileSdk.get().toInt()
         minSdk = libs.versions.android.minSdk.get().toInt()
     }
@@ -28,11 +28,7 @@ kotlin {
             implementation(projects.core.network)
             implementation(projects.core.ui)
             implementation(projects.core.util)
-
-            implementation(projects.feature.appCatalog)
-            implementation(projects.feature.apps.htmlEditor)
-            implementation(projects.feature.apps.markdownNotes.presentation)
-            implementation(projects.feature.games.ticTacToe)
+            implementation(projects.feature.apps.markdownNotes.domain)
 
             implementation(libs.compose.runtime)
             implementation(libs.compose.foundation)
@@ -40,6 +36,8 @@ kotlin {
             implementation(libs.compose.ui)
             implementation(libs.jetbrains.material3.adaptiveNavigation3)
             implementation(libs.compose.uiToolingPreview)
+
+            implementation(libs.kotlinx.datetime)
 
             api(libs.koin.core)
             api(libs.koin.compose)

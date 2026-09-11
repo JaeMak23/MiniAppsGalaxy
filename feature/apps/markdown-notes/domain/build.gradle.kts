@@ -9,7 +9,7 @@ kotlin {
     jvm()
 
     android {
-        namespace = "com.jaemak23.miniappsgalaxy.feature.dashboard"
+        namespace = "com.jaemak23.miniappsgalaxy.feature.apps.markdownnotes.domain"
         compileSdk = libs.versions.android.compileSdk.get().toInt()
         minSdk = libs.versions.android.minSdk.get().toInt()
     }
@@ -20,19 +20,14 @@ kotlin {
             implementation(libs.compose.uiTooling)
         }
         commonMain.dependencies {
-            implementation(projects.core.common)
-            implementation(projects.core.data)
-            implementation(projects.core.di)
-            implementation(projects.core.domain)
-            implementation(projects.core.navigation)
-            implementation(projects.core.network)
-            implementation(projects.core.ui)
-            implementation(projects.core.util)
-
-            implementation(projects.feature.appCatalog)
-            implementation(projects.feature.apps.htmlEditor)
-            implementation(projects.feature.apps.markdownNotes.presentation)
-            implementation(projects.feature.games.ticTacToe)
+            implementation(project(":core:common"))
+            implementation(project(":core:data"))
+            implementation(project(":core:di"))
+            implementation(project(":core:domain"))
+            implementation(project(":core:navigation"))
+            implementation(project(":core:network"))
+            implementation(project(":core:ui"))
+            implementation(project(":core:util"))
 
             implementation(libs.compose.runtime)
             implementation(libs.compose.foundation)
