@@ -13,8 +13,8 @@ import com.jaemak23.miniappsgalaxy.core.navigation.goBack
 import com.jaemak23.miniappsgalaxy.feature.dashboard.presentation.components.DummyBox
 import com.jaemak23.miniappsgalaxy.feature.dashboard.presentation.screens.dashboardmain.DashboardScreen
 import com.jaemak23.miniappsgalaxy.feature.games.tictactoe.TicTacToeGame
-import com.jaemak23.miniappsgalaxy.feature.htmleditor.presentation.navigation.HtmlEditorNavigation
-import com.jaemak23.miniappsgalaxy.feature.markdownnotes.presentation.navigation.MarkdownNotesNavigation
+import com.jaemak23.miniappsgalaxy.feature.apps.htmleditor.presentation.navigation.HtmlEditorNavigation
+import com.jaemak23.miniappsgalaxy.feature.apps.markdownnotes.presentation.navigation.MarkdownNotesNavigation
 
 @Composable
 fun DashBoardNavigation(onLogout: () -> Unit) {

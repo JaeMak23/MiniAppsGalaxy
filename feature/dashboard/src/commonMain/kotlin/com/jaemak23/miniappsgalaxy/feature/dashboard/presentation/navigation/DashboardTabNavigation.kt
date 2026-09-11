@@ -12,7 +12,7 @@ import androidx.navigation3.ui.NavDisplay
 import com.jaemak23.miniappsgalaxy.core.navigation.AppList
 import com.jaemak23.miniappsgalaxy.core.navigation.DashboardTabRoute
 import com.jaemak23.miniappsgalaxy.core.navigation.goBack
-import com.jaemak23.miniappsgalaxy.feature.apps.presentation.AppsScreenRoot
+import com.jaemak23.miniappsgalaxy.feature.appcatalog.presentation.AppsScreenRoot
 import com.jaemak23.miniappsgalaxy.feature.dashboard.presentation.components.DummyBox
 import com.jaemak23.miniappsgalaxy.feature.dashboard.presentation.screens.dashboardmain.tabs.HomeTabScreen
 import com.jaemak23.miniappsgalaxy.feature.dashboard.presentation.screens.dashboardmain.tabs.ProfileTabScreen

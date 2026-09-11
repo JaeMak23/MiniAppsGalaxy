@@ -25,7 +25,6 @@ dependencyResolutionManagement {
             }
         }
         mavenCentral()
-        maven("https://jogamp.org/deployment/maven")
     }
 }
 
@@ -50,15 +49,15 @@ include(
     ":feature:auth",
     ":feature:splash",
     ":feature:dashboard",
-    "feature:apps",
+    ":feature:app-catalog",
 )
 // apps feature
-include(
-    ":feature:markdown-notes:data",
-    ":feature:markdown-notes:di",
-    ":feature:markdown-notes:domain",
-    ":feature:markdown-notes:presentation",
-    ":feature:html-editor"
+include("",
+    ":feature:apps:markdown-notes:data",
+    ":feature:apps:markdown-notes:di",
+    ":feature:apps:markdown-notes:domain",
+    ":feature:apps:markdown-notes:presentation",
+    ":feature:apps:html-editor"
 )
 // feature : games
 include(":feature:games:tic-tac-toe")

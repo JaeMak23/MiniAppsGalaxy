@@ -29,9 +29,9 @@ kotlin {
             implementation(projects.core.ui)
             implementation(projects.core.util)
 
-            implementation(projects.feature.apps)
-            implementation(projects.feature.htmlEditor)
-            implementation(projects.feature.markdownNotes.presentation)
+            implementation(projects.feature.appCatalog)
+            implementation(projects.feature.apps.htmlEditor)
+            implementation(projects.feature.apps.markdownNotes.presentation)
             implementation(projects.feature.games.ticTacToe)
 
             implementation(libs.compose.runtime)

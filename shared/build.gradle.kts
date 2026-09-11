@@ -45,11 +45,11 @@ kotlin {
             implementation(projects.feature.auth)
             implementation(projects.feature.splash)
             implementation(projects.feature.dashboard)
-            implementation(projects.feature.apps)
+            implementation(projects.feature.appCatalog)
 
-            implementation(projects.feature.markdownNotes.di)
-            implementation(projects.feature.markdownNotes.presentation)
-            implementation(projects.feature.htmlEditor)
+            implementation(projects.feature.apps.markdownNotes.di)
+            implementation(projects.feature.apps.markdownNotes.presentation)
+            implementation(projects.feature.apps.htmlEditor)
 
             implementation(libs.compose.runtime)
             implementation(libs.compose.foundation)
