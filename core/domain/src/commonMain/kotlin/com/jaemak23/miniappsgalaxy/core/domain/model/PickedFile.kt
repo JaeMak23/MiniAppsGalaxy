@@ -5,3 +5,8 @@ data class PickedFile(
     val content: String,
     val filePath: String?
 )
+
+data class PickedFilePath(
+    val fileName: String,
+    val filePath: String?
+)

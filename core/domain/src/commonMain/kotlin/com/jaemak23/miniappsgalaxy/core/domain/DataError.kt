@@ -10,4 +10,8 @@ sealed interface DataError : Error {
     enum class Local : DataError {
         DISK_FULL, NOT_FOUND, UNKNOWN
     }
+
+    enum class FileKit : DataError {
+        USER_DECLINED, UNKNOWN
+    }
 }

@@ -18,12 +18,11 @@ kotlin {
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.kotlinx.serialization.json)
 
+            // FileKit
             implementation(libs.filekit.core)
-            implementation(libs.filekit.dialogs)
             implementation(libs.filekit.dialogs.compose)
 
             api(libs.koin.core)
-
         }
     }
 }
