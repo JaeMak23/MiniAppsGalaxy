@@ -26,5 +26,9 @@ fun DataError.toUiText(): UiText {
         DataError.Network.SERVICE_UNAVAILABLE -> UiText("Service Unavailable")
         DataError.Network.SERIALIZATION -> UiText("Serialization")
         DataError.Network.UNKNOWN -> UiText("Unknown")
+
+        // FileKit
+        DataError.FileKit.USER_DECLINED -> UiText("User Declined")
+        DataError.FileKit.UNKNOWN -> UiText("Unknown")
     }
 }
