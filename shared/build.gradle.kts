@@ -49,7 +49,7 @@ kotlin {
 
             implementation(projects.feature.markdownNotes.di)
             implementation(projects.feature.markdownNotes.presentation)
-            implementation(projects.feature.htmlEditor)
+            implementation(projects.feature.apps.htmlEditor)
 
             implementation(libs.compose.runtime)
             implementation(libs.compose.foundation)

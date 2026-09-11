@@ -57,7 +57,7 @@ include(
     ":feature:markdown-notes:di",
     ":feature:markdown-notes:domain",
     ":feature:markdown-notes:presentation",
-    ":feature:html-editor"
+    ":feature:apps:html-editor"
 )
 // feature : games
 include(":feature:games:tic-tac-toe")
