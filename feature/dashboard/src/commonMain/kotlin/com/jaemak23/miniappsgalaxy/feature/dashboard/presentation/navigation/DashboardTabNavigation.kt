@@ -10,18 +10,20 @@ import androidx.navigation3.runtime.NavEntry
 import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.ui.NavDisplay
 import com.jaemak23.miniappsgalaxy.core.navigation.AppList
-import com.jaemak23.miniappsgalaxy.core.navigation.DashboardTabRoute
+import com.jaemak23.miniappsgalaxy.core.navigation.routes.DashboardTabRoute
+import com.jaemak23.miniappsgalaxy.core.navigation.GameList
 import com.jaemak23.miniappsgalaxy.core.navigation.goBack
 import com.jaemak23.miniappsgalaxy.feature.appcatalog.presentation.AppsScreenRoot
-import com.jaemak23.miniappsgalaxy.feature.dashboard.presentation.components.DummyBox
 import com.jaemak23.miniappsgalaxy.feature.dashboard.presentation.screens.dashboardmain.tabs.HomeTabScreen
 import com.jaemak23.miniappsgalaxy.feature.dashboard.presentation.screens.dashboardmain.tabs.ProfileTabScreen
+import com.jaemak23.miniappsgalaxy.feature.gamecatalog.presentation.GameCatalogRoot
 
 @Composable
 fun DashboardTabNavigation(
     backStack: NavBackStack<NavKey>,
     paddingValues: PaddingValues,
     onAppNavigation: (AppList) -> Unit,
+    onGameNavigation: (GameList) -> Unit,
     onLogout: () -> Unit
 ) {
     NavDisplay(
@@ -40,7 +42,7 @@ fun DashboardTabNavigation(
             }
 
             is DashboardTabRoute.Games -> NavEntry(key) {
-                DummyBox("Games Screen")
+                GameCatalogRoot(onGameNavigation)
             }
 
             is DashboardTabRoute.Profile -> NavEntry(key) {

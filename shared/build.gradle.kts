@@ -46,6 +46,7 @@ kotlin {
             implementation(projects.feature.splash)
             implementation(projects.feature.dashboard)
             implementation(projects.feature.appCatalog)
+            implementation(projects.feature.gameCatalog)
 
             implementation(projects.feature.apps.markdownNotes.di)
             implementation(projects.feature.apps.markdownNotes.presentation)

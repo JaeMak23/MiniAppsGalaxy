@@ -6,9 +6,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigation3.runtime.NavEntry
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
-import com.jaemak23.miniappsgalaxy.core.common.util.debugPrint
-import com.jaemak23.miniappsgalaxy.core.navigation.MarkdownNotesRoute
-import com.jaemak23.miniappsgalaxy.core.navigation.NavConfig
+import com.jaemak23.miniappsgalaxy.core.navigation.routes.MarkdownNotesRoute
+import com.jaemak23.miniappsgalaxy.core.navigation.routes.NavConfig
 import com.jaemak23.miniappsgalaxy.core.navigation.goBack
 import com.jaemak23.miniappsgalaxy.feature.apps.markdownnotes.presentation.editor.NoteEditorOrigin
 import com.jaemak23.miniappsgalaxy.feature.apps.markdownnotes.presentation.editor.NoteEditorRoot
@@ -18,7 +17,6 @@ import com.jaemak23.miniappsgalaxy.feature.apps.markdownnotes.presentation.list.
 fun MarkdownNotesNavigation(onExit: () -> Unit) {
     val backStack = rememberNavBackStack(NavConfig, MarkdownNotesRoute.List)
 
-    debugPrint("Markdown notes Navigation")
     NavDisplay(
         modifier = Modifier.fillMaxSize(),
         backStack = backStack,

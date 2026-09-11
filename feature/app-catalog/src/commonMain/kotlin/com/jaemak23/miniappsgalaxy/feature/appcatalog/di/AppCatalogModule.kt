@@ -4,10 +4,10 @@ import com.jaemak23.miniappsgalaxy.feature.appcatalog.presentation.AppsViewModel
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 
-val appsPresentationModule = module {
+internal val appsPresentationModule = module {
     viewModelOf(::AppsViewModel)
 }
 
-val appsModule = module {
+val appCatalogModule = module {
     includes(appsPresentationModule)
 }

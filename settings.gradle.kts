@@ -36,20 +36,23 @@ include(":androidApp")
 include(":desktopApp")
 include(":shared")
 // core
-include(":core:common")
-include(":core:data")
-include(":core:di")
-include(":core:domain")
-include(":core:navigation")
-include(":core:network")
-include(":core:ui")
-include(":core:util")
+include(
+    ":core:common",
+    ":core:data",
+    ":core:di",
+    ":core:domain",
+    ":core:navigation",
+    ":core:network",
+    ":core:ui",
+    ":core:util",
+)
 // feature
 include(
     ":feature:auth",
     ":feature:splash",
     ":feature:dashboard",
     ":feature:app-catalog",
+    ":feature:game-catalog"
 )
 // apps feature
 include("",
