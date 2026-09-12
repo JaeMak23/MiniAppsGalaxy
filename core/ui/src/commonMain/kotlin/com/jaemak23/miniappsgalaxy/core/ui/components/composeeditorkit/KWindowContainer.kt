@@ -78,7 +78,7 @@ fun KWindowContainer(
 
         Box(
             Modifier.weight(1f).fillMaxWidth()
-                .panelBorder(borderWidth = 0.dp)
+                .panelClip()
                 .background(colors.body)
                 .padding(4.dp),
             content = bodyContent

@@ -21,3 +21,7 @@ fun Modifier.panelBorder(
         .clip(RoundedCornerShape(cornerRadius))
         .border(BorderStroke(borderWidth, color), RoundedCornerShape(cornerRadius))
 }
+
+fun Modifier.panelClip(cornerRadius: Dp = 8.dp): Modifier = composed {
+    this.clip(RoundedCornerShape(cornerRadius))
+}
