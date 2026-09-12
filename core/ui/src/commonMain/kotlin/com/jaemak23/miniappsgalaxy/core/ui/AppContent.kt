@@ -19,7 +19,7 @@ import com.jaemak23.miniappsgalaxy.core.ui.theme.meshGradient
 
 @Composable
 fun AppContent(
-    initialFlavor : ThemeManager = ThemeManager.Blue,
+    initialFlavor : ThemeManager = ThemeManager.Default,
     content: @Composable () -> Unit
 ) {
     val systemDark = isSystemInDarkTheme()

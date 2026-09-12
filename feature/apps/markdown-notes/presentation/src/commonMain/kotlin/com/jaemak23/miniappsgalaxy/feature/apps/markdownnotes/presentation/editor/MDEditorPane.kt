@@ -1,9 +1,12 @@
 package com.jaemak23.miniappsgalaxy.feature.apps.markdownnotes.presentation.editor
 
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.jaemak23.miniappsgalaxy.core.ui.components.composeeditorkit.EditorPane
+import androidx.compose.ui.unit.dp
+import com.jaemak23.miniappsgalaxy.core.ui.components.composeeditorkit.EditorWindowPane
 
 @Composable
 fun MDEditorPane(
@@ -11,13 +14,15 @@ fun MDEditorPane(
     onContentChange: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    EditorPane(
-        content, onContentChange, modifier,
-        MarkdownSyntaxHighlightTransformation(
+    EditorWindowPane(
+        content = content,
+        onContentChange = onContentChange,
+        modifier = modifier.padding(4.dp),
+        visualTransformation = MarkdownSyntaxHighlightTransformation(
             headerColor = MaterialTheme.colorScheme.primary,
             markerColor = MaterialTheme.colorScheme.outline,
             codeColor = MaterialTheme.colorScheme.tertiary
         ),
-        "Write markdown here…",
+        headingContent = { Text("Markdown Code Editor") },
     )
 }

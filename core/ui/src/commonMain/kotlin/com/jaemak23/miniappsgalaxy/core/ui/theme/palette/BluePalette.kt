@@ -17,7 +17,7 @@ internal object BluePalette {
     val errorLight = Color(0xFFB3261E)
     val onErrorLight = Color(0xFFFFFFFF)
 
-    val backgroundLight = Color(0xFFFFFFFF)
+    val backgroundLight = Color(0xFFF8F9FA)
     val onBackgroundLight = Color(0xFF1F1F1F)
     val surfaceLight = Color(0xFFFFFFFF)
     val onSurfaceLight = Color(0xFF1F1F1F)
@@ -41,7 +41,7 @@ internal object BluePalette {
     val errorDark = Color(0xFFFFB4AB)
     val onErrorDark = Color(0xFF690005)
 
-    val backgroundDark = Color(0xFF131314) // Standard Google dark surface
+    val backgroundDark = Color(0xFF111315) // Standard Google dark surface
     val onBackgroundDark = Color(0xFFE3E3E3)
     val surfaceDark = Color(0xFF131314)
     val onSurfaceDark = Color(0xFFE3E3E3)
