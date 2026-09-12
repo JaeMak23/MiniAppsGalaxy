@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -20,8 +21,8 @@ import com.jaemak23.miniappsgalaxy.core.ui.components.FileNameTitleTextField
 import com.jaemak23.miniappsgalaxy.core.ui.components.NavigationIcon
 import com.jaemak23.miniappsgalaxy.core.ui.components.ThemeActionButton
 import com.jaemak23.miniappsgalaxy.core.ui.components.TooltipIconButton
-import com.jaemak23.miniappsgalaxy.core.ui.components.composeeditorkit.EditorPane
 import com.jaemak23.miniappsgalaxy.core.ui.components.composeeditorkit.EditorViewMode
+import com.jaemak23.miniappsgalaxy.core.ui.components.composeeditorkit.EditorWindowPane
 import com.jaemak23.miniappsgalaxy.core.ui.components.composeeditorkit.SplitPanes
 import com.jaemak23.miniappsgalaxy.core.ui.components.composeeditorkit.ViewModeToolbar
 import com.jaemak23.miniappsgalaxy.core.ui.icons.AppIcons
@@ -52,7 +53,10 @@ fun EditorScreen(state: EditorState, onAction: (EditorAction) -> Unit) {
                         enabled = !state.isSaving
                     ) {
                         if (state.isSaving) {
-                            CircularProgressIndicator(modifier = Modifier.size(20.dp), strokeWidth = 2.dp)
+                            CircularProgressIndicator(
+                                modifier = Modifier.size(20.dp),
+                                strokeWidth = 2.dp
+                            )
                         } else {
                             Icon(AppIcons.Save, contentDescription = "Save")
                         }
@@ -67,7 +71,14 @@ fun EditorScreen(state: EditorState, onAction: (EditorAction) -> Unit) {
                 state = state,
                 onAction = onAction,
                 modifier = Modifier.fillMaxSize()
-            )
+            ) {
+                EditorWindowPane(
+                    content = state.content,
+                    onContentChange = { onAction(EditorAction.OnContentChange(it)) },
+                    headingContent = { Text("HTML Code Editor") },
+                    modifier = Modifier.padding(4.dp)
+                )
+            }
         }
     }
 }
@@ -76,7 +87,8 @@ fun EditorScreen(state: EditorState, onAction: (EditorAction) -> Unit) {
 fun EditorLayout(
     state: EditorState,
     onAction: (EditorAction) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    editorContent: @Composable () -> Unit
 ) {
     Column(modifier = modifier.fillMaxSize()) {
         Row(modifier = Modifier.fillMaxWidth()) {
@@ -88,29 +100,18 @@ fun EditorLayout(
         }
         Box(Modifier.weight(1f).fillMaxWidth()) {
             when (val mode = state.viewMode) {
-                EditorViewMode.EditorOnly -> EditorPane(
-                    content = state.content,
-                    onContentChange = { onAction(EditorAction.OnContentChange(it)) }
-                )
+                EditorViewMode.EditorOnly -> editorContent()
 
-                EditorViewMode.PreviewOnly -> HtmlPreviewPane(
-                    html = state.previewHtml,
-                    state.filePath
-                )
+                EditorViewMode.PreviewOnly ->
+                    HtmlPreviewPane(html = state.previewHtml, state.filePath)
 
                 is EditorViewMode.Split -> SplitPanes(
                     ratio = mode.ratio,
                     onDragRatio = { ratio -> onAction(EditorAction.OnDragRatio(ratio)) },
                     isCompact = isCompact,
-                    startOrTop = {
-                        EditorPane(
-                            content = state.content,
-                            onContentChange = { onAction(EditorAction.OnContentChange(it)) }
-                        )
-                    },
+                    startOrTop = editorContent,
                     endOrBottom = { HtmlPreviewPane(html = state.previewHtml, state.filePath) }
                 )
-
             }
         }
     }
