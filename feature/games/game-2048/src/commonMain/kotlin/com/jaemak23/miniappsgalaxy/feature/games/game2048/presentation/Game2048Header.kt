@@ -9,8 +9,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -19,33 +17,21 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import com.jaemak23.miniappsgalaxy.core.ui.components.ThemeActionButton
-import com.jaemak23.miniappsgalaxy.core.ui.icons.AppIcons
 
 @Composable
 fun Game2048Header(
     score: Int,
     bestScore: Int,
-    onRestart: () -> Unit,
-    onBack: () -> Unit,
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        IconButton(onClick = onBack) {
-            Icon(AppIcons.ArrowBack, contentDescription = "Back")
-        }
-        Text("2048", style = MaterialTheme.typography.headlineLarge)
-        Spacer(Modifier.weight(1f))
+       Spacer(Modifier.weight(1f))
         ScoreBadge(label = "Score", value = score)
         Spacer(Modifier.width(8.dp))
         ScoreBadge(label = "Best", value = bestScore)
         Spacer(Modifier.width(8.dp))
-        IconButton(onClick = onRestart) {
-            Icon(AppIcons.Refresh, contentDescription = "Restart")
-        }
-        ThemeActionButton()
     }
 }
 
