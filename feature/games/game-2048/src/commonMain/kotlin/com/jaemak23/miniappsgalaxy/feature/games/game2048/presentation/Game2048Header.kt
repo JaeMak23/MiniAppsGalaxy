@@ -19,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import com.jaemak23.miniappsgalaxy.core.ui.components.ThemeActionButton
 import com.jaemak23.miniappsgalaxy.core.ui.icons.AppIcons
 
 @Composable
@@ -35,6 +36,7 @@ fun Game2048Header(
         IconButton(onClick = onBack) {
             Icon(AppIcons.ArrowBack, contentDescription = "Back")
         }
+        Text("2048", style = MaterialTheme.typography.headlineLarge)
         Spacer(Modifier.weight(1f))
         ScoreBadge(label = "Score", value = score)
         Spacer(Modifier.width(8.dp))
@@ -43,6 +45,7 @@ fun Game2048Header(
         IconButton(onClick = onRestart) {
             Icon(AppIcons.Refresh, contentDescription = "Restart")
         }
+        ThemeActionButton()
     }
 }
 
