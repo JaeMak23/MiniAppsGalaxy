@@ -15,6 +15,7 @@ import com.jaemak23.miniappsgalaxy.feature.apps.htmleditor.presentation.navigati
 import com.jaemak23.miniappsgalaxy.feature.apps.markdownnotes.presentation.navigation.MarkdownNotesNavigation
 import com.jaemak23.miniappsgalaxy.feature.dashboard.presentation.components.DummyBox
 import com.jaemak23.miniappsgalaxy.feature.dashboard.presentation.screens.dashboardmain.DashboardScreen
+import com.jaemak23.miniappsgalaxy.feature.games.game2048.presentation.Game2048Navigation
 import com.jaemak23.miniappsgalaxy.feature.games.tictactoe.presentation.navigation.TicTacToeNavigation
 
 @Composable
@@ -36,6 +37,7 @@ fun DashBoardNavigation(onLogout: () -> Unit) {
                 }, onGameNavigation = {game->
                     when(game) {
                         GameList.TicTacToe-> backStack.add(DashboardRoute.TicTacToe)
+                        GameList.Game2048-> backStack.add(DashboardRoute.Game2048)
                     }
                 })
             }
@@ -51,6 +53,9 @@ fun DashBoardNavigation(onLogout: () -> Unit) {
             }
             is DashboardRoute.TicTacToe -> NavEntry(key) {
                 TicTacToeNavigation {backStack.goBack()}
+            }
+            is DashboardRoute.Game2048 -> NavEntry(key) {
+                Game2048Navigation{backStack.goBack()}
             }
 
             else -> NavEntry(key) {}

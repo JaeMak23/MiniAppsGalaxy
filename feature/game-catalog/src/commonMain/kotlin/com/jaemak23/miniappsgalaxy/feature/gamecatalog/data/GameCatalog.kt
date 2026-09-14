@@ -15,5 +15,12 @@ object GameCatalog {
             icon = AppIcons.Email,
             version = DEFAULT_VERSION
         ),
+        GameCatalogItem(
+            id = GameList.Game2048,
+            title = "Game 2048",
+            description = "Slide tiles, merge numbers, chase the 2048 tile",
+            icon = AppIcons.Email,
+            version = DEFAULT_VERSION
+        ),
     )
 }

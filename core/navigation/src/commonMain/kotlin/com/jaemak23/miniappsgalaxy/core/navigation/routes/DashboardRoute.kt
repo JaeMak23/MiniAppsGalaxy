@@ -20,4 +20,8 @@ sealed interface DashboardRoute : NavKey {
     @Serializable
     data object TicTacToe : DashboardRoute
 
+    @Serializable
+    data object Game2048 : DashboardRoute
+
+
 }

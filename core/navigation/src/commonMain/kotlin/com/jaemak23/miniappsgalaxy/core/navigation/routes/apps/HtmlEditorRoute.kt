@@ -1,4 +1,4 @@
-package com.jaemak23.miniappsgalaxy.core.navigation.routes
+package com.jaemak23.miniappsgalaxy.core.navigation.routes.apps
 
 import androidx.navigation3.runtime.NavKey
 import kotlinx.serialization.Serializable
