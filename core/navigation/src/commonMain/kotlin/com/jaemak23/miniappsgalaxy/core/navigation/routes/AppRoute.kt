@@ -2,6 +2,10 @@ package com.jaemak23.miniappsgalaxy.core.navigation.routes
 
 import androidx.navigation3.runtime.NavKey
 import androidx.savedstate.serialization.SavedStateConfiguration
+import com.jaemak23.miniappsgalaxy.core.navigation.routes.apps.HtmlEditorRoute
+import com.jaemak23.miniappsgalaxy.core.navigation.routes.apps.MarkdownNotesRoute
+import com.jaemak23.miniappsgalaxy.core.navigation.routes.games.Game2048Route
+import com.jaemak23.miniappsgalaxy.core.navigation.routes.games.TicTacToeRoute
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.modules.SerializersModule
@@ -31,6 +35,7 @@ val NavConfig = SavedStateConfiguration {
             subclassesOfSealed<MarkdownNotesRoute>()
             subclassesOfSealed<HtmlEditorRoute>()
             subclassesOfSealed<TicTacToeRoute>()
+            subclassesOfSealed<Game2048Route>()
         }
     }
 }

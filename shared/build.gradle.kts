@@ -52,6 +52,8 @@ kotlin {
             implementation(projects.feature.apps.markdownNotes.presentation)
             implementation(projects.feature.apps.htmlEditor)
 
+            implementation(projects.feature.games.game2048)
+
             implementation(libs.compose.runtime)
             implementation(libs.compose.foundation)
             implementation(libs.compose.material3)

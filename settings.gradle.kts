@@ -63,4 +63,6 @@ include("",
     ":feature:apps:html-editor"
 )
 // feature : games
-include(":feature:games:tic-tac-toe")
+include(":feature:games:tic-tac-toe",
+    ":feature:games:game-2048"
+)

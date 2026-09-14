@@ -8,6 +8,7 @@ import com.jaemak23.miniappsgalaxy.feature.auth.di.authModule
 import com.jaemak23.miniappsgalaxy.feature.dashboard.di.dashboardModule
 import com.jaemak23.miniappsgalaxy.feature.apps.markdownnotes.di.markdownNotesModule
 import com.jaemak23.miniappsgalaxy.feature.gamecatalog.di.gameCatalogModule
+import com.jaemak23.miniappsgalaxy.feature.games.game2048.di.game2048Module
 import com.jaemak23.miniappsgalaxy.feature.splash.di.splashModule
 import org.koin.dsl.module
 
@@ -22,5 +23,7 @@ val appModule = module {
         gameCatalogModule,
         markdownNotesModule,
         htmlEditorModule,
+        //games
+        game2048Module,
     )
 }

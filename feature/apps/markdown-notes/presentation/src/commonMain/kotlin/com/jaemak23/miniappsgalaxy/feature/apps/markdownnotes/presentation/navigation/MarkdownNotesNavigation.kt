@@ -6,7 +6,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation3.runtime.NavEntry
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
-import com.jaemak23.miniappsgalaxy.core.navigation.routes.MarkdownNotesRoute
+import com.jaemak23.miniappsgalaxy.core.navigation.routes.apps.MarkdownNotesRoute
 import com.jaemak23.miniappsgalaxy.core.navigation.routes.NavConfig
 import com.jaemak23.miniappsgalaxy.core.navigation.goBack
 import com.jaemak23.miniappsgalaxy.feature.apps.markdownnotes.presentation.editor.NoteEditorOrigin
