@@ -24,10 +24,6 @@ kotlin {
     }
 
     sourceSets {
-        androidMain.dependencies {
-            implementation(libs.compose.uiToolingPreview)
-            implementation(libs.compose.uiTooling)
-        }
         commonMain.dependencies {
             implementation(projects.core.domain)
             implementation(projects.core.data)

@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
+
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidMultiplatformLibrary)
@@ -5,6 +7,14 @@ plugins {
 
 kotlin {
     jvm()
+    js {
+        browser()
+    }
+
+    @OptIn(ExperimentalWasmDsl::class)
+    wasmJs {
+        browser()
+    }
 
     android {
         namespace = "com.jaemak23.miniappsgalaxy.feature.markdownnotes.data"
@@ -14,12 +24,8 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            implementation(projects.core.common)
-            implementation(projects.core.data)
             implementation(projects.core.domain)
-            implementation(projects.core.database)
             implementation(projects.feature.apps.markdownNotes.domain)
-
             implementation(libs.kotlinx.coroutines.core)
 
             api(libs.koin.core)

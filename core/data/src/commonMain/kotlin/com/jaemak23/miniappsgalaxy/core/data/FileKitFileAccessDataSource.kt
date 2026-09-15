@@ -12,6 +12,7 @@ import io.github.vinceglb.filekit.dialogs.openFilePicker
 import io.github.vinceglb.filekit.name
 import io.github.vinceglb.filekit.readString
 
+/*
 class FileKitFileAccessDataSource : FileAccessDataSource {
 
     override suspend fun pickAndReadFile(extensions: List<String>): Result<PickedFile?, DataError.Local> {
@@ -99,5 +100,38 @@ class FileKitFileAccessDataSource : FileAccessDataSource {
         } catch (e: Exception) {
             Result.Error(DataError.Local.UNKNOWN)
         }
+    }
+}*/
+
+class FileKitFileAccessDataSource : FileAccessDataSource {
+
+    override suspend fun pickAndReadFile(extensions: List<String>): Result<PickedFile?, DataError.Local> {
+        return Result.Error(DataError.Local.UNKNOWN)
+
+    }
+
+    override suspend fun pickFilePath(extensions: List<String>): Result<PickedFilePath?, DataError.Local> {
+        return Result.Error(DataError.Local.UNKNOWN)
+    }
+
+    override suspend fun readFile(filePath: String): Result<String, DataError.Local> {
+        return Result.Error(DataError.Local.UNKNOWN)
+    }
+
+    override suspend fun saveFile(
+        filePath: String?,
+        suggestedName: String,
+        defaultExtension: String,
+        content: String
+    ): Result<String?, DataError.Local> {
+        return Result.Error(DataError.Local.UNKNOWN)
+    }
+
+    override suspend fun saveAsFile(
+        suggestedName: String,
+        defaultExtension: String,
+        content: String
+    ): Result<String?, DataError.Local> {
+        return Result.Error(DataError.Local.UNKNOWN)
     }
 }

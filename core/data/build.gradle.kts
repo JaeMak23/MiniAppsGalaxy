@@ -31,6 +31,7 @@ kotlin {
 
             // FileKit
             implementation(libs.filekit.core)
+            implementation(libs.filekit.dialogs)
             implementation(libs.filekit.dialogs.compose)
 
             api(libs.koin.core)

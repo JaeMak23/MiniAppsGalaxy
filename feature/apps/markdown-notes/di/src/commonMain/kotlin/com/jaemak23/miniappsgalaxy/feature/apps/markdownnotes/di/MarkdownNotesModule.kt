@@ -1,10 +1,7 @@
 package com.jaemak23.miniappsgalaxy.feature.apps.markdownnotes.di
 
-import androidx.sqlite.driver.bundled.BundledSQLiteDriver
-import com.jaemak23.miniappsgalaxy.core.database.getNoteDatabaseBuilder
-import com.jaemak23.miniappsgalaxy.core.database.local.NoteDatabase
-import com.jaemak23.miniappsgalaxy.feature.apps.markdownnotes.data.RoomDraftDataSource
-import com.jaemak23.miniappsgalaxy.feature.apps.markdownnotes.data.RoomNoteDataSource
+import com.jaemak23.miniappsgalaxy.feature.apps.markdownnotes.data.InMemoryDraftDataSource
+import com.jaemak23.miniappsgalaxy.feature.apps.markdownnotes.data.InMemoryNoteDataSource
 import com.jaemak23.miniappsgalaxy.feature.apps.markdownnotes.domain.DraftDataSource
 import com.jaemak23.miniappsgalaxy.feature.apps.markdownnotes.domain.NoteLocalDataSource
 import com.jaemak23.miniappsgalaxy.feature.apps.markdownnotes.domain.usecase.ClearDraftUseCase
@@ -19,7 +16,6 @@ import com.jaemak23.miniappsgalaxy.feature.apps.markdownnotes.domain.usecase.Sav
 import com.jaemak23.miniappsgalaxy.feature.apps.markdownnotes.domain.usecase.SaveNoteUseCase
 import com.jaemak23.miniappsgalaxy.feature.apps.markdownnotes.presentation.editor.NoteEditorViewModel
 import com.jaemak23.miniappsgalaxy.feature.apps.markdownnotes.presentation.list.NoteListViewModel
-import kotlinx.coroutines.Dispatchers
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
 import org.koin.core.module.dsl.viewModel
@@ -28,17 +24,8 @@ import org.koin.dsl.bind
 import org.koin.dsl.module
 
 val markdownNotesDataModule = module {
-    single {
-        getNoteDatabaseBuilder()
-            .setDriver(BundledSQLiteDriver())
-            .setQueryCoroutineContext(Dispatchers.IO)
-            .build()
-    }
-    single { get<NoteDatabase>().noteDao }
-    single { get<NoteDatabase>().draftDao }
-
-    singleOf(::RoomNoteDataSource) bind NoteLocalDataSource::class
-    singleOf(::RoomDraftDataSource) bind DraftDataSource::class
+    singleOf(::InMemoryNoteDataSource) bind NoteLocalDataSource::class
+    singleOf(::InMemoryDraftDataSource) bind DraftDataSource::class
 }
 
 val markdownNotesDomainModule = module {
