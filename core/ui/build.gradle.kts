@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
+
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidMultiplatformLibrary)
@@ -7,6 +9,15 @@ plugins {
 
 kotlin {
     jvm()
+
+    js {
+        browser()
+    }
+
+    @OptIn(ExperimentalWasmDsl::class)
+    wasmJs {
+        browser()
+    }
 
     android {
         namespace = "com.jaemak23.miniappsgalaxy.core.ui"
@@ -30,11 +41,15 @@ kotlin {
             implementation(libs.compose.ui)
             implementation(libs.jetbrains.material3.adaptiveNavigation3)
             implementation(libs.compose.icons)
+            // todo : remove or need to test uiToolingPreview, Note : android-only, already in androidMain
             implementation(libs.compose.uiToolingPreview)
 
             api(libs.koin.core)
             api(libs.koin.compose)
             api(libs.koin.compose.viewmodel)
+        }
+        webMain.dependencies {
+            implementation(libs.wrappers.browser)
         }
     }
 }

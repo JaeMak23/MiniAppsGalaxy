@@ -4,6 +4,7 @@ import com.jaemak23.miniappsgalaxy.core.domain.DataError
 import com.jaemak23.miniappsgalaxy.core.domain.Result
 import com.jaemak23.miniappsgalaxy.feature.apps.markdownnotes.domain.model.Note
 import com.jaemak23.miniappsgalaxy.feature.apps.markdownnotes.domain.NoteLocalDataSource
+import kotlin.time.Clock
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
@@ -15,7 +16,7 @@ class SaveNoteUseCase(private val dataSource: NoteLocalDataSource) {
         content: String,
         createdAt: Long?
     ): Result<String, DataError.Local> {
-        val now = System.currentTimeMillis()
+        val now = Clock.System.now().toEpochMilliseconds()
         val note = Note(
             id = id ?: Uuid.random().toString(),
             title = title.ifBlank { "Untitled" },

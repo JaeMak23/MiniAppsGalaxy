@@ -4,6 +4,7 @@ import com.jaemak23.miniappsgalaxy.core.domain.DataError
 import com.jaemak23.miniappsgalaxy.core.domain.EmptyResult
 import com.jaemak23.miniappsgalaxy.feature.apps.markdownnotes.domain.DraftDataSource
 import com.jaemak23.miniappsgalaxy.feature.apps.markdownnotes.domain.model.DraftNote
+import kotlin.time.Clock
 
 class SaveDraftUseCase(private val dataSource: DraftDataSource) {
     suspend operator fun invoke(filePath: String?, title: String, content: String): EmptyResult<DataError.Local> {
@@ -12,7 +13,7 @@ class SaveDraftUseCase(private val dataSource: DraftDataSource) {
                 filePath = filePath,
                 title = title,
                 content = content,
-                updatedAt = System.currentTimeMillis()
+                updatedAt = Clock.System.now().toEpochMilliseconds()
             )
         )
     }

@@ -1,6 +1,6 @@
 package com.jaemak23.miniappsgalaxy.feature.apps.markdownnotes.data.mapper
 
-import com.jaemak23.miniappsgalaxy.feature.apps.markdownnotes.data.local.NoteEntity
+import com.jaemak23.miniappsgalaxy.core.database.local.NoteEntity
 import com.jaemak23.miniappsgalaxy.feature.apps.markdownnotes.domain.model.Note
 
 fun NoteEntity.toNote(): Note = Note(

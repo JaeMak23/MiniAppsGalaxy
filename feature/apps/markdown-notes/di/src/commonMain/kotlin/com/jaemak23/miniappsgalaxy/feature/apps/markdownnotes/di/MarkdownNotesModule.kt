@@ -1,10 +1,10 @@
 package com.jaemak23.miniappsgalaxy.feature.apps.markdownnotes.di
 
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
+import com.jaemak23.miniappsgalaxy.core.database.getNoteDatabaseBuilder
+import com.jaemak23.miniappsgalaxy.core.database.local.NoteDatabase
 import com.jaemak23.miniappsgalaxy.feature.apps.markdownnotes.data.RoomDraftDataSource
 import com.jaemak23.miniappsgalaxy.feature.apps.markdownnotes.data.RoomNoteDataSource
-import com.jaemak23.miniappsgalaxy.feature.apps.markdownnotes.data.getNoteDatabaseBuilder
-import com.jaemak23.miniappsgalaxy.feature.apps.markdownnotes.data.local.NoteDatabase
 import com.jaemak23.miniappsgalaxy.feature.apps.markdownnotes.domain.DraftDataSource
 import com.jaemak23.miniappsgalaxy.feature.apps.markdownnotes.domain.NoteLocalDataSource
 import com.jaemak23.miniappsgalaxy.feature.apps.markdownnotes.domain.usecase.ClearDraftUseCase

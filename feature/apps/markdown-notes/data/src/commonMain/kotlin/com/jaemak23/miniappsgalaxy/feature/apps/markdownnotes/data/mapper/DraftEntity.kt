@@ -1,6 +1,6 @@
 package com.jaemak23.miniappsgalaxy.feature.apps.markdownnotes.data.mapper
 
-import com.jaemak23.miniappsgalaxy.feature.apps.markdownnotes.data.local.DraftEntity
+import com.jaemak23.miniappsgalaxy.core.database.local.DraftEntity
 import com.jaemak23.miniappsgalaxy.feature.apps.markdownnotes.domain.model.DraftNote
 
 fun DraftEntity.toDraftNote(): DraftNote = DraftNote(

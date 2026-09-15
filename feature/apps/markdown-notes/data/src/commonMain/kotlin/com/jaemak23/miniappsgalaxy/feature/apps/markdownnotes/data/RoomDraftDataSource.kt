@@ -1,9 +1,9 @@
 package com.jaemak23.miniappsgalaxy.feature.apps.markdownnotes.data
 
+import com.jaemak23.miniappsgalaxy.core.database.local.DraftDao
 import com.jaemak23.miniappsgalaxy.core.domain.DataError
 import com.jaemak23.miniappsgalaxy.core.domain.EmptyResult
 import com.jaemak23.miniappsgalaxy.core.domain.Result
-import com.jaemak23.miniappsgalaxy.feature.apps.markdownnotes.data.local.DraftDao
 import com.jaemak23.miniappsgalaxy.feature.apps.markdownnotes.data.mapper.toDraftEntity
 import com.jaemak23.miniappsgalaxy.feature.apps.markdownnotes.data.mapper.toDraftNote
 import com.jaemak23.miniappsgalaxy.feature.apps.markdownnotes.domain.DraftDataSource

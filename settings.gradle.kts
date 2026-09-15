@@ -35,10 +35,13 @@ plugins {
 include(":androidApp")
 include(":desktopApp")
 include(":shared")
+include(":webApp")
+
 // core
 include(
     ":core:common",
     ":core:data",
+    ":core:database",
     ":core:di",
     ":core:domain",
     ":core:navigation",

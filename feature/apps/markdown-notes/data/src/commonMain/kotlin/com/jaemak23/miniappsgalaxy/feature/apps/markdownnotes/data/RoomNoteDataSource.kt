@@ -1,9 +1,9 @@
 package com.jaemak23.miniappsgalaxy.feature.apps.markdownnotes.data
 
+import com.jaemak23.miniappsgalaxy.core.database.local.NoteDao
 import com.jaemak23.miniappsgalaxy.core.domain.DataError
 import com.jaemak23.miniappsgalaxy.core.domain.EmptyResult
 import com.jaemak23.miniappsgalaxy.core.domain.Result
-import com.jaemak23.miniappsgalaxy.feature.apps.markdownnotes.data.local.NoteDao
 import com.jaemak23.miniappsgalaxy.feature.apps.markdownnotes.data.mapper.toNote
 import com.jaemak23.miniappsgalaxy.feature.apps.markdownnotes.data.mapper.toNoteEntity
 import com.jaemak23.miniappsgalaxy.feature.apps.markdownnotes.domain.NoteLocalDataSource

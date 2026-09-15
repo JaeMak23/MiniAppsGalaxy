@@ -16,11 +16,11 @@ kotlin {
         commonMain.dependencies {
             implementation(projects.core.data)
             implementation(projects.core.domain)
+            implementation(projects.core.database)
             implementation(projects.feature.apps.markdownNotes.data)
             implementation(projects.feature.apps.markdownNotes.domain)
             implementation(projects.feature.apps.markdownNotes.presentation)
 
-            implementation(libs.androidx.room.runtime)
             implementation(libs.androidx.sqlite.bundled)
 
             api(libs.koin.core)

@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
+
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidMultiplatformLibrary)
@@ -8,6 +10,15 @@ plugins {
 
 kotlin {
     jvm()
+
+    js {
+        browser()
+    }
+
+    @OptIn(ExperimentalWasmDsl::class)
+    wasmJs {
+        browser()
+    }
 
     android {
         namespace = "com.jaemak23.miniappsgalaxy.shared"
@@ -31,6 +42,7 @@ kotlin {
         androidMain.dependencies {
             implementation(libs.compose.uiToolingPreview)
             implementation(libs.compose.uiTooling)
+            implementation(projects.feature.apps.markdownNotes.di)
         }
         commonMain.dependencies {
             implementation(projects.core.common)
@@ -48,7 +60,7 @@ kotlin {
             implementation(projects.feature.appCatalog)
             implementation(projects.feature.gameCatalog)
 
-            implementation(projects.feature.apps.markdownNotes.di)
+//            implementation(projects.feature.apps.markdownNotes.di)
             implementation(projects.feature.apps.markdownNotes.presentation)
             implementation(projects.feature.apps.htmlEditor)
 
@@ -70,6 +82,12 @@ kotlin {
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
+        }
+        webMain.dependencies {
+            implementation(libs.wrappers.browser)
+        }
+        jvmMain.dependencies {
+            implementation(projects.feature.apps.markdownNotes.di)
         }
     }
 }
